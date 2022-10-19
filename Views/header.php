@@ -1,9 +1,20 @@
 <!doctype html>
 <html>
 <head>
-     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>bootstrap.min.css">
-     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>estilos.css">
-
      <title>Pet Hero</title>
+     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+     <header>
+          <div class="menu">
+               <nav>
+                    <ul>
+                         <img src="img\logo.png" alt="">
+                         <li><a href=#>Inicio</a></li>
+                         <li><a href=#>Servicio</a></li>
+                         <li><a href=#>Contacto</a></li>
+                    </ul>
+               </nav>
+          </div>
+     </header>
+</body>
