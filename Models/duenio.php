@@ -7,6 +7,7 @@
         public $direccion;
         public $dni;
 
+    
         public function __construct($nombre, $apellido, $telefono, $direccion, $dni){
             $this->nombre = $nombre;
             $this->apellido = $apellido;
