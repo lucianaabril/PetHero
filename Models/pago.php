@@ -1,5 +1,5 @@
 <?php
-    namespace Sistema;
+    namespace Models;
     class Pago{
         public $forma_pago;
         public $fecha;

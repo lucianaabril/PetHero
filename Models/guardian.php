@@ -1,6 +1,8 @@
 <?php
-    namespace Usuarios;
-    class Guardian{
+    namespace Models;
+    use Models\User as User;
+
+    class Guardian extends User{
         public $nombre;
         public $apellido;
         public $cuil;

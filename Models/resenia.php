@@ -1,5 +1,5 @@
 <?php
-    namespace Sistema;
+    namespace Models;
     class Resenia{
         public $puntaje;
         public $observaciones;

@@ -1,5 +1,5 @@
 <?php
-    namespace Sistema\Multimedia;
+    namespace Models;
     class Video{
         public $peso;
         public $extension;

@@ -1,6 +1,8 @@
 <?php
-    namespace Usuarios;
-    class Duenio{
+    namespace Models;
+    use Models\User as User;
+
+    class Duenio extends User{
         public $nombre;
         public $apellido;
         public $telefono;

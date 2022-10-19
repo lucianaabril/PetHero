@@ -1,5 +1,5 @@
 <?php
-    namespace Usuarios;
+    namespace Models;
     class Mascota{
         public $nombre;
         public $edad;

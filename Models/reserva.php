@@ -1,5 +1,5 @@
 <?php
-    namespace Sistema;
+    namespace Models;
     class Reserva{
         public $fecha;
         public $hora;

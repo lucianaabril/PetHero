@@ -1,5 +1,5 @@
 <?php
-    namespace Sistema\Multimedia;
+    namespace Models;
     class Imagen{
         public $peso;
         public $formato;
