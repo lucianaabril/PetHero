@@ -14,9 +14,7 @@
 
   Autoload::start();
 
-  require_once VIEWS_PATH.;
+  require_once(VIEWS_PATH."header.php");
   Router::Route(new Request());
-  require_once VIEWS_PATH.;
-
-
+  require_once (VIEWS_PATH."footer.php");
 ?>

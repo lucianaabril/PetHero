@@ -11,7 +11,7 @@
                 $controller->List();
             }
             else
-                require_once(VIEWS_PATH.); //agregar vista login
+                require_once(VIEWS_PATH."login.php");
         }
     }
 ?>
