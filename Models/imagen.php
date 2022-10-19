@@ -12,5 +12,21 @@
             $this->extension = $extension;
             $this->url = $url;
         }
+
+        public function getPeso(){return $this->peso;}
+
+        public function setPeso($peso){$this->peso = $peso;}
+
+        public function getFormato(){return $this->formato;}
+
+        public function setFormato($formato){$this->formato = $formato;}
+
+        public function getExtension(){return $this->extension;}
+
+        public function setExtension($extension){$this->extension = $extension;}
+
+        public function getUrl(){return $this->url;}
+
+        public function setUrl($url){$this->url = $url;}
     }
 ?>
