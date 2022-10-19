@@ -31,8 +31,15 @@
         }
 
         public function logout(){
+            session_start();
             session_destroy();
             require_once(VIEWS_PATH.);//agregar vista de login
+        }
+
+        public function showView($type){
+            if($_SESSION['type'] = 'D'){
+                require_once
+            }
         }
     }
 ?>

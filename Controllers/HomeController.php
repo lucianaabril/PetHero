@@ -6,12 +6,12 @@
     {
         public function Index()
         {
-            if(isset($_SESSION['email'])){
-                $controller = new UserController();
-                $controller->List();
+            $auth = new AuthController();
+            if(isset($_SESSION["loggeduser"])){
+                $auth->showView($_SESSION["type"]);
             }
             else
-                require_once(VIEWS_PATH."login.php");
+                $auth->login($_SESSION['email'],$_SESSION['password']);
         }
     }
 ?>
