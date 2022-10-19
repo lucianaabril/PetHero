@@ -22,23 +22,26 @@
                     $controller->list();
                 }
                 else{
-                    require_once(VIEWS_PATH.);//agregar la view de login//)
+                    require_once(VIEWS_PATH."login.php");//agregar la view de login//)
                 }
             }
             else{ 
-                require_once(VIEWS_PATH.);//agregar la vista de login
+                require_once(VIEWS_PATH."login.php");//agregar la vista de login
             }
         }
 
         public function logout(){
             session_start();
             session_destroy();
-            require_once(VIEWS_PATH.);//agregar vista de login
+            require_once(VIEWS_PATH."login.php");//agregar vista de login
         }
 
         public function showView($type){
-            if($_SESSION['type'] = 'D'){
-                require_once
+            if($type = 'G'){
+                require_once(VIEWS_PATH."guardian-page.php");
+            }
+            else{
+                require_once(VIEWS_PATH."duenio-page.php");
             }
         }
     }
