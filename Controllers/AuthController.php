@@ -1,7 +1,9 @@
 <?php
     namespace Controllers;
-    use Model\user as User;
-    use DAO\userDAO as UserDAO;
+    use Models\Duenio as Duenio;
+    use Models\Guardian as Guardian;
+    use DAO\GuardianDAO as GuardianDAO;
+    use DAO\DuenioDAO as DuenioDAO;
     use Controllers\UserController as UserController;
 
     class AuthController{
@@ -12,7 +14,7 @@
         }
 
         public function login($email, $password){
-            $user = new User();
+            /*$user = new User();
             $user = $this->userDAO->getEmail($email);
             if($user){
                 if($user->getPassword() == $password){
@@ -28,11 +30,23 @@
             else{ 
                 require_once(VIEWS_PATH.);//agregar la vista de login
             }
+            */
+
+            if($email == "" or $password == ""){
+                require_once(VIEWS_PATH."login.php");
+            }
+            else{
+                $duenioDAO = new DuenioDAO();
+                $duenio = new Duenio();
+                $duenio = $duenioDAO->getByEmail($email);
+
+                $guardian = new Guardian();
+            }
         }
 
         public function logout(){
             session_destroy();
-            require_once(VIEWS_PATH.);//agregar vista de login
+            require_once(VIEWS_PATH.'login.php');//agregar vista de login
         }
     }
 ?>

@@ -1,16 +1,22 @@
 <?php
     namespace DAO;
-    use Usuarios\Guardian as Guardian;
+    use Models\Guardian as Guardian;
 
-    class DuenioDAO
+    class GuardianDAO
     {
       private $list = array();
       private $filename;
 
       public function __construct()
       {
-        $this->filename = dirname(__DIR__)."/Data/guardianas.json";
+        $this->filename = dirname(__DIR__)."/Data/guardianes.json";
       }
+
+      function Add(Guardian $guardian){
+        $this->LoadData();
+        array_push($this->list, $guardian);
+        $this->SaveData();
+    }
 
       public function GetAll()
       {
@@ -46,14 +52,40 @@
                 $item["cuil"],
                 $item["telefono"],
                 $item["direccion"],
-                $item["disponibilidad"],                $item["direccion"],
+                $item["disponibilidad"],
                 $item["tarifa"],
-
+                $item["email"],
+                $item["password"]
             );
             
             array_push($this->list, $guardian);
           }
         }
       }
+
+
+
+      private function SaveData(){
+        $arrayToEncode = array();
+
+        foreach($this->list as $guardian){
+            $valuesArray = array();
+            $valuesArray["nombre"] = $guardian->getNombre();
+            $valuesArray["apellido"] = $guardian->getApellido();
+            $valuesArray["telefono"] = $guardian->getTelefono();
+            $valuesArray["direccion"] = $guardian->getDireccion();
+            $valuesArray["cuil"] = $guardian->getCuil();
+            $valuesArray["disponibilidad"] = $guardian->getDisponibilidad();
+            $valuesArray["tarifa"] = $guardian->getTarifa();
+            $valuesArray["email"] = $guardian->getEmail();
+            $valuesArray["password"] = $guardian->getPassword();
+
+            array_push($arrayToEncode, $valuesArray);
+        }
+
+        $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
+        file_put_contents($this->filename, $jsonContent);
+    }
+
     }
 ?>
