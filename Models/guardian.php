@@ -11,14 +11,7 @@
         public $disponibilidad;
         public $tarifa;
     
-        public function __construct($nombre, $apellido, $cuil, $telefono, $direccion, $disponibilidad, $tarifa){
-            $this->nombre = $nombre;
-            $this->apellido = $apellido;
-            $this->cuil = $cuil;
-            $this->telefono = $telefono;
-            $this->direccion = $direccion;
-            $this->disponibilidad = $disponibilidad;
-            $this->tafira = $tarifa;
+        public function __construct(){
         }
 
         public function getNombre(){return $this->nombre;}
