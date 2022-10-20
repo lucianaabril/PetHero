@@ -24,12 +24,12 @@
         return $this->list;
       }
 
-      public function getByCuil($cuil) 
+      public function getByEmail($email) 
       {
         $this->loadData();
         foreach($this->list as $item) 
         {
-          if($item->getCuil() == $cuil)
+          if($item->getEmail() == $email)
             return $item;
         }
         return null;
