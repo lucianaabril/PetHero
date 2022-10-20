@@ -8,7 +8,7 @@
     </head>
     <body>
         <h2>LOGIN:</h2>
-        <form action="<?php echo FRONT_ROOT?>Auth/login" method=POST>
+        <form action="<?php echo FRONT_ROOT. "Auth/login" ?>" method=POST>
             <div>
                 <label for=email>Email:</label>
                 <input type=text name=email placeholder="Ingrese su email">
