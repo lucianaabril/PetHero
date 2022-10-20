@@ -46,24 +46,21 @@
           
           foreach($array as $item) 
           {
-            $guardian = new Guardian(
-                $item["nombre"],
-                $item["apellido"],
-                $item["cuil"],
-                $item["telefono"],
-                $item["direccion"],
-                $item["disponibilidad"],
-                $item["tarifa"],
-                $item["email"],
-                $item["password"]
-            );
+            $guardian = new Guardian();
+            $guardian->setNombre($item["nombre"]);
+            $guardian->setApellido($item["apellido"]);
+            $guardian->setCuil($item["cuil"]);
+            $guardian->setTelefono($item["telefono"]);
+            $guardian->setDireccion($item["direccion"]);
+            $guardian->setDisponibilidad($item["disponibilidad"]);
+            $guardian->setTarifa($item["tarifa"]);
+            $guardian->setEmail($item["email"]);
+            $guardian->setPassword($item["password"]);
             
             array_push($this->list, $guardian);
           }
         }
       }
-
-
 
       private function SaveData(){
         $arrayToEncode = array();

@@ -13,9 +13,16 @@
           if(isset($_SESSION['email'])){
             if($_SESSION['type'] == 'G') {
               if($email != '' || $type != '' || $nombre != '' || $apellido != ''|| $telefono != ''  || $direccion != ''|| $password != '' || $cuil != '' || $disponibilidad != '' || $tarifa != '') {
-                $guardian = new Guardian(
-                  $nombre, $apellido, $cuil, $telefono, $direccion, $disponibilidad, $tarifa
-                );
+                
+                $guardian = new Guardian();
+                
+                $guardian->setNombre($nombre);
+                $guardian->setApellido($apellido);
+                $guardian->setCuil($cuil);
+                $guardian->setTelefono($telefono);
+                $guardian->setDireccion($direccion);
+                $guardian->setDisponibilidad($disponibilidad);
+                $guardian->setTarifa($tarifa);
 
                 $guardian->setEmail($email);
                 $guardian->setPassword($password);

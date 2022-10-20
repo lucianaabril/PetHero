@@ -42,7 +42,6 @@
 
                 $guardian = new Guardian();
             }
-            */
 
             if($email == "" or $password == ""){
                 require_once(VIEWS_PATH."login.php");
@@ -59,7 +58,7 @@
         public function logout(){
             session_start();
             session_destroy();
-            require_once(VIEWS_PATH."login.php");//agregar vista de login
+            require_once(VIEWS_PATH."login.php");
         }
 
         public function showView($type){

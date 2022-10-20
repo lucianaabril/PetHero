@@ -46,21 +46,19 @@
           
           foreach($array as $item) 
           {
-            $duenio = new Duenio(
-                $item["nombre"],
-                $item["apellido"],
-                $item["telefono"],
-                $item["direccion"],
-                $item["dni"],
-                $item["email"],
-                $item["password"]
-            );
+            $duenio = new Duenio();
+            $duenio->setNombre($item["nombre"]);
+            $duenio->setApellido($item["apellido"]);
+            $duenio->setTelefono($item["telefono"]);
+            $duenio->setDireccion($item["direccion"]);
+            $duenio->setDni($item["dni"]);
+            $duenio->setEmail($item["email"]);
+            $duenio->setPassword($item["password"]);
             
             array_push($this->list, $duenio);
           }
         }
       }
-
 
       private function SaveData(){
         $arrayToEncode = array();

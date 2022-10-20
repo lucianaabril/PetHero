@@ -1,4 +1,3 @@
-<!doctype html>
 <html>
 <head>
      <title>Pet Hero</title>
