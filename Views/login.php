@@ -8,14 +8,17 @@
     </head>
     <body>
         <h2>LOGIN:</h2>
-        <form action="" method=post>
+        <form action="<?php echo FRONT_ROOT?>Auth/login" method=POST>
             <div>
                 <label for=email>Email:</label>
                 <input type=text name=email placeholder="Ingrese su email">
-                <label for=password>Contrasenia:</label>
-                <input type=password name=password placeholder="Ingrese su constrasenia">
+                <br>
+                <br>
+                <label for=password>Contraseña:</label>
+                <input type=password name=password placeholder="Ingrese su constraseña">
             </div>
-            <button class=submit>
+            <br>
+            <button type="submit">Enviar</button>
         </form>
     </body>
 </html>

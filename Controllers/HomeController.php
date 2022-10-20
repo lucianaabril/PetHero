@@ -11,7 +11,7 @@
                 $auth->showView($_SESSION["type"]);
             }
             else
-                $auth->login($_SESSION['email'],$_SESSION['password']);
+                $auth->login(null,null);
         }
     }
 ?>
