@@ -7,10 +7,12 @@
     use Controllers\UserController as UserController;
 
     class AuthController{
-        private $userDAO;
+        private $guardianDAO;
+        private $duenioDAO;
 
         function __construct(){
-            $this->userDAO = new UserDAO();
+            $this->guardianDAO = new GuardianDAO();
+            $this->duenioDAO = new DuenioDAO();
         }
 
         public function login($email, $password){
