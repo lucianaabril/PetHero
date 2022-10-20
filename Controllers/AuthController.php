@@ -36,29 +36,44 @@
                 require_once(VIEWS_PATH."login.php");
             }
             else{
-                $duenioDAO = new DuenioDAO();
                 $duenio = new Duenio();
-                $duenio = $duenioDAO->getByEmail($email);
+                $duenio = $this->duenioDAO->getByEmail($email);
 
                 $guardian = new Guardian();
-            }
+                $guardian = $this->guardianDAO->getByEmail($email);
 
-            if($email == "" or $password == ""){
-                require_once(VIEWS_PATH."login.php");
+                if($guardian != null){
+                    if($guardian->getPassword() == $password){
+                        $_SESSION['loggeduser'] = $guardian;
+                        $_SESSION['email'] = $guardian->getEmail();
+                        $_SESSION['type'] = $guardian->getType();
+                        $this->showView($guardian->getType());
+                    }
+                    else{
+                        require_once(VIEWS_PATH. 'login.php');
+                    }
+                }
+                else{
+                    if($duenio != null){
+                    if ($duenio->getPassword() == $password) {
+                        $_SESSION['loggeduser'] = $duenio;
+                        $_SESSION['email'] = $duenio->getEmail();
+                        $_SESSION['type'] = $duenio->getType();
+                        $this->showView($duenio->getType());
+                    }
+                    else{
+                        require_once(VIEWS_PATH.'login.php')
+                    }
+                    }
+                }
             }
-            else{
-                $duenioDAO = new DuenioDAO();
-                $duenio = new Duenio();
-                $duenio = $duenioDAO->getByEmail($email);
-
-                $guardian = new Guardian();
-            }
+            
         }
 
         public function logout(){
             session_start();
             session_destroy();
-            require_once(VIEWS_PATH."login.php");
+            require_once(VIEWS_PATH."login.php");//agregar vista de login
         }
 
         public function showView($type){
