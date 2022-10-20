@@ -1,0 +1,14 @@
+[
+    {
+        "email": "sofi@gmail.com",
+        "password": "2323",
+        "type": "G",
+        "nombre": "Sofia",
+        "apellido": "Galbato",
+        "cuil": "27446352739",
+        "tel": "2235316174",
+        "direccion": "edison 1900",
+        "disponibilidad": "24hs",
+        "tafira": "$100"
+    }
+]

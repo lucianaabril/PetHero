@@ -41,8 +41,6 @@
               require_once(VIEWS_PATH.'guardian-list.php');
             }
 
-
-
             if($_SESSION['type'] == 'D') {
               if($email != '' || $type != '' || $nombre != '' || $apellido != ''|| $telefono != '' || $password != '' || $dni != '') {
                 $duenio = new Duenio($nombre, $apellido, $telefono, $direccion, $dni);

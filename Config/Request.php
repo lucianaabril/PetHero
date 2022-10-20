@@ -11,9 +11,9 @@
         {
             $url = filter_input(INPUT_GET, "url", FILTER_SANITIZE_URL);
 
-            //$urlArray = explode("/", $url);
+            $urlArray = explode("/", isset($url) ? $url:"");
          
-            //$urlArray = array_filter($urlArray);
+            $urlArray = array_filter($urlArray);
 
             if(empty($urlArray))
                 $this->controller = "Home";            
@@ -36,8 +36,8 @@
                     foreach($_GET as $key => $value)                    
                         array_push($this->parameters, $value);
                 }
-                //else
-                    //$this->parameters = $urlArray;
+                else
+                    $this->parameters = $urlArray;
             }
             elseif ($_POST)
                 $this->parameters = $_POST;
