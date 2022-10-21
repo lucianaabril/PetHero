@@ -46,7 +46,7 @@
                         $this->showView($duenio->getType());
                     }
                     else{
-                        require_once(VIEWS_PATH.'login.php');
+                        require_once(VIEWS_PATH."login.php");
                     }
                     }
                 }

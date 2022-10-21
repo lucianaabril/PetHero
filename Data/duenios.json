@@ -1,10 +1,12 @@
-[{
-    "email": "lu@gmail.com",
-    "password": "1313",
-    "type": "D",
-    "nombre": "Luciana",
-    "apellido": "Dominguez",
-    "telefono": "2234569466",
-    "direccion": "cerrito 702",
-    "dni": "44692743"
-}]
+[
+    {
+        "email": "lu@gmail.com",
+        "password": "1313",
+        "type": "D",
+        "nombre": "Luciana",
+        "apellido": "Dominguez",
+        "telefono": "2234569466",
+        "direccion": "cerrito 702",
+        "dni": "44692743"
+    }
+]
