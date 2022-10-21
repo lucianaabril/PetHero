@@ -18,7 +18,7 @@
                 <input type="password" name="password" placeholder="Ingrese su constraseña">
                 <br>
                 <br>
-                <?php echo "¿No tienes una cuenta? Haz "?><a href="signup.php">click aqui</a>
+                <?php echo "¿No tienes una cuenta? Haz "?><a href="<?php echo VIEWS_PATH . "signup.php" ?>">click aqui</a>
             </div>
             <br>
             <button type="submit">Enviar</button>

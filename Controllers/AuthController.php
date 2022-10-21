@@ -54,14 +54,13 @@
         }
 
         public function logout(){
-            session_start();
             session_destroy();
             require_once(VIEWS_PATH."login.php");
         }
 
 
         public function showView($type){
-            if($type = 'G'){
+            if($type == 'G'){
                 require_once(VIEWS_PATH."guardian-page.php");
             }
             else{
