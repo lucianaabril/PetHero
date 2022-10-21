@@ -6,12 +6,12 @@
     {
         public function Index()
         {
-            $auth = new AuthController();
+            $user = new UserController();
             if(isset($_SESSION["loggeduser"])){
-                $auth->showView($_SESSION["type"]);
+                $user->showView($_SESSION["type"]);
             }
             else
-                $auth->login(null,null);
+                $user->login(null,null);
         }
     }
 ?>

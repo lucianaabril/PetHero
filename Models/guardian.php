@@ -3,13 +3,13 @@
     use Models\User as User;
 
     class Guardian extends User{
-        public $nombre;
-        public $apellido;
-        public $cuil;
-        public $telefono;
-        public $direccion;
-        public $disponibilidad;
-        public $tarifa;
+        private $nombre;
+        private $apellido;
+        private $cuil;
+        private $telefono;
+        private $direccion;
+        private $disponibilidad;
+        private $tarifa;
     
         public function __construct(){
         }

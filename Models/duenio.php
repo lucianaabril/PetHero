@@ -3,11 +3,11 @@
     use Models\User as User;
 
     class Duenio extends User{
-        public $nombre;
-        public $apellido;
-        public $telefono;
-        public $direccion;
-        public $dni;
+        private $nombre;
+        private $apellido;
+        private $telefono;
+        private $direccion;
+        private $dni;
     
         public function __construct(){
         }
