@@ -5,9 +5,10 @@
     class Guardian extends User{
         private $nombre;
         private $apellido;
-        private $cuil;
+        private $dni;
         private $telefono;
         private $direccion;
+        private $cumpleanios;
         private $disponibilidad;
         private $tarifa;
     
@@ -22,9 +23,9 @@
 
         public function setApellido($apellido){$this->apellido = $apellido;}
  
-        public function getCuil(){return $this->cuil;}
+        public function getDni(){return $this->dni;}
 
-        public function setCuil($cuil){$this->cuil = $cuil;}
+        public function setDni($dni){$this->dni = $dni;}
 
         public function getTelefono(){return $this->telefono;}
 
@@ -41,5 +42,9 @@
         public function getTarifa(){return $this->tarifa;}
 
         public function setTarifa($tarifa){$this->tarifa = $tarifa;}
+
+        public function getCumpleanios(){return $this->cumpleanios;}
+
+        public function setCumpleanios($cumpleanios){$this->cumpleanios = $cumpleanios;}
     }
 ?>

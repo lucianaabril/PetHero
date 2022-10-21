@@ -67,58 +67,47 @@
           header("location: ".FRONT_ROOT."User/ShowLoginView");
       }
 
-      public function Add($email = '', $type = '', $nombre = '', $apellido = '', $telefono = '', $password = '', $dni = '', $cuil = '', $disponibilidad = '', $tarifa = '', $direccion = '')
+      public function Add($email = " ", $password = " ", $type = " ", $nombre = " ", $apellido = " ", $dni = " ", $telefono = " ", $direccion = " ", $cumpleanios = " ", $disponibilidad = " ", $tarifa = " ")
       {
-        if(isset($_SESSION['email'])){
-          if($_SESSION['type'] == 'G') {
-            if($email != '' || $type != '' || $nombre != '' || $apellido != ''|| $telefono != ''  || $direccion != ''|| $password != '' || $cuil != '' || $disponibilidad != '' || $tarifa != '') {
-                
-              $guardian = new Guardian();
-                
-              $guardian->setNombre($nombre);
-              $guardian->setApellido($apellido);
-              $guardian->setCuil($cuil);
-              $guardian->setTelefono($telefono);
-              $guardian->setDireccion($direccion);
-              $guardian->setDisponibilidad($disponibilidad);
-              $guardian->setTarifa($tarifa);
-              $guardian->setEmail($email);
-              $guardian->setPassword($password);
-              $guardianDAO = new GuardianDAO();
-              $guardianDAO->Add($guardian);
+        if($email != " " || $password != " " || $type != " " || $nombre != " " || $apellido != " " || $dni != " " || $telefono != " " || $direccion != " " || $cumpleanios != " " || $disponibilidad != " " || $tarifa != " ") {
+          if($type == 'G') {
+            $guardian = new Guardian();
+            $guardian->setEmail($email);
+            $guardian->setPassword($password);
               
-              $this->showView($type);
-            }              
-            else 
-            {
-              header("location: ".FRONT_ROOT."User/ShowSignupView");
-            }
-          }
-          else {
-            require_once(VIEWS_PATH.'guardian-list.php'); /*??????????????*/
-          }
+            $guardian->setNombre($nombre);
+            $guardian->setApellido($apellido);
+            $guardian->setDni($dni);
+            $guardian->setTelefono($telefono);
+            $guardian->setDireccion($direccion);
+            $guardian->setCumpleanios($cumpleanios);
+            $guardian->setDisponibilidad($disponibilidad);
+            $guardian->setTarifa($tarifa);
 
-          if($_SESSION['type'] == 'D') {
-            if($email != '' || $type != '' || $nombre != '' || $apellido != ''|| $telefono != '' || $password != '' || $dni != '') {
-              $duenio = new Duenio($nombre, $apellido, $telefono, $direccion, $dni);
-              $duenio->setEmail($email);
-              $duenio->setPassword($password);
-              
-              $duenioDAO = new DuenioDAO();
-              $duenioDAO->Add($duenio);
-              
-              $this->showView($type);
-            }              
-            else 
-            {
-              header("location: ".FRONT_ROOT."User/ShowSignupView");
-            }
-          }
-          else {
-            require_once(VIEWS_PATH.'duenio-list.php'); /*??????????????*/
-          }
+            $this->guardianDAO->Add($guardian);
+            
+            $this->showView($type);
+            echo "Guardian agregado con éxito!";
+          }              
+          elseif($type == 'D') {           
+            $duenio = new Duenio();
+            $duenio->setEmail($email);
+            $duenio->setPassword($password);
+
+            $duenio->setNombre($nombre);
+            $duenio->setApellido($apellido);
+            $duenio->setDni($dni);
+            $duenio->setTelefono($telefono);
+            $duenio->setDireccion($direccion);
+            $duenio->setCumpleanios($cumpleanios);
+            
+            $this->duenioDAO->Add($duenio);
+            
+            $this->showView($type);
+            echo "Dueño agregado con éxito!";
+          }              
         }
-        else{
+        else {
           header("location: ".FRONT_ROOT."User/ShowSignupView");
         }
       }

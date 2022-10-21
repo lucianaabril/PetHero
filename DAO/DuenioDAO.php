@@ -49,9 +49,10 @@
             $duenio = new Duenio();
             $duenio->setNombre($item["nombre"]);
             $duenio->setApellido($item["apellido"]);
+            $duenio->setDni($item["dni"]);
             $duenio->setTelefono($item["telefono"]);
             $duenio->setDireccion($item["direccion"]);
-            $duenio->setDni($item["dni"]);
+            $duenio->setCumpleanios($item["cumpleanios"]);
             $duenio->setEmail($item["email"]);
             $duenio->setPassword($item["password"]);
             
@@ -67,9 +68,10 @@
             $valuesArray = array();
             $valuesArray["nombre"] = $duenio->getNombre();
             $valuesArray["apellido"] = $duenio->getApellido();
+            $valuesArray["dni"] = $duenio->getDni();
             $valuesArray["telefono"] = $duenio->getTelefono();
             $valuesArray["direccion"] = $duenio->getDireccion();
-            $valuesArray["dni"] = $duenio->getDni();
+            $valuesArray["cumpleanios"] = $duenio->getCumpleanios();
             $valuesArray["email"] = $duenio->getEmail();
             $valuesArray["password"] = $duenio->getPassword();
 

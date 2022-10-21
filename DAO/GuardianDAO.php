@@ -49,9 +49,10 @@
             $guardian = new Guardian();
             $guardian->setNombre($item["nombre"]);
             $guardian->setApellido($item["apellido"]);
-            $guardian->setCuil($item["cuil"]);
+            $guardian->setDni($item["dni"]);
             $guardian->setTelefono($item["telefono"]);
             $guardian->setDireccion($item["direccion"]);
+            $guardian->setCumpleanios($item["cumpleanios"]);
             $guardian->setDisponibilidad($item["disponibilidad"]);
             $guardian->setTarifa($item["tarifa"]);
             $guardian->setEmail($item["email"]);
@@ -71,7 +72,8 @@
             $valuesArray["apellido"] = $guardian->getApellido();
             $valuesArray["telefono"] = $guardian->getTelefono();
             $valuesArray["direccion"] = $guardian->getDireccion();
-            $valuesArray["cuil"] = $guardian->getCuil();
+            $valuesArray["dni"] = $guardian->getDni();
+            $valuesArray["cumpleanios"] = $guardian->getCumpleanios();
             $valuesArray["disponibilidad"] = $guardian->getDisponibilidad();
             $valuesArray["tarifa"] = $guardian->getTarifa();
             $valuesArray["email"] = $guardian->getEmail();

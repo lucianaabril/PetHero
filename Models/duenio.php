@@ -5,10 +5,11 @@
     class Duenio extends User{
         private $nombre;
         private $apellido;
+        private $dni;
         private $telefono;
         private $direccion;
-        private $dni;
-    
+        private $cumpleanios;
+
         public function __construct(){
         }
 
@@ -31,6 +32,10 @@
         public function getDni(){return $this->dni;}
 
         public function setDni($dni){$this->dni = $dni;}
+
+        public function getCumpleanios(){return $this->cumpleanios;}
+
+        public function setCumpleanios($cumpleanios){$this->cumpleanios = $cumpleanios;}
     }
 ?>
     
