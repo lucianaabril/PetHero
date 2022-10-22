@@ -3,24 +3,24 @@
         "nombre": "Sofia",
         "apellido": "Galbato",
         "telefono": "2235316174",
-        "direccion": "edison 1900",
+        "direccion": "Edison 1900",
         "dni": "44635273",
-        "cumpleanios": null,
-        "disponibilidad": "24hs",
-        "tarifa": "$100",
+        "cumpleanios": "2003-01-28",
+        "disponibilidad": "",
+        "tarifa": "",
         "email": "sofi@gmail.com",
-        "password": "2323"
+        "password": "2828"
     },
     {
         "nombre": "Juan",
         "apellido": "Berardi",
-        "telefono": "2239923300",
+        "telefono": "2235988788",
         "direccion": "La Pampa 1800",
         "dni": "44000231",
-        "cumpleanios": "",
+        "cumpleanios": "2002-08-08",
         "disponibilidad": "",
         "tarifa": "",
         "email": "juan@gmail.com",
-        "password": "2301"
+        "password": "2801"
     }
 ]

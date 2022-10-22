@@ -23,6 +23,9 @@
             <label for="">DNI:</label>
             <input type="text" name="dni" placeholder="Ingrese su DNI">
             <br>
+            <label for="">Fecha de nacimiento:</label>
+            <input type="date" name="cumpleanios">
+            <br>
             <label for="">Email:</label>
             <input type="text" name="email" placeholder="Ingrese su email"></input>
             <br>

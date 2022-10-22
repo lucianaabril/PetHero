@@ -53,8 +53,8 @@
             $guardian->setTelefono($item["telefono"]);
             $guardian->setDireccion($item["direccion"]);
             $guardian->setCumpleanios($item["cumpleanios"]);
-            $guardian->setDisponibilidad($item["disponibilidad"]);
-            $guardian->setTarifa($item["tarifa"]);
+            $guardian->setDisponibilidad(null);
+            $guardian->setTarifa(null);
             $guardian->setEmail($item["email"]);
             $guardian->setPassword($item["password"]);
             
