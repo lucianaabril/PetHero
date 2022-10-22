@@ -6,10 +6,13 @@
         "direccion": "Edison 1900",
         "dni": "44635273",
         "cumpleanios": "2003-01-28",
-        "disponibilidad": "",
-        "tarifa": "",
+        "disponibilidad": [
+            null
+        ],
+        "tarifa": null,
         "email": "sofi@gmail.com",
-        "password": "2828"
+        "password": "2828",
+        "preferencia": null
     },
     {
         "nombre": "Juan",
@@ -18,9 +21,27 @@
         "direccion": "La Pampa 1800",
         "dni": "44000231",
         "cumpleanios": "2002-08-08",
-        "disponibilidad": "",
-        "tarifa": "",
+        "disponibilidad": [
+            null
+        ],
+        "tarifa": null,
         "email": "juan@gmail.com",
-        "password": "2801"
+        "password": "2801",
+        "preferencia": null
+    },
+    {
+        "nombre": "Florencia",
+        "apellido": "Dominguez",
+        "telefono": "2235057124",
+        "direccion": "Fragata Maldonado 2034",
+        "dni": "37399895",
+        "cumpleanios": "1993-07-13",
+        "disponibilidad": [
+            null
+        ],
+        "tarifa": "500",
+        "email": "flor@gmail.com",
+        "password": "mateo",
+        "preferencia": "mediano"
     }
 ]

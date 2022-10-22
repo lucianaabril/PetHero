@@ -20,7 +20,6 @@ class MascotasController{
         $this->mascotaDAO->Add($pet);
 
         $this->mascotaDAO->GetAll();
-        */
     }
 
     public function viewAddMascota(){

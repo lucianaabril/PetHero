@@ -16,6 +16,39 @@
         $this->duenioDAO = new DuenioDAO();
       }
 
+      public function showGuardianDataView(){
+        require_once(VIEWS_PATH . "guardian-data.php");
+      }
+
+      public function changeGuardianData($inicio = '', $final = '', $tarifa = '', $preferencia = ''){
+        if(isset($_SESSION['email'])){
+            $guardian = new Guardian();
+            $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
+
+            if($inicio != '' && $final != ''){
+              $guardian->setDisponibilidad($inicio);
+              $guardian->setDisponibilidad($final);
+            }
+            
+            if($tarifa != ''){
+              $guardian->setTarifa($tarifa);
+            }
+            
+            if($preferencia != ''){
+              $guardian->setPreferencia($preferencia);
+            }
+
+            $this->guardianDAO->Update($guardian);
+        }
+        else{
+          require_once(VIEWS_PATH.'login.php');
+        }
+      }
+
+      public function showUserDataView(){
+        require_once(VIEWS_PATH . "user-data.php");
+      }
+
       public function ShowSignupView(){
         require_once(VIEWS_PATH . "signup.php");
       }
@@ -67,11 +100,10 @@
           header("location: ".FRONT_ROOT."User/ShowLoginView");
       }
 
-      public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '')
+      public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '', $preferencia = '')
       {
-        if($email != '' || $password != '' || $type != '' || $nombre != '' || $apellido != '' || $dni != '' || $telefono != '' || $direccion != '' || $cumpleanios != '' || $disponibilidad != '' || $tarifa != '') {
-
           if($_POST['type'] == 'G') {
+
             $guardian = new Guardian();
             $guardian->setEmail($email);
             $guardian->setPassword($password);
@@ -84,11 +116,11 @@
             $guardian->setCumpleanios($cumpleanios);
             $guardian->setDisponibilidad($disponibilidad);
             $guardian->setTarifa($tarifa);
+            $guardian->setPreferencia($preferencia);
 
             $this->guardianDAO->Add($guardian);
             
             $this->showView($type);
-            echo "Guardian agregado con éxito!";
           }              
           elseif($_POST['type'] == 'D') {          
             $duenio = new Duenio();
@@ -105,12 +137,7 @@
             $this->duenioDAO->Add($duenio);
             
             $this->showView($type);
-            echo "Dueño agregado con éxito!";
-          }              
-        }
-        else {
-          header("location: ".FRONT_ROOT."User/ShowSignupView");
-        }
+          } 
       }
 
       public function showView($type){
@@ -120,7 +147,7 @@
         else{
             require_once(VIEWS_PATH."duenio-page.php");
         }
-    }
+      }
 
       /*  public function List($mensaje = '')
         {

@@ -1,6 +1,7 @@
 <?php
     namespace DAO;
     use Models\Guardian as Guardian;
+    use Models\User as User;
 
     class GuardianDAO
     {
@@ -57,6 +58,7 @@
             $guardian->setTarifa(null);
             $guardian->setEmail($item["email"]);
             $guardian->setPassword($item["password"]);
+            $guardian->setPreferencia($item["preferencia"]);
             
             array_push($this->list, $guardian);
           }
@@ -78,6 +80,7 @@
             $valuesArray["tarifa"] = $guardian->getTarifa();
             $valuesArray["email"] = $guardian->getEmail();
             $valuesArray["password"] = $guardian->getPassword();
+            $valuesArray["preferencia"] = $guardian->getPreferencia();
 
             array_push($arrayToEncode, $valuesArray);
         }
@@ -86,5 +89,19 @@
         file_put_contents($this->filename, $jsonContent);
     }
 
+    public function Update(Guardian $guardian){
+      $this->LoadData();
+      $newList = array();
+      foreach($this->list as $value){
+          if($value->getEmail() == $guardian->getEmail()){
+            array_push($newList, $guardian);
+          }
+          else {
+            array_push($newList, $value);
+          }
+      }
+      $this->list = $newList;
+      $this->SaveData();
     }
+  }
 ?>
