@@ -67,10 +67,11 @@
           header("location: ".FRONT_ROOT."User/ShowLoginView");
       }
 
-      public function Add($email = " ", $password = " ", $type = " ", $nombre = " ", $apellido = " ", $dni = " ", $telefono = " ", $direccion = " ", $cumpleanios = " ", $disponibilidad = " ", $tarifa = " ")
+      public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '')
       {
-        if($email != " " || $password != " " || $type != " " || $nombre != " " || $apellido != " " || $dni != " " || $telefono != " " || $direccion != " " || $cumpleanios != " " || $disponibilidad != " " || $tarifa != " ") {
-          if($type == 'G') {
+        if($email != '' || $password != '' || $type != '' || $nombre != '' || $apellido != '' || $dni != '' || $telefono != '' || $direccion != '' || $cumpleanios != '' || $disponibilidad != '' || $tarifa != '') {
+
+          if($_POST['type'] == 'G') {
             $guardian = new Guardian();
             $guardian->setEmail($email);
             $guardian->setPassword($password);
@@ -89,7 +90,7 @@
             $this->showView($type);
             echo "Guardian agregado con éxito!";
           }              
-          elseif($type == 'D') {           
+          elseif($_POST['type'] == 'D') {          
             $duenio = new Duenio();
             $duenio->setEmail($email);
             $duenio->setPassword($password);

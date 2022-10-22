@@ -1,13 +1,22 @@
 [
     {
-        "email": "lu@gmail.com",
-        "password": "1313",
-        "type": "D",
         "nombre": "Luciana",
         "apellido": "Dominguez",
         "dni": "44692743",
         "telefono": "2234569466",
         "direccion": "cerrito 702",
-        "cumpleaños": "13-03-2003"
+        "cumpleanios": null,
+        "email": "lu@gmail.com",
+        "password": "1313"
+    },
+    {
+        "nombre": "Mailen",
+        "apellido": "Cruz",
+        "dni": "44510229",
+        "telefono": "2235057124",
+        "direccion": "Irala 4690",
+        "cumpleanios": "",
+        "email": "mailen@gmail.com",
+        "password": "yako00"
     }
 ]

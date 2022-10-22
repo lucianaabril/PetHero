@@ -1,15 +1,26 @@
 [
     {
-        "email": "sofi@gmail.com",
-        "password": "2323",
-        "type": "G",
         "nombre": "Sofia",
         "apellido": "Galbato",
-        "dni": "44635273",
         "telefono": "2235316174",
         "direccion": "edison 1900",
-        "cumpleaños": "28-01-2003",
+        "dni": "44635273",
+        "cumpleanios": null,
         "disponibilidad": "24hs",
-        "tarifa": "$100"
+        "tarifa": "$100",
+        "email": "sofi@gmail.com",
+        "password": "2323"
+    },
+    {
+        "nombre": "Juan",
+        "apellido": "Berardi",
+        "telefono": "2239923300",
+        "direccion": "La Pampa 1800",
+        "dni": "44000231",
+        "cumpleanios": "",
+        "disponibilidad": "",
+        "tarifa": "",
+        "email": "juan@gmail.com",
+        "password": "2301"
     }
 ]

@@ -30,9 +30,9 @@
             <input type="password" name="password" placeholder="Ingrese su contraseña"></input>
             <br>
             <label for="">Tipo de usuario:</label>
-            <select>
-                <option name="type" value="D">Dueño</option>
-                <option name="type" value="G">Guardian</option>
+            <select name="type">
+                <option value="D">Dueño</option>
+                <option value="G">Guardian</option>
             </select>
             <br>
                 
