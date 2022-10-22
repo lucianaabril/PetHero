@@ -100,8 +100,10 @@
           header("location: ".FRONT_ROOT."User/ShowLoginView");
       }
 
-      public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '', $preferencia = '')
+      public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '')
       {
+        if($email != '' || $password != '' || $type != '' || $nombre != '' || $apellido != '' || $dni != '' || $telefono != '' || $direccion != '' || $cumpleanios != '' || $disponibilidad != '' || $tarifa != '') {
+
           if($_POST['type'] == 'G') {
 
             $guardian = new Guardian();
@@ -137,7 +139,12 @@
             $this->duenioDAO->Add($duenio);
             
             $this->showView($type);
-          } 
+            echo "Dueño agregado con éxito!";
+          }              
+        }
+        else {
+          header("location: ".FRONT_ROOT."User/ShowSignupView");
+        }
       }
 
       public function showView($type){
