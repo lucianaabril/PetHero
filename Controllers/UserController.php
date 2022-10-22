@@ -67,8 +67,12 @@
           header("location: ".FRONT_ROOT."User/ShowLoginView");
       }
 
+
+      
       public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '')
       {
+
+        
         if($email != '' || $password != '' || $type != '' || $nombre != '' || $apellido != '' || $dni != '' || $telefono != '' || $direccion != '' || $cumpleanios != '' || $disponibilidad != '' || $tarifa != '') {
 
           if($_POST['type'] == 'G') {
@@ -110,8 +114,8 @@
         }
         else {
           header("location: ".FRONT_ROOT."User/ShowSignupView");
-        }
-      }
+        } 
+      } 
 
       public function showView($type){
         if($type == 'G'){
