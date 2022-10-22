@@ -5,8 +5,9 @@
         "type": "D",
         "nombre": "Luciana",
         "apellido": "Dominguez",
+        "dni": "44692743",
         "telefono": "2234569466",
         "direccion": "cerrito 702",
-        "dni": "44692743"
+        "cumpleaños": "13-03-2003"
     }
 ]

@@ -5,9 +5,10 @@
         "type": "G",
         "nombre": "Sofia",
         "apellido": "Galbato",
-        "cuil": "27446352739",
+        "dni": "44635273",
         "telefono": "2235316174",
         "direccion": "edison 1900",
+        "cumpleaños": "28-01-2003",
         "disponibilidad": "24hs",
         "tarifa": "$100"
     }
