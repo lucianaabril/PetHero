@@ -44,7 +44,7 @@
         {
           $jsonContent = file_get_contents($this->filename);
           $array = ($jsonContent) ? json_decode($jsonContent, true) : array();
-          
+
           foreach($array as $item) 
           {
             $guardian = new Guardian();
@@ -54,8 +54,9 @@
             $guardian->setTelefono($item["telefono"]);
             $guardian->setDireccion($item["direccion"]);
             $guardian->setCumpleanios($item["cumpleanios"]);
-            $guardian->setDisponibilidad(null);
-            $guardian->setTarifa(null);
+            $disp = $item["disponibilidad"];
+            $guardian->setDisponibilidad($disp[0], $disp[1]);
+            $guardian->setTarifa($item["tarifa"]);
             $guardian->setEmail($item["email"]);
             $guardian->setPassword($item["password"]);
             $guardian->setPreferencia($item["preferencia"]);
