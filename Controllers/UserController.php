@@ -100,51 +100,42 @@
           header("location: ".FRONT_ROOT."User/ShowLoginView");
       }
 
-      public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '')
+      public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '', $preferencia = '')
       {
-        if($email != '' || $password != '' || $type != '' || $nombre != '' || $apellido != '' || $dni != '' || $telefono != '' || $direccion != '' || $cumpleanios != '' || $disponibilidad != '' || $tarifa != '') {
-
-          if($_POST['type'] == 'G') {
-
-            $guardian = new Guardian();
-            $guardian->setEmail($email);
-            $guardian->setPassword($password);
-              
-            $guardian->setNombre($nombre);
-            $guardian->setApellido($apellido);
-            $guardian->setDni($dni);
-            $guardian->setTelefono($telefono);
-            $guardian->setDireccion($direccion);
-            $guardian->setCumpleanios($cumpleanios);
-            $guardian->setDisponibilidad($disponibilidad);
-            $guardian->setTarifa($tarifa);
-            $guardian->setPreferencia($preferencia);
-
-            $this->guardianDAO->Add($guardian);
+        if($_POST['type'] == 'G') {
+          $guardian = new Guardian();
+          $guardian->setEmail($email);
+          $guardian->setPassword($password);
             
-            $this->showView($type);
-          }              
-          elseif($_POST['type'] == 'D') {          
-            $duenio = new Duenio();
-            $duenio->setEmail($email);
-            $duenio->setPassword($password);
-
-            $duenio->setNombre($nombre);
-            $duenio->setApellido($apellido);
-            $duenio->setDni($dni);
-            $duenio->setTelefono($telefono);
-            $duenio->setDireccion($direccion);
-            $duenio->setCumpleanios($cumpleanios);
-            
-            $this->duenioDAO->Add($duenio);
-            
-            $this->showView($type);
-            echo "Dueño agregado con éxito!";
-          }              
-        }
-        else {
-          header("location: ".FRONT_ROOT."User/ShowSignupView");
-        }
+          $guardian->setNombre($nombre);
+          $guardian->setApellido($apellido);
+          $guardian->setDni($dni);
+          $guardian->setTelefono($telefono);
+          $guardian->setDireccion($direccion);
+          $guardian->setCumpleanios($cumpleanios);
+          $guardian->setDisponibilidad($disponibilidad);
+          $guardian->setTarifa($tarifa);
+          $guardian->setPreferencia($preferencia);
+          $this->guardianDAO->Add($guardian);
+          
+          $this->showView($type);
+        }              
+        elseif($_POST['type'] == 'D') {          
+          $duenio = new Duenio();
+          $duenio->setEmail($email);
+          $duenio->setPassword($password);
+          $duenio->setNombre($nombre);
+          $duenio->setApellido($apellido);
+          $duenio->setDni($dni);
+          $duenio->setTelefono($telefono);
+          $duenio->setDireccion($direccion);
+          $duenio->setCumpleanios($cumpleanios);
+          
+          $this->duenioDAO->Add($duenio);
+          
+          $this->showView($type);
+          echo "Dueño agregado con éxito!";
+        }              
       }
 
       public function showView($type){
