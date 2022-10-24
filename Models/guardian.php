@@ -11,8 +11,10 @@
         private $cumpleanios;
         private $disponibilidad;
         private $tarifa;
+        private $preferencia;
     
         public function __construct(){
+            $this->disponibilidad = array();
         }
 
         public function getNombre(){return $this->nombre;}
@@ -37,7 +39,11 @@
 
         public function getDisponibilidad(){return $this->disponibilidad;}
 
-        public function setDisponibilidad($disponibilidad){$this->disponibilidad = $disponibilidad;}
+        public function setDisponibilidad($inicio, $final)
+        {
+            $this->disponibilidad[0] = $inicio;
+            $this->disponibilidad[1] = $final;
+        }
 
         public function getTarifa(){return $this->tarifa;}
 
@@ -46,5 +52,10 @@
         public function getCumpleanios(){return $this->cumpleanios;}
 
         public function setCumpleanios($cumpleanios){$this->cumpleanios = $cumpleanios;}
+    
+        public function getPreferencia(){return $this->preferencia;}
+
+        public function setPreferencia($preferencia){$this->preferencia = $preferencia;}
+    
     }
 ?>

@@ -1,6 +1,7 @@
 <?php
     namespace DAO;
     use Models\Guardian as Guardian;
+    use Models\User as User;
 
     class GuardianDAO
     {
@@ -43,7 +44,7 @@
         {
           $jsonContent = file_get_contents($this->filename);
           $array = ($jsonContent) ? json_decode($jsonContent, true) : array();
-          
+
           foreach($array as $item) 
           {
             $guardian = new Guardian();
@@ -53,10 +54,12 @@
             $guardian->setTelefono($item["telefono"]);
             $guardian->setDireccion($item["direccion"]);
             $guardian->setCumpleanios($item["cumpleanios"]);
-            $guardian->setDisponibilidad(null);
-            $guardian->setTarifa(null);
+            $disp = $item["disponibilidad"];
+            $guardian->setDisponibilidad($disp[0], $disp[1]);
+            $guardian->setTarifa($item["tarifa"]);
             $guardian->setEmail($item["email"]);
             $guardian->setPassword($item["password"]);
+            $guardian->setPreferencia($item["preferencia"]);
             
             array_push($this->list, $guardian);
           }
@@ -78,6 +81,7 @@
             $valuesArray["tarifa"] = $guardian->getTarifa();
             $valuesArray["email"] = $guardian->getEmail();
             $valuesArray["password"] = $guardian->getPassword();
+            $valuesArray["preferencia"] = $guardian->getPreferencia();
 
             array_push($arrayToEncode, $valuesArray);
         }
@@ -86,5 +90,19 @@
         file_put_contents($this->filename, $jsonContent);
     }
 
+    public function Update(Guardian $guardian){
+      $this->LoadData();
+      $newList = array();
+      foreach($this->list as $value){
+          if($value->getEmail() == $guardian->getEmail()){
+            array_push($newList, $guardian);
+          }
+          else {
+            array_push($newList, $value);
+          }
+      }
+      $this->list = $newList;
+      $this->SaveData();
     }
+  }
 ?>
