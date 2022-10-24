@@ -1,16 +1,5 @@
 [
     {
-        "nombre": "Luciana",
-        "apellido": "Dominguez",
-        "dni": "44692743",
-        "telefono": "2234569466",
-        "direccion": "Cerrito 702",
-        "cumpleanios": "2003-03-13",
-        "email": "lu@gmail.com",
-        "password": "1313",
-        "type": "D"
-    },
-    {
         "nombre": "Mailen",
         "apellido": "Cruz",
         "dni": "44510229",
@@ -21,5 +10,4 @@
         "password": "yeko00",
         "type": "D"
     }
-    
 ]
