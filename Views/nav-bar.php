@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Menu</title>
-        <link rel="stylesheet" href="Views\layout\styles\nav-bar.css">
+        <style><?php include(VIEWS_PATH . "/layout/styles/nav-bar.css")?></style>
     </head>
     <body>
             <nav>
