@@ -11,7 +11,7 @@ class MascotaDAO
 
     public function __construct()
     {
-        $this->filename = dirname(__DIR__) . "Data/mascotas.json";
+        $this->filename = dirname(__DIR__) . "/Data/mascotas.json";
     }
 
     function Add(Mascota $pet)
@@ -30,11 +30,12 @@ class MascotaDAO
     public function getByDniDuenio($dni)
     {
         $this->loadData();
+        $array = array();
         foreach ($this->list as $item) {
             if ($item->getDni_duenio() == $dni)
-                return $item;
+                array_push($array,$item);
         }
-        return null;
+        return $array;
     }
 
     private function SaveData()
@@ -47,8 +48,8 @@ class MascotaDAO
             $valuesArray["edad"] = $pet->getEdad();
             $valuesArray["raza"] = $pet->getRaza();
             $valuesArray["tamanio"] = $pet->getTamanio();
-            $valuesArray["observaciones"] = $pet->getCuil();
-            $valuesArray["dni_duenio"] = $pet->getDisponibilidad();
+            $valuesArray["observaciones"] = $pet->getObservaciones();
+            $valuesArray["dni_duenio"] = $pet->getDni_duenio();
 
             array_push($arrayToEncode, $valuesArray);
         }

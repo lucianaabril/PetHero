@@ -6,5 +6,21 @@
         "tamanio": "grande",
         "observaciones": "Le gusta jugar con su pelota. Odia las tormentas",
         "dni_duenio": "44692743"
+    },
+    {
+        "nombre": "Moony",
+        "edad": "7",
+        "raza": "Pitbull",
+        "tamanio": "mediano",
+        "observaciones": "Le gustan los amaneceres",
+        "dni_duenio": "44692743"
+    },
+    {
+        "nombre": "Prongs",
+        "edad": "5",
+        "raza": "Siberiano",
+        "tamanio": "grande",
+        "observaciones": "Le gusta la lluvia",
+        "dni_duenio": "44692743"
     }
 ]
