@@ -59,35 +59,38 @@
         require_once(VIEWS_PATH."login.php");
       }
       else{
-          $duenio = new Duenio();
-          $duenio = $this->duenioDAO->getByEmail($email);
-          $guardian = new Guardian();
-          $guardian = $this->guardianDAO->getByEmail($email);
-          if($guardian != null){
-              if($guardian->getPassword() == $password){
-                  $_SESSION['loggeduser'] = $guardian;
-                  $_SESSION['email'] = $guardian->getEmail();
-                  $_SESSION['type'] = $guardian->getType();
-                  $this->showView($_SESSION['type']);
-                }
-                else{
-                  require_once(VIEWS_PATH. 'login.php');
-                }
+        $duenio = new Duenio();
+        $duenio = $this->duenioDAO->getByEmail($email);
+        $guardian = new Guardian();
+        $guardian = $this->guardianDAO->getByEmail($email);
+        if($guardian != null){
+            if($guardian->getPassword() == $password){
+                $_SESSION['loggeduser'] = $guardian;
+                $_SESSION['email'] = $guardian->getEmail();
+                $_SESSION['type'] = $guardian->getType();
+                $this->showView($_SESSION['type']);
+              }
+              else{
+                $this->ShowLoginView();
+              }
+        }
+        else{
+          if($duenio != null){
+            if ($duenio->getPassword() == $password) {
+              $_SESSION['loggeduser'] = $duenio;
+              $_SESSION['email'] = $duenio->getEmail();
+              $_SESSION['type'] = $duenio->getType();
+              $this->showView($_SESSION['type']);
             }
             else{
-                if($duenio != null){
-                if ($duenio->getPassword() == $password) {
-                  $_SESSION['loggeduser'] = $duenio;
-                  $_SESSION['email'] = $duenio->getEmail();
-                  $_SESSION['type'] = $duenio->getType();
-                  $this->showView($_SESSION['type']);
-                }
-                else{
-                  require_once(VIEWS_PATH.'login.php');
-                }
-                }
+              $this->ShowLoginView();
             }
+          }
+          else{
+            $this->ShowLoginView();
+          }
         }
+      }
     }
 
     public function logout(){
