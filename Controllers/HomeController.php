@@ -11,7 +11,11 @@
                 $user->showView($_SESSION["type"]);
             }
             else
-                $user->login(null,null);
+                $this->showHomeView();
+        }
+
+        public function showHomeView(){
+            require_once(VIEWS_PATH . "home.php");
         }
     }
 ?>

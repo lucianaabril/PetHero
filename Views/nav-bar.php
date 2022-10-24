@@ -6,12 +6,12 @@
     <body>
             <nav>
                 <ul class="nav__links">
-                    <li><a class="" href="">Home</a></li>
+                    <li><a href="<?php echo FRONT_ROOT."Home/showHomeView" ?>">Home</a></li>
                     <li><a href="">About our service</a></li>
                     <li><a href="">Contact</a></li>
                 </ul>
-            <a class="item" href=#>Login</a>
-            <a class="item" href=#>Signup</a>
+            <a class="item" href="<?php echo FRONT_ROOT."User/ShowLoginView" ?>">Login</a>
+            <a class="item" href="<?php echo FRONT_ROOT."User/ShowSignupView" ?>">Signup</a>
             </nav>
     </body>
 </html>
