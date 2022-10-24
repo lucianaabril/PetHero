@@ -7,7 +7,8 @@
         "direccion": "Cerrito 702",
         "cumpleanios": "2003-03-13",
         "email": "lu@gmail.com",
-        "password": "1313"
+        "password": "1313",
+        "type": "D"
     },
     {
         "nombre": "Mailen",
@@ -17,7 +18,8 @@
         "direccion": "Irala 4690",
         "cumpleanios": "2002-01-15",
         "email": "mailen@gmail.com",
-        "password": "yeko00"
+        "password": "yeko00",
+        "type": "D"
     }
     
 ]

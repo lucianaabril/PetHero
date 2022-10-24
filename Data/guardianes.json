@@ -11,9 +11,10 @@
             null
         ],
         "tarifa": null,
+        "preferencia": null,
         "email": "sofi@gmail.com",
         "password": "2828",
-        "preferencia": null
+        "type": "G"
     },
     {
         "nombre": "Juan",
@@ -27,9 +28,10 @@
             null
         ],
         "tarifa": null,
+        "preferencia": null,
         "email": "juan@gmail.com",
         "password": "2801",
-        "preferencia": null
+        "type": "G"
     },
     {
         "nombre": "Florencia",
@@ -39,12 +41,13 @@
         "dni": "37399895",
         "cumpleanios": "1993-07-13",
         "disponibilidad": [
-            "2022-10-14",
-            "2022-10-29"
+            "2022-10-01",
+            "2022-10-22"
         ],
-        "tarifa": "500",
+        "tarifa": "200",
+        "preferencia": "mediano",
         "email": "flor@gmail.com",
         "password": "mateo",
-        "preferencia": "mediano"
+        "type": "G"
     }
 ]

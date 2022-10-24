@@ -26,8 +26,7 @@
             $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
 
             if($inicio != '' && $final != ''){
-              $guardian->setDisponibilidad($inicio);
-              $guardian->setDisponibilidad($final);
+              $guardian->setDisponibilidad($inicio, $final);
             }
             
             if($tarifa != ''){
@@ -59,7 +58,7 @@
 
       public function login($email, $password){
           if($email == "" or $password == ""){
-              require_once(VIEWS_PATH."login.php");
+            require_once(VIEWS_PATH."login.php");
           }
           else{
               $duenio = new Duenio();
@@ -70,25 +69,25 @@
 
               if($guardian != null){
                   if($guardian->getPassword() == $password){
-                      $_SESSION['loggeduser'] = $guardian;
-                      $_SESSION['email'] = $guardian->getEmail();
-                      $_SESSION['type'] = $guardian->getType();
-                      $this->showView('G');
+                    $_SESSION['loggeduser'] = $guardian;
+                    $_SESSION['email'] = $guardian->getEmail();
+                    $_SESSION['type'] = $guardian->getType();
+                    $this->showView($_SESSION['type']);
                   }
                   else{
-                      require_once(VIEWS_PATH. 'login.php');
+                    require_once(VIEWS_PATH. 'login.php');
                   }
               }
               else{
                   if($duenio != null){
                   if ($duenio->getPassword() == $password) {
-                      $_SESSION['loggeduser'] = $duenio;
-                      $_SESSION['email'] = $duenio->getEmail();
-                      $_SESSION['type'] = $duenio->getType();
-                      $this->showView('D');
+                    $_SESSION['loggeduser'] = $duenio;
+                    $_SESSION['email'] = $duenio->getEmail();
+                    $_SESSION['type'] = $duenio->getType();
+                    $this->showView($_SESSION['type']);
                   }
                   else{
-                      require_once(VIEWS_PATH.'login.php');
+                    require_once(VIEWS_PATH.'login.php');
                   }
                   }
               }
@@ -106,6 +105,7 @@
           $guardian = new Guardian();
           $guardian->setEmail($email);
           $guardian->setPassword($password);
+          $guardian->setType($type);
             
           $guardian->setNombre($nombre);
           $guardian->setApellido($apellido);
@@ -113,17 +113,20 @@
           $guardian->setTelefono($telefono);
           $guardian->setDireccion($direccion);
           $guardian->setCumpleanios($cumpleanios);
-          $guardian->setDisponibilidad($disponibilidad);
-          $guardian->setTarifa($tarifa);
-          $guardian->setPreferencia($preferencia);
+          $guardian->setDisponibilidad(null, null);
+          $guardian->setTarifa(null);
+          $guardian->setPreferencia(null);
+          
           $this->guardianDAO->Add($guardian);
           
-          $this->showView($type);
+          require_once(VIEWS_PATH . 'login.php');
         }              
         elseif($_POST['type'] == 'D') {          
           $duenio = new Duenio();
           $duenio->setEmail($email);
           $duenio->setPassword($password);
+          $duenio->setType($type);
+
           $duenio->setNombre($nombre);
           $duenio->setApellido($apellido);
           $duenio->setDni($dni);
@@ -133,17 +136,16 @@
           
           $this->duenioDAO->Add($duenio);
           
-          $this->showView($type);
-          echo "Dueño agregado con éxito!";
+          require_once(VIEWS_PATH . 'login.php');
         }              
       }
 
       public function showView($type){
         if($type == 'G'){
-            require_once(VIEWS_PATH."guardian-page.php");
+          require_once(VIEWS_PATH."guardian-page.php");
         }
         else{
-            require_once(VIEWS_PATH."duenio-page.php");
+          require_once(VIEWS_PATH."duenio-page.php");
         }
       }
 
