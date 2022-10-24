@@ -55,6 +55,7 @@
             $duenio->setCumpleanios($item["cumpleanios"]);
             $duenio->setEmail($item["email"]);
             $duenio->setPassword($item["password"]);
+            $duenio->setType($item["type"]);
             
             array_push($this->list, $duenio);
           }
@@ -74,6 +75,7 @@
             $valuesArray["cumpleanios"] = $duenio->getCumpleanios();
             $valuesArray["email"] = $duenio->getEmail();
             $valuesArray["password"] = $duenio->getPassword();
+            $valuesArray["type"] = $duenio->getType();
 
             array_push($arrayToEncode, $valuesArray);
         }

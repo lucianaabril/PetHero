@@ -60,6 +60,7 @@
             $guardian->setEmail($item["email"]);
             $guardian->setPassword($item["password"]);
             $guardian->setPreferencia($item["preferencia"]);
+            $guardian->setType($item["type"]);
             
             array_push($this->list, $guardian);
           }
@@ -79,9 +80,10 @@
             $valuesArray["cumpleanios"] = $guardian->getCumpleanios();
             $valuesArray["disponibilidad"] = $guardian->getDisponibilidad();
             $valuesArray["tarifa"] = $guardian->getTarifa();
+            $valuesArray["preferencia"] = $guardian->getPreferencia();
             $valuesArray["email"] = $guardian->getEmail();
             $valuesArray["password"] = $guardian->getPassword();
-            $valuesArray["preferencia"] = $guardian->getPreferencia();
+            $valuesArray["type"] = $guardian->getType();
 
             array_push($arrayToEncode, $valuesArray);
         }

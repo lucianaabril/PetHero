@@ -16,6 +16,7 @@
                 <ul>
                     <li><a href="<?php echo FRONT_ROOT . "User/showGuardianDataView" ?>">Datos Guardian</a></li>            
                     <li><a href="<?php echo FRONT_ROOT . "User/showUserDataView" ?>">Datos Personales</a></li>
+                    <li><a href="<?php echo FRONT_ROOT ?>User/logout">Cerrar sesión</a></li>
                 </ul>
                 <li>Listado de estadías</li>
             </ul>

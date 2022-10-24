@@ -35,8 +35,8 @@
             <br>
             <label for="">Tipo de usuario:</label>
             <select name="type">
-                <option value="D">Dueño</option>
-                <option value="G">Guardian</option>
+                <option type="text" value="D">Dueño</option>
+                <option typ="text" value="G">Guardian</option>
             </select>
             <br>
                 
