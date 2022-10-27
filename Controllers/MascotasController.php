@@ -22,12 +22,10 @@ class MascotasController{
         $user = new Duenio();
         $user = $_SESSION["loggeduser"];
         $pet->setDni_duenio($user->getDni());
-        
 
         $this->mascotaDAO->Add($pet);
         
-        echo "Su mascota ha sido agregada con éxito";
-        
+        echo "Su mascota ha sido agregada con éxito";   
     }
 
     public function showMascotasByDuenio(){

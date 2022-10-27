@@ -1,4 +1,5 @@
 <?php
+
 namespace Controllers;
 
 use Models\Duenio as Duenio;
@@ -11,17 +12,20 @@ class UserController
   private $guardianDAO;
   private $duenioDAO;
 
-    function __construct(){
+  function __construct()
+  {
     $this->guardianDAO = new GuardianDAO();
     $this->duenioDAO = new DuenioDAO();
   }
 
-    public function showGuardianDataView(){
+  public function showGuardianDataView()
+  {
     require_once(VIEWS_PATH . "guardian-data.php");
   }
 
-    public function changeGuardianData($inicio = '', $final = '', $tarifa = '', $preferencia = ''){
-      if(isset($_SESSION['email'])){
+  public function changeGuardianData($inicio = '', $final = '', $tarifa = '', $preferencia = '')
+  {
+    if (isset($_SESSION['email'])) {
       $guardian = new Guardian();
       $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
       if ($inicio != '' && $final != '') {
@@ -95,42 +99,80 @@ class UserController
     header("location: " . FRONT_ROOT . "User/ShowLoginView");
   }
 
+  public function validar($email,$password,$type,$nombre,$apellido,$dni,$telefono,$direccion,$cumpleanios,$disponibilidad,$tarifa,$preferencia)
+  {
+    if (ctype_alpha($nombre) == false) {
+      echo "El formato ingresado para el nombre es incorrecto.";
+      return false;
+    }
+    if(ctype_alpha($apellido) == false){
+      echo "El formato ingresado para el apellido es incorrecto.";
+      return false;
+    }
+    if(ctype_digit($dni) == false) {
+      echo "El formato ingresado para el dni es incorrecto.";
+      return false;
+    }
+    if(strlen($dni) > 8){
+      echo "El formato ingresado para el dni es incorrecto.";
+      return false;
+    }
+    if(ctype_digit($telefono) == false) {
+      echo "El formato ingresado para el teléfono es incorrecto.";
+      return false;
+    }
+    $hoy = date_create('now');
+    $cumpleaniosD = date_create($cumpleanios);
+    $diff = date_diff($cumpleaniosD,$hoy);
+    if(($diff->format("%R%a") / 365) < 18){
+      echo "Para registrarse hay que ser mayor de edad.";
+      return false;
+    }
+    return true;
+
+  }
+
   public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '', $preferencia = '')
   {
-    if ($_POST['type'] == 'G') {
-      $guardian = new Guardian();
-      $guardian->setEmail($email);
-      $guardian->setPassword($password);
-      $guardian->setType($type);
+    
+    if ($this->validar($email,$password,$type,$nombre,$apellido,$dni,$telefono,$direccion,$cumpleanios,$disponibilidad,$tarifa,$preferencia)) {
+      if ($_POST['type'] == 'G') {
+        $guardian = new Guardian();
+        $guardian->setEmail($email);
+        $guardian->setPassword($password);
+        $guardian->setType($type);
 
-      $guardian->setNombre($nombre);
-      $guardian->setApellido($apellido);
-      $guardian->setDni($dni);
-      $guardian->setTelefono($telefono);
-      $guardian->setDireccion($direccion);
-      $guardian->setCumpleanios($cumpleanios);
-      $guardian->setDisponibilidad(null, null);
-      $guardian->setTarifa(null);
-      $guardian->setPreferencia(null);
+        $guardian->setNombre($nombre);
+        $guardian->setApellido($apellido);
+        $guardian->setDni($dni);
+        $guardian->setTelefono($telefono);
+        $guardian->setDireccion($direccion);
+        $guardian->setCumpleanios($cumpleanios);
+        $guardian->setDisponibilidad(null, null);
+        $guardian->setTarifa(null);
+        $guardian->setPreferencia(null);
 
-      $this->guardianDAO->Add($guardian);
+        $this->guardianDAO->Add($guardian);
 
-      require_once(VIEWS_PATH . 'login.php');
-    } elseif ($_POST['type'] == 'D') {
-      $duenio = new Duenio();
-      $duenio->setEmail($email);
-      $duenio->setPassword($password);
-      $duenio->setType($type);
-      $duenio->setNombre($nombre);
-      $duenio->setApellido($apellido);
-      $duenio->setDni($dni);
-      $duenio->setTelefono($telefono);
-      $duenio->setDireccion($direccion);
-      $duenio->setCumpleanios($cumpleanios);
+        require_once(VIEWS_PATH . 'login.php');
+      } elseif ($_POST['type'] == 'D') {
+        $duenio = new Duenio();
+        $duenio->setEmail($email);
+        $duenio->setPassword($password);
+        $duenio->setType($type);
+        $duenio->setNombre($nombre);
+        $duenio->setApellido($apellido);
+        $duenio->setDni($dni);
+        $duenio->setTelefono($telefono);
+        $duenio->setDireccion($direccion);
+        $duenio->setCumpleanios($cumpleanios);
 
-      $this->duenioDAO->Add($duenio);
+        $this->duenioDAO->Add($duenio);
 
-      require_once(VIEWS_PATH . 'login.php');
+        require_once(VIEWS_PATH . 'login.php');
+      }
+    } else {
+      $this->ShowSignupView();
     }
   }
 
