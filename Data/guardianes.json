@@ -28,8 +28,42 @@
             null
         ],
         "tarifa": null,
-        "preferencia": null,
+        "preferencia": "grande",
         "email": "juan@gmail.com",
+        "password": "2801",
+        "type": "G"
+    },
+    {
+        "nombre": "Harry",
+        "apellido": "Styles",
+        "telefono": "2235988718",
+        "direccion": "Edison 3535",
+        "dni": "30526789",
+        "cumpleanios": "1994-02-01",
+        "disponibilidad": [
+            null,
+            null
+        ],
+        "tarifa": null,
+        "preferencia": "pequenio",
+        "email": "harry@gmail.com",
+        "password": "2801",
+        "type": "G"
+    },
+    {
+        "nombre": "Louis",
+        "apellido": "Tomlinson",
+        "telefono": "2235988718",
+        "direccion": "Edison 3535",
+        "dni": "30526789",
+        "cumpleanios": "1994-02-01",
+        "disponibilidad": [
+            null,
+            null
+        ],
+        "tarifa": null,
+        "preferencia": "grande",
+        "email": "luis@gmail.com",
         "password": "2801",
         "type": "G"
     }

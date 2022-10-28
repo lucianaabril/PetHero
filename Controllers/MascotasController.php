@@ -12,13 +12,14 @@ class MascotasController{
         $this->mascotaDAO = new mascotaDAO;
     }
 
-    public function Add($nombre = '',$edad = '',$raza = '',$tamanio = '',$observaciones = ''){
+    public function Add($nombre = '',$edad = '',$raza = '',$tamanio = '',$observaciones = '',$tipo = ''){
         $pet = new Mascota();
         $pet->setNombre($nombre);
         $pet->setEdad($edad);
         $pet->setRaza($raza);
         $pet->setTamanio($tamanio);
         $pet->setObservaciones($observaciones);
+        $pet->setTipo($tipo);
         $user = new Duenio();
         $user = $_SESSION["loggeduser"];
         $pet->setDni_duenio($user->getDni());
@@ -42,8 +43,17 @@ class MascotasController{
             echo "Raza: ".$pet->getRaza();?><html> <br></html> <?php
             echo "Tamaño: ".$pet->getTamanio();?><html> <br></html> <?php
             echo "Obervaciones: ".$pet->getObservaciones();?><html> <br></html> <?php
+            echo "Tipo: ".$pet->getTipo();?><html> <br></html> <?php
             ?><html> <br></html> <?php
         }
+    }
+
+    public function getMascotasByDuenio(){
+        $array = array();
+        $user = new Duenio();
+        $user = $_SESSION["loggeduser"];
+        $array = $this->mascotaDAO->getByDniDuenio($user->getDni());
+        return $array;
     }
 
     public function viewAddMascota(){

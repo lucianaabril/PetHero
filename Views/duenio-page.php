@@ -4,15 +4,17 @@
 <html>
     <head>
         <title>Dueño Page</title>
+        <style><?php include(VIEWS_PATH . "/layout/styles/duenio-page.css")?></style>
     </head>
     <body>
-        <nav class="menu">
+        <span class="menu">
             <ul>
                 <li><a href="<?php echo FRONT_ROOT ?>Mascotas/viewAddMascota">Agregar Mascota</a></li>
                 <li><a href="<?php echo FRONT_ROOT ?>Mascotas/showMascotasByDuenio">Ver mis mascotas</a></li>
                 <li><a href="<?php echo FRONT_ROOT ?>User/showPerfil">Ver perfil</a></li>
+                <li><a href="<?php echo FRONT_ROOT ?>User/showViewGuardianesAsDuenio">Ver guardianes</a></li>
                 <li><a href="<?php echo FRONT_ROOT ?>User/logout">Cerrar sesión</a></li>
             </ul>
-        </nav>
+</span>
     </body>
 </html>

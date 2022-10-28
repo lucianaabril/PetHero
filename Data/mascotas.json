@@ -1,10 +1,20 @@
 [
     {
-        "nombre": "",
-        "edad": "",
-        "raza": "",
-        "tamanio": "",
-        "observaciones": "",
-        "dni_duenio": "44510229"
+        "nombre": "Yeko",
+        "edad": "2",
+        "raza": "caniche",
+        "tamanio": "pequenio",
+        "observaciones": "le gusta jugar",
+        "dni_duenio": "44510229",
+        "tipo": "perro"
+    },
+    {
+        "nombre": "Padfoot",
+        "edad": "5",
+        "raza": "Pitbull",
+        "tamanio": "grande",
+        "observaciones": "le gusta dormir",
+        "dni_duenio": "44510229",
+        "tipo": "perro"
     }
 ]

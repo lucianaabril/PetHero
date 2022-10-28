@@ -7,6 +7,7 @@
         public $tamanio;
         public $observaciones;
         public $dni_duenio;
+        public $tipo;
 
         public function __construct(){
             
@@ -35,5 +36,17 @@
         public function getDni_duenio(){return $this->dni_duenio;}
 
         public function setDni_duenio($dni_duenio){$this->dni_duenio = $dni_duenio;}
+
+        public function getTipo()
+        {
+                return $this->tipo;
+        }
+
+        public function setTipo($tipo): self
+        {
+                $this->tipo = $tipo;
+
+                return $this;
+        }
     }
 ?>

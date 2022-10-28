@@ -56,6 +56,16 @@
         public function getPreferencia(){return $this->preferencia;}
 
         public function setPreferencia($preferencia){$this->preferencia = $preferencia;}
+
+        public function showGuardian(){
+            echo "Nombre: ".$this->getNombre();?><html> <br></html> <?php
+            echo "Apellido: ".$this->getApellido();?><html> <br></html> <?php
+            echo "Telefono: ".$this->getTelefono();?><html> <br></html> <?php
+            echo "Disponibilidad: ". print_r($this->getDisponibilidad());?><html> <br></html> <?php
+            echo "Tarifa: ".$this->getTarifa();?><html> <br></html> <?php
+            echo "Preferencia: ".$this->getPreferencia();?><html> <br></html> <?php
+            ?><html> <br></html> <?php
+        }
     
     }
 ?>

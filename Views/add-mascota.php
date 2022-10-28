@@ -15,6 +15,9 @@ include("nav-bar.php");
             <label for="nombre">Nombre de tu mascota:</label>
             <input type="text" name="nombre" required>
             <br><br>
+            <label for="tipo">Tipo:</label>
+            <input type="radio" name="tipo" value="perro" required>Perro
+            <input type="radio" name="tipo" value="gato">Gato
             <label for="edad">Edad:</label>
             <input type="text" name="edad" required>
             <br><br>
@@ -36,7 +39,7 @@ include("nav-bar.php");
             <input type="file" name="calendario" accept="image/,.png,.jpg*" required></input>
             <br><br>
             <label for="video">Video de mascota:</label>
-            <input type="file" name="video" accept="video/,.gif*"></input>
+            <input type="file" name="video" accept="video/,.mp4,.gif*"></input>
             <br><br>
             <button type="submit">Agregar</button>
             <button type="reset">Borrar</button>

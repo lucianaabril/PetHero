@@ -50,6 +50,7 @@ class MascotaDAO
             $valuesArray["tamanio"] = $pet->getTamanio();
             $valuesArray["observaciones"] = $pet->getObservaciones();
             $valuesArray["dni_duenio"] = $pet->getDni_duenio();
+            $valuesArray["tipo"] = $pet->getTipo();
 
             array_push($arrayToEncode, $valuesArray);
         }
@@ -74,6 +75,7 @@ class MascotaDAO
                 $pet->setTamanio($item["tamanio"]);
                 $pet->setObservaciones($item["observaciones"]);
                 $pet->setDni_duenio($item["dni_duenio"]);
+                $pet->setTipo($item["tipo"]);
 
                 array_push($this->list, $pet);
             }
