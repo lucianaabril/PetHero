@@ -129,13 +129,14 @@ class UserController
       return false;
     }
     return true;
-
+    echo "";
   }
 
   public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '', $preferencia = '')
   {
     
     if ($this->validar($email,$password,$type,$nombre,$apellido,$dni,$telefono,$direccion,$cumpleanios,$disponibilidad,$tarifa,$preferencia)) {
+      
       if ($_POST['type'] == 'G') {
         $guardian = new Guardian();
         $guardian->setEmail($email);
