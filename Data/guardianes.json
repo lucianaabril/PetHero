@@ -7,8 +7,8 @@
         "dni": "44635273",
         "cumpleanios": "2003-01-28",
         "disponibilidad": [
-            null,
-            null
+            "2023-06-29",
+            "2022-03-12"
         ],
         "tarifa": null,
         "preferencia": null,
@@ -24,8 +24,6 @@
         "dni": "44000231",
         "cumpleanios": "2002-08-08",
         "disponibilidad": [
-            null,
-            null
         ],
         "tarifa": null,
         "preferencia": "grande",
@@ -41,8 +39,6 @@
         "dni": "30526789",
         "cumpleanios": "1994-02-01",
         "disponibilidad": [
-            null,
-            null
         ],
         "tarifa": null,
         "preferencia": "pequenio",
@@ -58,8 +54,6 @@
         "dni": "30526789",
         "cumpleanios": "1994-02-01",
         "disponibilidad": [
-            null,
-            null
         ],
         "tarifa": null,
         "preferencia": "grande",

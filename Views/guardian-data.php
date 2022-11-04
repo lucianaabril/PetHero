@@ -4,12 +4,6 @@
     </head>
     <body>
         <form action="<?php echo FRONT_ROOT . "User/changeGuardianData"?>" method=POST>
-
-            <label for=>Disponibilidad</label>
-            <p>Ingrese el rango de disponibilidad:</p>
-            <input type="date" name="inicio"></input>
-            <input type="date" name="final"></input>
-            <br><br>
             <label for=>Tarifa</label>
             <br>
             <input type="number" name="tarifa" placeholder="Ingrese su tarifa"></input>

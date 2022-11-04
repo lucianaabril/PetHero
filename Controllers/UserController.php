@@ -16,20 +16,39 @@
         $this->guardianDAO = new GuardianDAO();
         $this->duenioDAO = new DuenioDAO();
       }
+
+      public function showDisponibilidadView(){
+        require_once(VIEWS_PATH . 'disponibilidad.php');
+      }
+
+      public function changeDisponibilidad($fecha = '')
+      {
+        if (isset($_SESSION['email'])) {
+          $guardian = new Guardian();
+          $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
+          if ($fecha != '') {
+            $guardian->setDisponibilidad($fecha);
+            $this->guardianDAO->Update($guardian);
+          }
+          else {
+            echo "De ingresar una fecha";
+          }
+        }
+        else {
+          require_once(VIEWS_PATH . 'login.php');
+        }
+      }
     
       public function showGuardianDataView()
       {
         require_once(VIEWS_PATH . "guardian-data.php");
       }
     
-      public function changeGuardianData($inicio = '', $final = '', $tarifa = '', $preferencia = '')
+      public function changeGuardianData($tarifa = '', $preferencia = '')
       {
         if (isset($_SESSION['email'])) {
           $guardian = new Guardian();
           $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
-          if ($inicio != '' && $final != '') {
-            $guardian->setDisponibilidad($inicio, $final);
-          }
     
           if ($tarifa != '') {
             $guardian->setTarifa($tarifa);

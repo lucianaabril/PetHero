@@ -55,7 +55,9 @@
             $guardian->setDireccion($item["direccion"]);
             $guardian->setCumpleanios($item["cumpleanios"]);
             $disp = $item["disponibilidad"];
-            $guardian->setDisponibilidad($disp[0], $disp[1]);
+            foreach($disp as $i){
+              $guardian->setDisponibilidad($i);
+            }
             $guardian->setTarifa($item["tarifa"]);
             $guardian->setEmail($item["email"]);
             $guardian->setPassword($item["password"]);
