@@ -32,14 +32,14 @@ include("nav-bar.php");
             <label for="observaciones">Observaciones:</label>
             <textarea name="observaciones" cols="30" rows="10"></textarea>
             <br><br>
-            <label for="foto">Foto de mascota:</label>
-            <input type="file" name="foto" accep="image/*.png,.jpg" required></input>
+            <!--<label for="foto">Foto de mascota:</label>
+            <input type="file" name="foto" accep="image/*.png,.jpg"></input>
             <br><br>
             <label for="calendario">Calendario de vacunación:</label>
-            <input type="file" name="calendario" accept="image/,.png,.jpg*" required></input>
+            <input type="file" name="calendario" accept="image/,.png,.jpg*"></input>
             <br><br>
             <label for="video">Video de mascota:</label>
-            <input type="file" name="video" accept="video/,.mp4,.gif*"></input>
+            <input type="file" name="video" accept="video/,.mp4,.gif*"></input>-->
             <br><br>
             <button type="submit">Agregar</button>
             <button type="reset">Borrar</button>

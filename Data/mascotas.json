@@ -16,5 +16,14 @@
         "observaciones": "le gusta dormir",
         "dni_duenio": "44510229",
         "tipo": "perro"
+    },
+    {
+        "nombre": "Minho",
+        "edad": "3",
+        "raza": "brit\u00e1nico",
+        "tamanio": "grande",
+        "observaciones": "le gusta dormir",
+        "dni_duenio": "44692743",
+        "tipo": "gato"
     }
 ]

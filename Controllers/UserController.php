@@ -29,6 +29,7 @@
           if ($fecha != '') {
             $guardian->setDisponibilidad($fecha);
             $this->guardianDAO->Update($guardian);
+            require_once(VIEWS_PATH . 'guardian-page.php');
           }
           else {
             echo "De ingresar una fecha";
@@ -203,12 +204,29 @@
         $guardianDAO = new GuardianDAO();
         $guardianes = $guardianDAO->GetAll();
 
-        foreach($pets as $pet){
-          foreach($guardianes as $guardian){
+        foreach($pets as $pet){ //muestra al dueño SOLO los guardianes que cuiden perros del tamaño 
+          foreach($guardianes as $guardian){                                        //de su mascota
             if($pet->getTamanio() == $guardian->getPreferencia()){
               $guardian->showGuardian();
             }
           }
+        }
+      }
+
+      public function consultarGuardianes($inicio = '', $fin = ''){
+        if($inicio != '' && $fin != ''){
+          $guardianDAO = new GuardianDAO();
+          $guardianes = $guardianDAO->getAll();
+          foreach($guardianes as $guardian){
+            $fechas = $guardian->getDisponibilidad();
+            foreach($fechas as $fecha){
+              if($fecha >= $inicio && $fecha <= $fin){
+                $guardian->showGuardian();
+              }
+            }
+          }
+        } else {
+          echo "Debe ingresar fechas";
         }
       }
 

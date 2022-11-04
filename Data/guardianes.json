@@ -8,7 +8,8 @@
         "cumpleanios": "2003-01-28",
         "disponibilidad": [
             "2023-06-29",
-            "2022-03-12"
+            "2022-03-12",
+            "2022-11-20"
         ],
         "tarifa": null,
         "preferencia": null,
@@ -24,6 +25,8 @@
         "dni": "44000231",
         "cumpleanios": "2002-08-08",
         "disponibilidad": [
+            "2022-11-14",
+            "2022-11-26"
         ],
         "tarifa": null,
         "preferencia": "grande",
@@ -38,8 +41,7 @@
         "direccion": "Edison 3535",
         "dni": "30526789",
         "cumpleanios": "1994-02-01",
-        "disponibilidad": [
-        ],
+        "disponibilidad": [],
         "tarifa": null,
         "preferencia": "pequenio",
         "email": "harry@gmail.com",
@@ -53,8 +55,7 @@
         "direccion": "Edison 3535",
         "dni": "30526789",
         "cumpleanios": "1994-02-01",
-        "disponibilidad": [
-        ],
+        "disponibilidad": [],
         "tarifa": null,
         "preferencia": "grande",
         "email": "luis@gmail.com",

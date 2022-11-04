@@ -9,5 +9,16 @@
         "email": "mailen@gmail.com",
         "password": "yeko00",
         "type": "D"
+    },
+    {
+        "nombre": "Luciana",
+        "apellido": "Dominguez",
+        "dni": "44692743",
+        "telefono": "2234569466",
+        "direccion": "Cerrito 702",
+        "cumpleanios": "2003-03-13",
+        "email": "lu@gmail.com",
+        "password": "1313",
+        "type": "D"
     }
 ]
