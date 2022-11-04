@@ -25,5 +25,14 @@
         "observaciones": "le gusta dormir",
         "dni_duenio": "44692743",
         "tipo": "gato"
+    },
+    {
+        "nombre": "Jisung",
+        "edad": "1",
+        "raza": "naranja",
+        "tamanio": "pequenio",
+        "observaciones": "le gusta comer",
+        "dni_duenio": "44692743",
+        "tipo": "gato"
     }
 ]

@@ -213,6 +213,42 @@
         }
       }
 
+      public function showFiltrarFechasView(){
+        require_once(VIEWS_PATH . 'filtrar-fecha.php');
+      }
+
+      public function filtrarFechas($inicio = '', $fin = ''){
+        if($inicio != '' && $fin != '')
+        {
+          $petController = new MascotasController();
+          $user = new Duenio();
+          $user = $_SESSION["loggeduser"];
+          $pets = $petController->getMascotasByDuenio($user->getDni());
+
+          $guardianDAO = new GuardianDAO();
+          $guardianes = $guardianDAO->getAll();
+
+          foreach($pets as $pet){
+            foreach($guardianes as $guardian){
+              if($pet->getTamanio() == $guardian->getPreferencia()){
+                $fechas = $guardian->getDisponibilidad();
+                foreach($fechas as $fecha){
+                  if($fecha >= $inicio && $fecha <= $fin){
+                    $cont = true;
+                  }
+                }
+                if($cont == true){
+                  $guardian->showGuardian();
+                  $cont = false;
+                }
+              }
+            }
+          }
+        } else {
+          echo "Debe ingresar fechas";
+        }
+      }
+
       public function showViewGuardianesAsDuenio(){
         require_once(VIEWS_PATH . "view-guardianes.php");
       }

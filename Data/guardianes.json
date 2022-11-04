@@ -41,7 +41,11 @@
         "direccion": "Edison 3535",
         "dni": "30526789",
         "cumpleanios": "1994-02-01",
-        "disponibilidad": [],
+        "disponibilidad": [
+            "2022-11-23",
+            "2022-11-24",
+            "2022-11-25"
+        ],
         "tarifa": null,
         "preferencia": "pequenio",
         "email": "harry@gmail.com",
