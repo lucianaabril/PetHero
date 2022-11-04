@@ -1,0 +1,12 @@
+.guardian {
+  background-color: rgb(110, 110, 110);
+  width: 200px;
+  border: 5px solid rgb(194, 194, 194);
+  padding: 50px;
+  margin: 50px;
+  display:inline-block;
+}
+
+a {
+  color:rgb(0, 131, 81);
+}
