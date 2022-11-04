@@ -33,7 +33,7 @@ use Controllers\MascotasController as MascotasController;
                 echo "Tarifa: ".$guardian->getTarifa();?><html> <br></html> <?php
                 echo "Preferencia: ".$guardian->getPreferencia();?><html> <br></html> <?php
                 ?><html> <br>
-                </nav> 
+                </div> 
                 </html> <?php
             }
           }
