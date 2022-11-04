@@ -3,6 +3,10 @@ use Models\Duenio as Duenio;
 use DAO\GuardianDAO as GuardianDAO;
 use Controllers\MascotasController as MascotasController;
 
+
+    include("nav-bar.php");
+
+
 ?>
 <html>
     <head>
@@ -41,7 +45,9 @@ use Controllers\MascotasController as MascotasController;
 
         ?> 
         <br>
+        <div class="filtro">
         <a href="<?php echo FRONT_ROOT ?>User/">Filtrar por rango de fechas</a>
+        </div>
         <?php
      ?> 
     </body>
