@@ -195,25 +195,9 @@
         }
       }
 
-      public function viewGuardianesAsDuenio(){
-        $petController = new MascotasController();
-        $user = new Duenio();
-        $user = $_SESSION["loggeduser"];
-        $pets = $petController->getMascotasByDuenio($user->getDni());
-        $guardianDAO = new GuardianDAO();
-        $guardianes = $guardianDAO->GetAll();
-
-        foreach($pets as $pet){
-          foreach($guardianes as $guardian){
-            if($pet->getTamanio() == $guardian->getPreferencia()){
-              $guardian->showGuardian();
-            }
-          }
-        }
-      }
 
       public function showViewGuardianesAsDuenio(){
-        $this->viewGuardianesAsDuenio();
+        require_once(VIEWS_PATH . "view-guardianes.php");
       }
     
       public function showView($type)
