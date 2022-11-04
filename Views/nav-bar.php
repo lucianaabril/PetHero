@@ -1,7 +1,4 @@
-<html>
-    <head>
-        <title>Menu</title>
-        <style><?php include(VIEWS_PATH . "/layout/styles/nav-bar.css")?></style>
+<style><?php include(VIEWS_PATH . "/layout/styles/nav-bar.css")?></style>
     </head>
     <body>
         <span class="nav-bar">
@@ -15,7 +12,7 @@
             <a class="item" href="<?php echo FRONT_ROOT."User/ShowSignupView" ?>">Signup</a>
         </nav>
 </span>
-        
-           
+
+
     </body>
 </html>
