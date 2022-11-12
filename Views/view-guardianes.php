@@ -38,7 +38,7 @@ include("nav-bar.php");
             }
           } ?> <br>
           <div class="filtro">
-            <a href="<?php echo FRONT_ROOT ?>User/showFiltrarFechasView">Filtrar por rango de fechas</a>
+            <a href="<?php echo FRONT_ROOT ?>User/showFiltrarFechaView">Filtrar fecha</a>
           </div>
 
           <a  class="backMenu" href= <?php echo( FRONT_ROOT . "User/getView")?>>
