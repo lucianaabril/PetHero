@@ -6,6 +6,11 @@
     use DAO\GuardianDAO as GuardianDAO;
     use DAO\DuenioDAO as DuenioDAO;
     use Controllers\MascotasController as MascotasController;
+
+    define ("FECHA", "");
+
+    const FECHA = "hola"; 
+
     class UserController
     {
       private $guardianDAO;
@@ -196,6 +201,10 @@
         }
       }
 
+      public function showViewGuardianesAsDuenio(){
+        require_once(VIEWS_PATH . "view-guardianes.php");
+      }
+
       public function viewGuardianesAsDuenio(){
         $petController = new MascotasController();
         $user = new Duenio();
@@ -203,14 +212,20 @@
         $pets = $petController->getMascotasByDuenio($user->getDni());
         $guardianDAO = new GuardianDAO();
         $guardianes = $guardianDAO->GetAll();
+        $array = array();
 
         foreach($pets as $pet){
           foreach($guardianes as $guardian){
             if($pet->getTamanio() == $guardian->getPreferencia()){
-              $guardian->showGuardian();
+              array_push($array, $guardian);
             }
           }
         }
+        return $array;
+      }
+
+      public function showGuardianesDispView(){
+        require_once(VIEWS_PATH . 'view-guardianes-disp.php');
       }
 
       public function showFiltrarFechaView(){
@@ -227,6 +242,7 @@
 
           $guardianDAO = new GuardianDAO();
           $guardianes = $guardianDAO->getAll();
+          $array = array();
 
           foreach($pets as $pet){
             foreach($guardianes as $guardian){
@@ -234,23 +250,21 @@
                 $fechas = $guardian->getDisponibilidad();
                 foreach($fechas as $fecha_disp){
                   if($fecha == $fecha_disp){
-                    $cont = true;
+                    echo "Nombre: ".$guardian->getNombre(); ?> <html> <br> </html> <?php
+                    echo "Apellido: ".$guardian->getApellido(); ?> <html> <br> </html> <?php
+                    echo "Telefono: ".$guardian->getTelefono(); ?> <html> <br> </html> <?php
+                    echo "Disponibilidad: ". print_r($guardian->getDisponibilidad()); ?> <html> <br ></html> <?php
+                    echo "Tarifa: ".$guardian->getTarifa(); ?> <html> <br> </html> <?php
+                    echo "Preferencia: ".$guardian->getPreferencia(); ?> <html> <br> <br> </html> <?php
                   }
-                }
-                if($cont == true){
-                  $guardian->showGuardian();
-                  $cont = false;
                 }
               }
             }
+            return $array;
           }
         } else {
           echo "Debe ingresar una fecha";
         }
-      }
-
-      public function showViewGuardianesAsDuenio(){
-        require_once(VIEWS_PATH . "view-guardianes.php");
       }
     
       public function showView($type)

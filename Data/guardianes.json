@@ -10,10 +10,12 @@
             "2023-06-29",
             "2022-03-12",
             "2022-11-20",
-            "2022-11-24"
+            "2022-11-24",
+            "2022-11-14",
+            "2021-12-13"
         ],
         "tarifa": null,
-        "preferencia": null,
+        "preferencia": "grande",
         "email": "sofi@gmail.com",
         "password": "2828",
         "type": "G"

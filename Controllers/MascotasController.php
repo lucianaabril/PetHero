@@ -30,7 +30,6 @@ class MascotasController{
         echo "Su mascota ha sido agregada con éxito";   
     }
 
-
     public function getMascotasByDuenio(){
         $array = array();
         $user = new Duenio();
