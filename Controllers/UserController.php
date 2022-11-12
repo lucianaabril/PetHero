@@ -32,7 +32,7 @@
             require_once(VIEWS_PATH . 'guardian-page.php');
           }
           else {
-            echo "De ingresar una fecha";
+            echo "Debe ingresar una fecha";
           }
         }
         else {
@@ -261,65 +261,17 @@
           require_once(VIEWS_PATH . "duenio-page.php");
         }
       }
+
+      public function showPerfil(){
+        require_once(VIEWS_PATH . "perfil.php");
+      }
     
-      public function showPerfil()
+      public function getUserType()
       {
         if ($_SESSION['type'] == 'G') {
-          $guardian = $this->guardianDAO->getByEmail($_SESSION['email']); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Nombre: " . $guardian->getNombre(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Apellido: " . $guardian->getApellido(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "DNI: " . $guardian->getDni(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Teléfono: " . $guardian->getTelefono(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Dirección: " . $guardian->getDireccion(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Fecha de nacimiento: " . $guardian->getCumpleanios(); ?> <html> <br>
-    
-          </html> <?php
-                  $disp = $guardian->getDisponibilidad();
-                  echo "Disponibilidad: " . $disp[0] . " / " . $disp[1]; ?> <html> <br>
-    
-          </html> <?php
-                  echo "Tarifa: $" . $guardian->getTarifa(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Preferencia tamaño de perro: " . $guardian->getPreferencia(); ?> <html> <br>
-    
-          </html> <?php
-                } else {
-                  $duenio = $this->duenioDAO->getByEmail($_SESSION['email']); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Nombre: " . $duenio->getNombre(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Apellido: " . $duenio->getApellido(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "DNI: " . $duenio->getDni(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Teléfono: " . $duenio->getTelefono(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Dirección: " . $duenio->getDireccion(); ?> <html> <br>
-    
-          </html> <?php
-                  echo "Fecha de nacimiento: " . $duenio->getCumpleanios(); ?> <html> <br>
-    
-          </html> <?php
-                }
-              }
-            }
-
-    ?>
+          return 'g';
+        } else {
+          return 'd';
+        }
+      }
+}

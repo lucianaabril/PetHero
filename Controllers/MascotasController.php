@@ -26,27 +26,10 @@ class MascotasController{
 
         $this->mascotaDAO->Add($pet);
         
+        //podríamos hacer una excepción
         echo "Su mascota ha sido agregada con éxito";   
     }
 
-    public function showMascotasByDuenio(){
-        $array = array();
-        $i=1;
-        $user = new Duenio();
-        $user = $_SESSION["loggeduser"];
-        $array = $this->mascotaDAO->getByDniDuenio($user->getDni());
-        foreach($array as $pet){
-            echo "Mascota " . $i ;?><html> <br></html> <?php
-            $i++;
-            echo "Nombre: ".$pet->getNombre();?><html> <br></html> <?php
-            echo "Edad: ".$pet->getEdad();?><html> <br></html> <?php
-            echo "Raza: ".$pet->getRaza();?><html> <br></html> <?php
-            echo "Tamaño: ".$pet->getTamanio();?><html> <br></html> <?php
-            echo "Obervaciones: ".$pet->getObservaciones();?><html> <br></html> <?php
-            echo "Tipo: ".$pet->getTipo();?><html> <br></html> <?php
-            ?><html> <br></html> <?php
-        }
-    }
 
     public function getMascotasByDuenio(){
         $array = array();

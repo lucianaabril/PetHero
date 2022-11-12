@@ -53,18 +53,5 @@
 
         public function setPreferencia($preferencia){$this->preferencia = $preferencia;}
 
-        public function showGuardian(){
-            echo "Nombre: ". $this->getNombre();?> <html><br></html> <?php
-            echo "Apellido: ". $this->getApellido();?> <html><br></html> <?php
-            echo "Telefono: ". $this->getTelefono();?> <html><br></html> <?php
-            echo "Disponibilidad: "; ?> <html><br></html> <?php
-            $disp = $this->getDisponibilidad();
-            foreach($disp as $x){
-                echo "$x"; ?> <html><br></html> <?php
-            }
-            echo "Tarifa: ". $this->getTarifa();?> <html><br></html> <?php
-            echo "Preferencia: ". $this->getPreferencia();?> <html><br></html> <?php
-            ?> <html><br></html> <?php
-        }
     }
 ?>
