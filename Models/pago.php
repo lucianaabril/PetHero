@@ -5,10 +5,7 @@
         public $fecha;
         public $monto;
     
-        public function __construct($forma_pago, $fecha, $monto){
-            $this->forma_pago = $forma_pago;
-            $this->fecha = $fecha;
-            $this->monto = $monto;
+        public function __construct(){
         }
 
         public function getForma_pago(){return $this->forma_pago;}

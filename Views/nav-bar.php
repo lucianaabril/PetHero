@@ -11,8 +11,6 @@
             <a class="item" href="<?php echo FRONT_ROOT."User/ShowLoginView" ?>">Login</a>
             <a class="item" href="<?php echo FRONT_ROOT."User/ShowSignupView" ?>">Signup</a>
         </nav>
-</span>
-
-
+        </span>
     </body>
 </html>

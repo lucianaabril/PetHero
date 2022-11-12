@@ -213,12 +213,12 @@
         }
       }
 
-      public function showFiltrarFechasView(){
+      public function showFiltrarFechaView(){
         require_once(VIEWS_PATH . 'filtrar-fecha.php');
       }
 
-      public function filtrarFechas($inicio = '', $fin = ''){
-        if($inicio != '' && $fin != '')
+      public function filtrarFecha($fecha = ''){
+        if($fecha != '')
         {
           $petController = new MascotasController();
           $user = new Duenio();
@@ -232,8 +232,8 @@
             foreach($guardianes as $guardian){
               if($pet->getTamanio() == $guardian->getPreferencia()){
                 $fechas = $guardian->getDisponibilidad();
-                foreach($fechas as $fecha){
-                  if($fecha >= $inicio && $fecha <= $fin){
+                foreach($fechas as $fecha_disp){
+                  if($fecha == $fecha_disp){
                     $cont = true;
                   }
                 }
@@ -245,7 +245,7 @@
             }
           }
         } else {
-          echo "Debe ingresar fechas";
+          echo "Debe ingresar una fecha";
         }
       }
 
