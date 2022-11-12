@@ -45,6 +45,10 @@ include("nav-bar.php");
             <button type="reset">Borrar</button>
         </form>
     </div>
+
+    <a  class="backMenu" href= <?php echo( FRONT_ROOT . "User/getView")?>>
+        <input type="button" value="Volver al Menú" />
+    </a>
 </body>
 
 </html>

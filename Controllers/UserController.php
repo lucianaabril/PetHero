@@ -262,6 +262,16 @@
         }
       }
 
+      public function getView(){
+        $type = $this->getUserType();
+        if($type == 'g'){
+          require_once(VIEWS_PATH . "guardian-page.php");
+        }
+        if($type == 'd'){
+          require_once(VIEWS_PATH . "duenio-page.php");
+        }
+      }
+
       public function showPerfil(){
         require_once(VIEWS_PATH . "perfil.php");
       }
@@ -273,5 +283,9 @@
         } else {
           return 'd';
         }
+      }
+
+      public function showMascotas(){
+        require_once(VIEWS_PATH . "show-mascotas.php");
       }
 }

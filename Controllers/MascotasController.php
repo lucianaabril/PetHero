@@ -42,5 +42,7 @@ class MascotasController{
     public function viewAddMascota(){
         require_once(VIEWS_PATH ."add-mascota.php");
     }
+
+    
 }
 ?>
