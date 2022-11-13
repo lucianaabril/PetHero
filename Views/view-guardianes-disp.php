@@ -12,18 +12,21 @@
       <h2>Guardianes disponibles en la fecha indicada:</h2>
       <?php
           $controller = new Controller();
-          $array = $controller->filtrarFecha();
+          $array = $controller->getArrayFiltrado();
+          var_dump($array);
           
           foreach($array as $guardian){ ?>
           <div class="guardian">
           <?php
-            echo "Nombre: ".$guardian->getNombre();?> <html> <br> </html> <?php
-            echo "Apellido: ".$guardian->getApellido();?> <html> <br> </html> <?php
-            echo "Telefono: ".$guardian->getTelefono();?> <html> <br> </html> <?php
-            echo "Disponibilidad: ". print_r($guardian->getDisponibilidad());?> <html> <br ></html> <?php
-            echo "Tarifa: ".$guardian->getTarifa();?> <html> <br> </html> <?php
-            echo "Preferencia: ".$guardian->getPreferencia();?> <html> <br> </html> <?php
-          ?> <html> <br>
-          </div> </html>
-          <?php
-          } ?> <br>
+            echo "Nombre: ". $guardian->getNombre();?><html> <br></html> <?php
+            echo "Apellido: ". $guardian->getApellido();?><html> <br></html> <?php
+            echo "Telefono: ". $guardian->getTelefono();?><html> <br></html> <?php
+            $disponibilidad = $guardian->getDisponibilidad();
+            echo "Disponibilidad: "; ?> <html> <br> </html> <?php
+            foreach($disponibilidad as $fecha){
+              echo $fecha; ?> <br> <?php
+            }
+            echo "Tarifa: ". $guardian->getTarifa();?><html> <br></html> <?php
+            echo "Preferencia: ". $guardian->getPreferencia(); ?>
+            <html> </div> </html> <?php
+          } ?> </html> <br>

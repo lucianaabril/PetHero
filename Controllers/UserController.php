@@ -7,19 +7,25 @@
     use DAO\DuenioDAO as DuenioDAO;
     use Controllers\MascotasController as MascotasController;
 
-    define ("FECHA", "");
-
-    const FECHA = "hola"; 
-
     class UserController
     {
       private $guardianDAO;
       private $duenioDAO;
+      private $array_filtrado;
     
       function __construct()
       {
         $this->guardianDAO = new GuardianDAO();
         $this->duenioDAO = new DuenioDAO();
+        $this->array_filtrado = array();
+      }
+
+      public function setArrayFiltrado($array){
+        $this->array_filtrado = $array;
+      }
+
+      public function getArrayFiltrado(){
+        return $this->array_filtrado;
       }
 
       public function showDisponibilidadView(){
@@ -250,17 +256,13 @@
                 $fechas = $guardian->getDisponibilidad();
                 foreach($fechas as $fecha_disp){
                   if($fecha == $fecha_disp){
-                    echo "Nombre: ".$guardian->getNombre(); ?> <html> <br> </html> <?php
-                    echo "Apellido: ".$guardian->getApellido(); ?> <html> <br> </html> <?php
-                    echo "Telefono: ".$guardian->getTelefono(); ?> <html> <br> </html> <?php
-                    echo "Disponibilidad: ". print_r($guardian->getDisponibilidad()); ?> <html> <br ></html> <?php
-                    echo "Tarifa: ".$guardian->getTarifa(); ?> <html> <br> </html> <?php
-                    echo "Preferencia: ".$guardian->getPreferencia(); ?> <html> <br> <br> </html> <?php
+                    array_push($array, $guardian);
                   }
                 }
               }
             }
-            return $array;
+            $this->setArrayFiltrado($array);
+            require_once(VIEWS_PATH . 'view-guardianes-disp.php');
           }
         } else {
           echo "Debe ingresar una fecha";
