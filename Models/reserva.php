@@ -41,12 +41,24 @@
 
         public function setDniDuenio($dni_duenio){$this->dni_duenio = $dni_duenio;}
 
-        public function getDniEncuentro(){return $this->encuentro;}
+        public function getEncuentro(){return $this->encuentro;}
 
-        public function setDniEncuentro($encuentro){$this->encuentro = $encuentro;}
+        public function setEncuentro($encuentro){$this->encuentro = $encuentro;}
 
         public function getPago(){return $this->pago;}
 
         public function setPago(Pago $pago){$this->pago = $pago;}
+
+        public function getNombre_mascota()
+        {
+                return $this->nombre_mascota;
+        }
+ 
+        public function setNombre_mascota($nombre_mascota)
+        {
+                $this->nombre_mascota = $nombre_mascota;
+
+                return $this;
+        }
     }
 ?>

@@ -36,6 +36,17 @@
         return null;
       }
 
+      public function getByDNI($dni) 
+      {
+        $this->loadData();
+        foreach($this->list as $item) 
+        {
+          if($item->getDni() == $dni)
+            return $item;
+        }
+        return null;
+      }
+
       private function LoadData() 
       {
         $this->list = array();
