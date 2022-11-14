@@ -7,4 +7,8 @@ include("nav-bar.php");
         <input type="date" name="fecha">
         <button type="submit">Filtrar</button>
     </form>
+
+    <a  class="backMenu" href= <?php echo( FRONT_ROOT . "User/getView")?>>
+            <input type="button" value="Volver al Menú" />
+        </a>
 </html>

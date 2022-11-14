@@ -40,7 +40,11 @@ use Controllers\UserController as UController;
 
             </html> <?php
                     $disp = $guardian->getDisponibilidad();
-                    echo "Disponibilidad: " . $disp[0] . " / " . $disp[1]; ?> <html> <br>
+                    echo "Disponibilidad: "; 
+                    foreach($guardian->getDisponibilidad() as $fecha=>$disp){
+                        echo $fecha . ": " . $disp; ?> <br> <?php
+                    }
+                    ?> <html> <br>
 
             </html> <?php
                     echo "Tarifa: $" . $guardian->getTarifa(); ?> <html> <br>

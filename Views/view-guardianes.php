@@ -22,7 +22,7 @@
             echo "Telefono: ". $guardian->getTelefono();?><html> <br></html> <?php
             $disponibilidad = $guardian->getDisponibilidad();
             echo "Disponibilidad: "; ?> <html> <br> </html> <?php
-            foreach($disponibilidad as $fecha){
+            foreach($disponibilidad as $fecha=>$disp){
               echo $fecha; ?> <br> <?php
             }
             echo "Tarifa: ". $guardian->getTarifa();?><html> <br></html> <?php

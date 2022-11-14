@@ -29,7 +29,7 @@
           $guardian = new Guardian();
           $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
           if ($fecha != '') {
-            $guardian->setDisponibilidad($fecha);
+            $guardian->setDisponibilidad($fecha,"disponible");
             $this->guardianDAO->Update($guardian);
             require_once(VIEWS_PATH . 'guardian-page.php');
           }
@@ -61,6 +61,7 @@
             $guardian->setPreferencia($preferencia);
           }
           $this->guardianDAO->Update($guardian);
+          require_once(VIEWS_PATH . 'guardian-page.php');
         } else {
           require_once(VIEWS_PATH . 'login.php');
         }
@@ -210,11 +211,23 @@
         $guardianDAO = new GuardianDAO();
         $guardianes = $guardianDAO->GetAll();
         $array = array();
+        $flag = false;
 
         foreach($pets as $pet){
           foreach($guardianes as $guardian){
             if($pet->getTamanio() == $guardian->getPreferencia()){
-              array_push($array, $guardian);
+              if($array){
+                foreach($array as $g){
+                  if($g->getDni() == $guardian->getDni()){
+                    $flag = true;
+                  }
+                }
+                if(!$flag){
+                  array_push($array, $guardian);
+                }
+              } else {
+                array_push($array, $guardian);
+              }
             }
           }
         }
@@ -225,11 +238,9 @@
         
       }
 
-      public function realizarReserva($reservar='',$dni=''){
+      public function realizarReserva($dni=''){
         $reservasC = new ResC();
-        if(isset($_POST["reservar"])){
-          $reservasC->reservarGuardian($dni);
-        }
+        $reservasC->reservarGuardian($dni);
         
       }
 
@@ -248,16 +259,34 @@
           $guardianDAO = new GuardianDAO();
           $guardianes = $guardianDAO->getAll();
           $arrayD = array();
+          $flag = false;
 
           foreach($pets as $pet){
             foreach($guardianes as $guardian){
               if($pet->getTamanio() == $guardian->getPreferencia()){
-                $fechas = $guardian->getDisponibilidad();
-                foreach($fechas as $fecha_disp){
-                  if($fecha == $fecha_disp){
-                    array_push($arrayD, $guardian);
+                if($arrayD){
+                  foreach($arrayD as $g){
+                    if($g->getDni() == $guardian->getDni()){
+                      $flag = true;
+                    }
+                  }
+                  if(!$flag){
+                    $fechas = $guardian->getDisponibilidad();
+                    foreach($fechas as $fecha_disp=>$values){
+                      if($fecha == $fecha_disp){
+                        array_push($arrayD, $guardian);
+                      }
+                    }
+                  }
+                } else {
+                  $fechas = $guardian->getDisponibilidad();
+                  foreach($fechas as $fecha_disp=>$values){
+                    if($fecha == $fecha_disp){
+                      array_push($arrayD, $guardian);
+                    }
                   }
                 }
+               
               }
             }
             
@@ -304,5 +333,30 @@
         require_once(VIEWS_PATH . "show-mascotas.php");
       }
 
-      
+      public function processReserva($dniGuardian='',$disponibilidad='',$preferencia='',$fecha=''){
+        $dni_guardian = $dniGuardian;
+        $disp = $disponibilidad;
+        $pref = $preferencia;
+        $date= $fecha;
+        include_once(VIEWS_PATH . "add-reserva.php");
+      }
+
+      public function agregarReserva($fecha = '',$hora = '',$encuentro='',$dni_guardian='',$nombre_mascota=''){
+        $controller = new ResC();
+        $controller->Add($fecha, $hora, $encuentro, $dni_guardian, $nombre_mascota);
+      }
+
+      public function showViewPendientes(){
+        require_once(VIEWS_PATH . "reserva.php");
+      }
+
+      public function aceptarReserva($reserva=''){
+        $resC = new resC();
+        $resC->programarReserva($reserva);
+      }
+
+      public function rechazarReserva($reserva=''){
+        $resC = new resC();
+        $resC->rechazarReserva($reserva);
+      }
 }

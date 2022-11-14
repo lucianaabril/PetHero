@@ -6,14 +6,11 @@
         "direccion": "Edison 1900",
         "dni": "44635273",
         "cumpleanios": "2003-01-28",
-        "disponibilidad": [
-            "2023-06-29",
-            "2022-03-12",
-            "2022-11-20",
-            "2022-11-24",
-            "2022-11-14",
-            "2021-12-13"
-        ],
+        "disponibilidad": {
+            "2022-11-29": "disponible",
+            "2023-01-28": "Naranja",
+            "2022-11-26": "disponible"
+        },
         "tarifa": null,
         "preferencia": "grande",
         "email": "sofi@gmail.com",
@@ -27,11 +24,10 @@
         "direccion": "La Pampa 1800",
         "dni": "44000231",
         "cumpleanios": "2002-08-08",
-        "disponibilidad": [
-            "2023-06-29",
-            "2022-11-14",
-            "2022-11-26"
-        ],
+        "disponibilidad": {
+            "2023-01-28": "disponible",
+            "2022-11-19": "disponible"
+        },
         "tarifa": null,
         "preferencia": "grande",
         "email": "juan@gmail.com",
@@ -45,11 +41,7 @@
         "direccion": "Edison 3535",
         "dni": "30526789",
         "cumpleanios": "1994-02-01",
-        "disponibilidad": [
-            "2022-11-23",
-            "2022-11-24",
-            "2022-11-25"
-        ],
+        "disponibilidad": [],
         "tarifa": null,
         "preferencia": "pequenio",
         "email": "harry@gmail.com",
@@ -68,6 +60,23 @@
         "preferencia": "grande",
         "email": "luis@gmail.com",
         "password": "2801",
+        "type": "G"
+    },
+    {
+        "nombre": "Sirius",
+        "apellido": "Black",
+        "telefono": "2235316174",
+        "direccion": "12th Gimmauld Place",
+        "dni": "44123456",
+        "cumpleanios": "1960-11-11",
+        "disponibilidad": {
+            "": null,
+            "2022-11-26": "disponible"
+        },
+        "tarifa": "4500",
+        "preferencia": "pequenio",
+        "email": "sirius@gmail.com",
+        "password": "james",
         "type": "G"
     }
 ]

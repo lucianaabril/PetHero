@@ -39,7 +39,12 @@
 
         public function getDisponibilidad(){return $this->disponibilidad;}
 
-        public function setDisponibilidad($fecha){array_push($this->disponibilidad, $fecha);}
+        public function setDisponibilidad($fecha,$disp){
+            if(!$this->disponibilidad){
+                $this->disponibilidad = array();
+            }
+            $this->disponibilidad[$fecha] = $disp;
+        }
 
         public function getTarifa(){return $this->tarifa;}
 

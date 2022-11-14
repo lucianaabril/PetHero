@@ -22,6 +22,37 @@ class ReservaDAO{
         return $this->list;
     }
 
+    public function updateEstado($id,$estado){
+        $this->LoadData();
+        foreach($this->list as $item){
+            if($item->getId_reserva() == $id){
+                $item->setEstado($estado);
+            }
+        }
+        $this->SaveData();
+    }
+
+    public function getByDniUser($dni)
+    {
+        $user = $_SESSION["loggeduser"];
+        $this->loadData();
+        $array = array();
+        foreach ($this->list as $item) {
+            /*if($user->getType() == 'd'){
+                if ($item->getDni_duenio() == $dni){
+                    array_push($array,$item);
+                }
+            }*/
+            //if ($user->getType() == 'g'){
+                if ($item->getDniGuardian() == $dni){
+                    array_push($array,$item);
+                 }
+            // }
+        }
+    
+        return $array;
+    }
+
     private function LoadData(){
         $this->list = array();
 
@@ -57,7 +88,6 @@ class ReservaDAO{
         
 
         foreach($this->list as $reserva){
-            $reserva = new Reserva();
             $values = array();
             $values["fecha"] = $reserva->getFecha();
             $values["hora"] = $reserva->getHora();

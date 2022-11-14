@@ -39,8 +39,9 @@
             ?>
             <html> 
               <form action="realizarReserva" method="post">
-              <button type="submit" name="reservar">Reservar</button>
-              <?php $_POST["dni"] = $guardian->getDni() ?>
+              <input type='hidden' name='dni' value="<?php echo $guardian->getDni()?>">
+              <button type="submit">Reservar</button>
+              
               </form>
               
               <!--<script>
@@ -54,7 +55,13 @@
           } 
           ?> <html> <br>
           
+          
           <?php 
         } else{
           echo "no hay guardianes disponibles para la fecha solicitada"; 
-        }
+        } 
+        ?> <html>
+          <a  class="backMenu" href= <?php echo( FRONT_ROOT . "User/getView")?>>
+            <input type="button" value="Volver al Menú" />
+        </a>
+        </html>

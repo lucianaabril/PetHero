@@ -66,8 +66,8 @@
             $guardian->setDireccion($item["direccion"]);
             $guardian->setCumpleanios($item["cumpleanios"]);
             $disp = $item["disponibilidad"];
-            foreach($disp as $i){
-              $guardian->setDisponibilidad($i);
+            foreach($disp as $i=>$i_value){
+              $guardian->setDisponibilidad($i,$i_value);
             }
             $guardian->setTarifa($item["tarifa"]);
             $guardian->setEmail($item["email"]);
