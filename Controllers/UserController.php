@@ -6,26 +6,17 @@
     use DAO\GuardianDAO as GuardianDAO;
     use DAO\DuenioDAO as DuenioDAO;
     use Controllers\MascotasController as MascotasController;
+    use Controllers\ReservasController as ResC;
 
     class UserController
     {
       private $guardianDAO;
       private $duenioDAO;
-      private $array_filtrado;
     
       function __construct()
       {
         $this->guardianDAO = new GuardianDAO();
         $this->duenioDAO = new DuenioDAO();
-        $this->array_filtrado = array();
-      }
-
-      public function setArrayFiltrado($array){
-        $this->array_filtrado = $array;
-      }
-
-      public function getArrayFiltrado(){
-        return $this->array_filtrado;
       }
 
       public function showDisponibilidadView(){
@@ -231,7 +222,15 @@
       }
 
       public function showGuardianesDispView(){
-        require_once(VIEWS_PATH . 'view-guardianes-disp.php');
+        
+      }
+
+      public function realizarReserva($reservar='',$dni=''){
+        $reservasC = new ResC();
+        if(isset($_POST["reservar"])){
+          $reservasC->reservarGuardian($dni);
+        }
+        
       }
 
       public function showFiltrarFechaView(){
@@ -248,7 +247,7 @@
 
           $guardianDAO = new GuardianDAO();
           $guardianes = $guardianDAO->getAll();
-          $array = array();
+          $arrayD = array();
 
           foreach($pets as $pet){
             foreach($guardianes as $guardian){
@@ -256,14 +255,14 @@
                 $fechas = $guardian->getDisponibilidad();
                 foreach($fechas as $fecha_disp){
                   if($fecha == $fecha_disp){
-                    array_push($array, $guardian);
+                    array_push($arrayD, $guardian);
                   }
                 }
               }
             }
-            $this->setArrayFiltrado($array);
-            require_once(VIEWS_PATH . 'view-guardianes-disp.php');
+            
           }
+          include_once(VIEWS_PATH . 'view-guardianes-disp.php');
         } else {
           echo "Debe ingresar una fecha";
         }
@@ -304,4 +303,6 @@
       public function showMascotas(){
         require_once(VIEWS_PATH . "show-mascotas.php");
       }
+
+      
 }
