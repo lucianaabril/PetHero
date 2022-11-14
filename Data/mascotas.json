@@ -1,38 +1,26 @@
 [
     {
         "nombre": "Yeko",
+        "tipo": "perro",
         "edad": "2",
-        "raza": "caniche",
-        "tamanio": "pequenio",
-        "observaciones": "le gusta jugar",
+        "raza": "Caniche",
+        "tamanio": "mediano",
+        "observaciones": "",
         "dni_duenio": "44510229",
-        "tipo": "perro"
-    },
-    {
-        "nombre": "Padfoot",
-        "edad": "5",
-        "raza": "Pitbull",
-        "tamanio": "grande",
-        "observaciones": "le gusta dormir",
-        "dni_duenio": "44510229",
-        "tipo": "perro"
-    },
-    {
-        "nombre": "Minho",
-        "edad": "3",
-        "raza": "brit\u00e1nico",
-        "tamanio": "grande",
-        "observaciones": "le gusta dormir",
-        "dni_duenio": "44692743",
-        "tipo": "gato"
+        "foto": "..\\img\\jpeg\\foto.jpg",
+        "vacunacion": "..\\img\\png\\vacunacion perro.png",
+        "video": "..\\img\\gif\\video.gif"
     },
     {
         "nombre": "Jisung",
+        "tipo": "gato",
         "edad": "1",
-        "raza": "naranja",
+        "raza": "Naranja",
         "tamanio": "pequenio",
-        "observaciones": "le gusta comer",
-        "dni_duenio": "44692743",
-        "tipo": "gato"
+        "observaciones": "",
+        "dni_duenio": "44510229",
+        "foto": "..\\img\\jpeg\\foto gato.jpg",
+        "vacunacion": "..\\img\\jpeg\\vacunacion gato.jpg",
+        "video": "..\\img\\gif\\video gato.gif"
     }
 ]

@@ -4,6 +4,7 @@ namespace Controllers;
 use Models\Mascota as Mascota;
 use DAO\MascotaDAO as mascotaDAO;
 use Models\Duenio as Duenio;
+use Controllers\FileController as Controller;
 
 class MascotasController{
     private $mascotaDAO;
@@ -12,22 +13,20 @@ class MascotasController{
         $this->mascotaDAO = new mascotaDAO;
     }
 
-    public function Add($nombre = '',$edad = '',$raza = '',$tamanio = '',$observaciones = '',$tipo = ''){
+    public function Add($nombre = '', $tipo = '', $edad = '', $raza = '', $tamanio = '', $observaciones = ''){
         $pet = new Mascota();
         $pet->setNombre($nombre);
+        $pet->setTipo($tipo);
         $pet->setEdad($edad);
         $pet->setRaza($raza);
         $pet->setTamanio($tamanio);
         $pet->setObservaciones($observaciones);
-        $pet->setTipo($tipo);
         $user = new Duenio();
         $user = $_SESSION["loggeduser"];
         $pet->setDni_duenio($user->getDni());
 
         $this->mascotaDAO->Add($pet);
-        
-        //podríamos hacer una excepción
-        echo "Su mascota ha sido agregada con éxito";   
+        require_once(VIEWS_PATH . 'add-mascota-files.php');
     }
 
     public function getMascotasByDuenio(){

@@ -20,13 +20,15 @@ use Controllers\MascotasController as Controller;
             foreach($array as $pet){
                 echo "Mascota " . $i ;?><html> <br></html> <?php
                 $i++;
-                echo "Nombre: ".$pet->getNombre();?><html> <br></html> <?php
-                echo "Edad: ".$pet->getEdad();?><html> <br></html> <?php
-                echo "Raza: ".$pet->getRaza();?><html> <br></html> <?php
-                echo "Tamaño: ".$pet->getTamanio();?><html> <br></html> <?php
-                echo "Obervaciones: ".$pet->getObservaciones();?><html> <br></html> <?php
-                echo "Tipo: ".$pet->getTipo();?><html> <br></html> <?php
-                ?><html> <br></html> <?php
+                echo "Nombre: " . $pet->getNombre(); ?> <html> <br></html> <?php
+                echo "Tipo: " . $pet->getTipo(); ?> <html> <br> </html> <?php
+                echo "Edad: " . $pet->getEdad(); ?> <html> <br> </html> <?php
+                echo "Raza: " . $pet->getRaza(); ?> <html> <br> </html> <?php
+                echo "Tamaño: " . $pet->getTamanio(); ?><html> <br> </html> <?php
+                echo "Obervaciones: " . $pet->getObservaciones(); ?> <html> <br> <br> </html> <?php
+                echo "Foto: " ?> <html> <img src="<?php echo $pet->getFoto() ?>"> <br> <br> </html> <?php
+                echo "Calendario: " ?> <html> <img src="<?php echo $pet->getVacunacion()?>"> <br> <br> </html> <?php
+                echo "Video: " ?> <html> <img src="<?php echo $pet->getVideo()?>"> </html> <?php
             }
             ?>
         </div>

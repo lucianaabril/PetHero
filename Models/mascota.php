@@ -2,20 +2,23 @@
     namespace Models;
     class Mascota{
         public $nombre;
+        public $tipo;
         public $edad;
         public $raza;
         public $tamanio;
         public $observaciones;
         public $dni_duenio;
-        public $tipo;
-
-        public function __construct(){
-            
-        }
+        public $foto;
+        public $vacunacion;
+        public $video;
 
         public function getNombre(){return $this->nombre;}
 
         public function setNombre($nombre){$this->nombre = $nombre;}
+
+        public function getTipo(){return $this->tipo;}
+
+        public function setTipo($tipo){$this->tipo = $tipo;}
 
         public function getEdad(){return $this->edad;}
 
@@ -37,16 +40,16 @@
 
         public function setDni_duenio($dni_duenio){$this->dni_duenio = $dni_duenio;}
 
-        public function getTipo()
-        {
-                return $this->tipo;
-        }
+        public function setFoto($foto){$this->foto = $foto;}
 
-        public function setTipo($tipo): self
-        {
-                $this->tipo = $tipo;
+        public function getFoto(){return $this->foto;}
 
-                return $this;
-        }
+        public function setVacunacion($vacunacion){$this->vacunacion = $vacunacion;}
+
+        public function getVacunacion(){return $this->vacunacion;}
+
+        public function setVideo($video){$this->video = $video;}
+
+        public function getVideo(){return $this->video;}
     }
 ?>
