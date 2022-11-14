@@ -12,10 +12,8 @@
       <h2>Guardianes disponibles en la fecha indicada:</h2>
       <?php
           $controller = new Controller();
-          $array = $controller->getArrayFiltrado();
-          var_dump($array);
-          
-          foreach($array as $guardian){ ?>
+          $guardianes = $controller->getArrayFiltrado();          
+          foreach($guardianes as $guardian){ ?>
           <div class="guardian">
           <?php
             echo "Nombre: ". $guardian->getNombre();?><html> <br></html> <?php

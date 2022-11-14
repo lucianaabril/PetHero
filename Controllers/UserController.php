@@ -261,9 +261,10 @@
                 }
               }
             }
-            $this->setArrayFiltrado($array);
-            require_once(VIEWS_PATH . 'view-guardianes-disp.php');
           }
+          $this->setArrayFiltrado($array);
+          var_dump($this->getArrayFiltrado());
+          require_once(VIEWS_PATH . 'view-guardianes-disp.php');
         } else {
           echo "Debe ingresar una fecha";
         }

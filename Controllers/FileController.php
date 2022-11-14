@@ -1,10 +1,8 @@
 <?php
+    namespace Controllers;
+    use DAO\MascotaDAO as MascotaDAO;
 
-namespace Controllers;
-use model\File as M_File;
-
-class FileController
-{
+    class FileController{
     private $uploadFilePath;
     private $allowedExtensions;
     private $maxSize;
@@ -13,52 +11,52 @@ class FileController
     {
         $this->allowedExtensions = array('png', 'jpg', 'gif');
         $this->maxSize = 5000000;
-        $this->uploadFilePath = IMG_UPLOADS;
+        $this->uploadFilePath = "img\\";
     }
 
-    public function getAllowedExtensions()
-    {
-        return $this->allowedExtensions;
-    }
+    public function getAllowedExtensions(){ return $this->allowedExtensions;}
 
-    public function getMaxSize()
-    {
-        return $this->maxSize;
-    }
+    public function getMaxSize(){return $this->maxSize;}
 
-    /**
-     * @method upload
-     *
-     * @param File $archivo
-     * @param String $tipo  (avatars, covers, walls)
-     */
-    public function upload($archivo, $tipo)
-    {
-        $fileAvatar = new M_File('', $tipo, $value[$tipo]['name'], $value[$tipo]['tmp_name'], $value[$tipo]['size']);
+    public function upload(){
+        $MascotaDAO = new MascotaDAO();
+        $parameters = $_FILES;
+        $locations = array();
 
-        $filePath = $this->uploadFilePath . "/$tipo/";
+        foreach($parameters as $i){
+            $fileName = $i["name"];
+            $fileType = $i["type"];
+            $fileSize = $i["size"];
+            $fileTmp = $i["tmp_name"];
 
-        // Si no existe el directorio, lo crea.
-        if (!file_exists($filePath))
-            mkdir($filePath);
+            $fileType = substr($fileType, 6);
+            $filePath = $this->uploadFilePath . "$fileType\\";
 
-        $fileName = $fileAvatar->getValue();
+            //crear directorio
+            if(!file_exists($filePath)){
+                mkdir($filePath, 0777, true);
+            }
 
-        $fileLocation = $filePath . $fileName;    // ruta completa y archivo.
+            $fileLocation = $filePath . $fileName; //ruta completa con el nombre del archivo
 
-        //Obtenemos la extensión del archivo. No sirve para comprobar el verdadero tipo del archivo
-        $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+            $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION); //obtenemos la extensión del archivo
 
-        if (in_array($fileExtension, $this->allowedExtensions)) {
-            if (!file_exists($fileLocation)) {
-                if ($fileAvatar->getSize() < $this->maxSize) { //Menor a 5 MB
-                    if (move_uploaded_file($fileAvatar->getTempName(), $fileLocation)) {    //guarda el archivo subido en el directorio 'images/' tomando true si lo subio, y false si no lo hizo
-                        //$alerta = 'el archivo '. $nombreArchivo .' fue subido correctamente.';
-                        return true;
+            if(in_array($fileExtension, $this->allowedExtensions)){ //verifica la extensión 
+                if($fileSize < $this->maxSize){ //verifica el tamaño
+                    if(move_uploaded_file($fileTmp, $fileLocation)){ //mueve el archivo desde la ruta temporal a uploads
+                        require_once(VIEWS_PATH . 'duenio-page.php');
                     }
                 }
             }
+
+            $fileLocation = "..\\" . $fileLocation;
+            array_push($locations, $fileLocation);
         }
-        return false;
+
+        $last = $MascotaDAO->last();
+        $last->setFoto($locations[0]);
+        $last->setVacunacion($locations[1]);
+        $last->setVideo($locations[2]);
+        $MascotaDAO->Add($last);
     }
 }
