@@ -4,79 +4,37 @@
         "apellido": "Galbato",
         "telefono": "2235316174",
         "direccion": "Edison 1900",
-        "dni": "44635273",
+        "dni": "44510229",
         "cumpleanios": "2003-01-28",
         "disponibilidad": {
-            "2022-11-29": "disponible",
-            "2023-01-28": "Naranja",
-            "2022-11-26": "disponible"
+            "2022-11-01 - 2022-11-30": "disponible"
         },
-        "tarifa": null,
-        "preferencia": "grande",
+        "tarifa": "1000",
+        "preferencia": "mediano",
         "email": "sofi@gmail.com",
         "password": "2828",
         "type": "G"
     },
     {
-        "nombre": "Juan",
-        "apellido": "Berardi",
-        "telefono": "2235988788",
-        "direccion": "La Pampa 1800",
-        "dni": "44000231",
-        "cumpleanios": "2002-08-08",
+        "nombre": "Luciana",
+        "apellido": "Dominguez",
+        "telefono": "2234569466",
+        "direccion": "Cerrito 702",
+        "dni": "44692743",
+        "cumpleanios": "2003-03-13",
         "disponibilidad": {
-            "2023-01-28": "disponible",
-            "2022-11-19": "disponible"
+            "2022-11-01": "disponible",
+            "2022-11-02": "disponible",
+            "2022-11-03": "disponible",
+            "2022-11-04": "disponible",
+            "2022-11-05": "disponible",
+            "2022-11-06": "disponible",
+            "2022-11-07": "disponible"
         },
-        "tarifa": null,
+        "tarifa": "100",
         "preferencia": "grande",
-        "email": "juan@gmail.com",
-        "password": "2801",
-        "type": "G"
-    },
-    {
-        "nombre": "Harry",
-        "apellido": "Styles",
-        "telefono": "2235988718",
-        "direccion": "Edison 3535",
-        "dni": "30526789",
-        "cumpleanios": "1994-02-01",
-        "disponibilidad": [],
-        "tarifa": null,
-        "preferencia": "pequenio",
-        "email": "harry@gmail.com",
-        "password": "2801",
-        "type": "G"
-    },
-    {
-        "nombre": "Louis",
-        "apellido": "Tomlinson",
-        "telefono": "2235988718",
-        "direccion": "Edison 3535",
-        "dni": "30526789",
-        "cumpleanios": "1994-02-01",
-        "disponibilidad": [],
-        "tarifa": null,
-        "preferencia": "grande",
-        "email": "luis@gmail.com",
-        "password": "2801",
-        "type": "G"
-    },
-    {
-        "nombre": "Sirius",
-        "apellido": "Black",
-        "telefono": "2235316174",
-        "direccion": "12th Gimmauld Place",
-        "dni": "44123456",
-        "cumpleanios": "1960-11-11",
-        "disponibilidad": {
-            "": null,
-            "2022-11-26": "disponible"
-        },
-        "tarifa": "4500",
-        "preferencia": "pequenio",
-        "email": "sirius@gmail.com",
-        "password": "james",
+        "email": "lu@gmail.com",
+        "password": "1313",
         "type": "G"
     }
 ]

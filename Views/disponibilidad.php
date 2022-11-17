@@ -5,8 +5,8 @@
         <form action="<?php echo FRONT_ROOT . "User/changeDisponibilidad" ?>" method=POST>
             <label for=>Disponibilidad</label>
             <p>Ingrese el rango de disponibilidad:</p>
-            <input type="date" name="fecha"></input>
-            <br><br>
+            <input type="date" name="inicio"></input>
+            <input type="date" name="fin"></input>
             <button type="submit">Guardar</button>
         </form>
 

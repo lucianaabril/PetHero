@@ -1,12 +1,10 @@
 <?php
 include("nav-bar.php");
 use Controllers\MascotasController as Controller;
-
 ?>
 
 <html>
     <head>
-
     </head>
     <body>
         <div class=header-mis-mascotas>
@@ -28,11 +26,11 @@ use Controllers\MascotasController as Controller;
                 echo "Obervaciones: " . $pet->getObservaciones(); ?> <html> <br> <br> </html> <?php
                 echo "Foto: " ?> <html> <img src="<?php echo $pet->getFoto() ?>"> <br> <br> </html> <?php
                 echo "Calendario: " ?> <html> <img src="<?php echo $pet->getVacunacion()?>"> <br> <br> </html> <?php
-                echo "Video: " ?> <html> <img src="<?php echo $pet->getVideo()?>"> </html> <?php
+                echo "Video: " ?> <html> <img src="<?php echo $pet->getVideo()?>"> </html> <br> <br> <?php
             }
             ?>
         </div>
-        <a  class="backMenu" href= <?php echo( FRONT_ROOT . "User/getView")?>>
+        <a  class="backMenu" href= <?php echo(FRONT_ROOT . "User/getView")?>>
    <input type="button" value="Volver al Menú" />
     </a>
     </body>

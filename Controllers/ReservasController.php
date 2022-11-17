@@ -16,12 +16,12 @@ class ReservasController{
         $this->reservaDAO = new reservaDAO();
     }
 
-    public function Add($fecha = '',$hora = '',$encuentro='',$dni_guardian='',$nombre_mascota=''){
+    public function Add($fecha = '',$id_reserva = '', $hora = '',$encuentro='',$dni_guardian='',$nombre_mascota=''){
         $reserva = new Reserva();
         $reserva->setFecha($fecha);
         $reserva->setHora($hora);
         $reserva->setEncuentro($encuentro);
-        //$reserva->setId_reserva($id_reserva);
+        $reserva->setId_reserva($id_reserva);
         $reserva->setEstado("pendiente");
         $reserva->setDniGuardian($dni_guardian);
         $user = new Duenio();
@@ -63,7 +63,9 @@ class ReservasController{
     }
 
     function programarReserva($res){
-        $this->reservaDAO->updateEstado($res->getId_reserva(), "programada");
+        $id = $res->getId_reserva();
+        $state = 'programada';
+        $this->reservaDAO->updateEstado($id, $state);
     }
 
     function rechazarReserva($res){

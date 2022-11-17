@@ -20,5 +20,16 @@
         "email": "lu@gmail.com",
         "password": "1313",
         "type": "D"
+    },
+    {
+        "nombre": "Romina",
+        "apellido": "Cajal",
+        "dni": "44510229",
+        "telefono": "2235057124",
+        "direccion": "Rivadavia 7000",
+        "cumpleanios": "1973-05-14",
+        "email": "romina@gmail.com",
+        "password": "111",
+        "type": "D"
     }
 ]

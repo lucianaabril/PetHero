@@ -7,6 +7,9 @@
     use DAO\DuenioDAO as DuenioDAO;
     use Controllers\MascotasController as MascotasController;
     use Controllers\ReservasController as ResC;
+    use DateTime as DateTime;
+    use DatePeriod as DatePeriod;
+    use DateInterval as DateInterval;
 
     class UserController
     {
@@ -23,18 +26,22 @@
         require_once(VIEWS_PATH . 'disponibilidad.php');
       }
 
-      public function changeDisponibilidad($fecha = '')
+      public function changeDisponibilidad($inicio = '', $fin = '')
       {
         if (isset($_SESSION['email'])) {
           $guardian = new Guardian();
           $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
-          if ($fecha != '') {
-            $guardian->setDisponibilidad($fecha,"disponible");
+
+          if($inicio != '' && $fin != ''){
+            $rango = $this->rangeDate($inicio, $fin);
+            foreach($rango as $fecha){
+              $guardian->setDisponibilidad($fecha, "disponible");
+            }
             $this->guardianDAO->Update($guardian);
             require_once(VIEWS_PATH . 'guardian-page.php');
           }
-          else {
-            echo "Debe ingresar una fecha";
+          else{
+            echo "Debe ingresar un rango de fechas";
           }
         }
         else {
@@ -171,7 +178,7 @@
             $guardian->setTelefono($telefono);
             $guardian->setDireccion($direccion);
             $guardian->setCumpleanios($cumpleanios);
-            $guardian->setDisponibilidad(null, null);
+            $guardian->setDisponibilidad(null, null, 'disponible');
             $guardian->setTarifa(null);
             $guardian->setPreferencia(null);
     
@@ -235,21 +242,23 @@
       }
 
       public function showGuardianesDispView(){
-        
+        require_once(VIEWS_PATH . 'view-guardianes-disp.php');
       }
 
       public function realizarReserva($dni=''){
         $reservasC = new ResC();
         $reservasC->reservarGuardian($dni);
-        
       }
 
       public function showFiltrarFechaView(){
         require_once(VIEWS_PATH . 'filtrar-fecha.php');
       }
 
-      public function filtrarFecha($fecha = ''){
-        if($fecha != '')
+      public function filtrarFecha($inicio = '', $fin = ''){
+        if($inicio == '' && $fin == ''){
+          echo "Debe ingresar una fecha o un rango de fechas";
+        }
+        else
         {
           $petController = new MascotasController();
           $user = new Duenio();
@@ -260,40 +269,37 @@
           $guardianes = $guardianDAO->getAll();
           $arrayD = array();
           $flag = false;
+          $fecha = 0;
 
-          foreach($pets as $pet){
-            foreach($guardianes as $guardian){
-              if($pet->getTamanio() == $guardian->getPreferencia()){
-                if($arrayD){
-                  foreach($arrayD as $g){
-                    if($g->getDni() == $guardian->getDni()){
-                      $flag = true;
-                    }
-                  }
-                  if(!$flag){
-                    $fechas = $guardian->getDisponibilidad();
-                    foreach($fechas as $fecha_disp=>$values){
-                      if($fecha == $fecha_disp){
-                        array_push($arrayD, $guardian);
-                      }
-                    }
-                  }
-                } else {
-                  $fechas = $guardian->getDisponibilidad();
-                  foreach($fechas as $fecha_disp=>$values){
-                    if($fecha == $fecha_disp){
-                      array_push($arrayD, $guardian);
+          foreach($pets as $pet) {
+            foreach($guardianes as $guardian) {
+              if($pet->getTamanio() == $guardian->getPreferencia()) {
+                if($arrayD) {
+                  foreach($arrayD as $g) { 
+                    if($g->getDni() == $guardian->getDni()) {
+                      $flag = true; //el guardian ya se mostró
                     }
                   }
                 }
-               
               }
             }
-            
+
+            if(!$flag) { //si el guardián no se mostró
+              if($inicio){
+                $fecha = $inicio;
+              } else {
+                $fecha = $fin;
+              }
+
+              $fechas = $guardian->getDisponibilidad(); 
+              foreach($fechas as $key=>$value){
+                if($fecha == $key){
+                  array_push($arrayD, $guardian);
+                }
+              } 
+            }
           }
-          include_once(VIEWS_PATH . 'view-guardianes-disp.php');
-        } else {
-          echo "Debe ingresar una fecha";
+          include (VIEWS_PATH . 'view-guardianes-disp.php');
         }
       }
     
@@ -333,7 +339,7 @@
         require_once(VIEWS_PATH . "show-mascotas.php");
       }
 
-      public function processReserva($dniGuardian='',$disponibilidad='',$preferencia='',$fecha=''){
+      public function processReserva($dniGuardian = '', $disponibilidad = '', $preferencia = '', $fecha = ''){
         $dni_guardian = $dniGuardian;
         $disp = $disponibilidad;
         $pref = $preferencia;
@@ -359,4 +365,21 @@
         $resC = new resC();
         $resC->rechazarReserva($reserva);
       }
+
+      function rangeDate($inicio, $final) {
+        $ini = DateTime::createFromFormat('Y-m-d', $inicio);
+        $fin = DateTime::createFromFormat('Y-m-d', $final);
+        $periodo = new DatePeriod(
+          $ini,
+          new DateInterval('P1D'),
+          $fin,
+        );
+
+        $rango = [];
+        foreach ($periodo as $date) {
+          $rango[] = $date->format('Y-m-d');
+        }
+        $rango[] = $final;
+        return $rango;
+    }
 }

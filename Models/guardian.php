@@ -39,8 +39,8 @@
 
         public function getDisponibilidad(){return $this->disponibilidad;}
 
-        public function setDisponibilidad($fecha,$disp){
-            if(!$this->disponibilidad){
+        public function setDisponibilidad($fecha, $disp){
+            if(array_key_first($this->disponibilidad) == ""){
                 $this->disponibilidad = array();
             }
             $this->disponibilidad[$fecha] = $disp;

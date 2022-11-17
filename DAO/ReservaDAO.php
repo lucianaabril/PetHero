@@ -22,7 +22,7 @@ class ReservaDAO{
         return $this->list;
     }
 
-    public function updateEstado($id,$estado){
+    public function updateEstado($id, $estado){
         $this->LoadData();
         foreach($this->list as $item){
             if($item->getId_reserva() == $id){

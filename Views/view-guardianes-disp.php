@@ -31,8 +31,8 @@
             echo "Telefono: ". $guardian->getTelefono();?><html> <br></html> <?php
             $disponibilidad = $guardian->getDisponibilidad();
             echo "Disponibilidad: "; ?> <html> <br> </html> <?php
-            foreach($disponibilidad as $fecha){
-              echo $fecha; ?> <br> <?php
+            foreach($disponibilidad as $key=>$value){
+              echo $key . ": " . $value; ?> <br> <?php
             }
             echo "Tarifa: ". $guardian->getTarifa();?><html> <br></html> <?php
             echo "Preferencia: ". $guardian->getPreferencia(); 
