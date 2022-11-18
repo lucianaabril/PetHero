@@ -14,7 +14,7 @@ $reservas = $resC->reservasPendientes($user->getDni());
         <h3>Reservas Pendientes:</h3> <br>
         <?php
         foreach($reservas as $res){
-            //echo "id reserva: " . $res->getId_reserva();
+            echo "id reserva: " . $res->getId_reserva();
             echo "Fecha: " . $res->getFecha(); ?> <br> <?php
             echo "Hora: " . $res->gethora(); ?> <br> <?php
             echo "Encuentro: " . $res->getEncuentro(); ?> <br> <?php
@@ -22,9 +22,11 @@ $reservas = $resC->reservasPendientes($user->getDni());
             echo "Estado: " . $res->getEstado(); ?>
 
             <form action="aceptarReserva">
+            <input type="hidden" name="id_reserva" value="<?php echo $res->getId_reserva()?>">
             <button type="submit">Aceptar</button>
             </form>
             <form action="rechazarReserva">
+            <input type="hidden" name="id_reserva" value="<?php echo $res->getId_reserva()?>">
             <button type="submit">Rechazar</button>
             <br> <br>
             </form><?php

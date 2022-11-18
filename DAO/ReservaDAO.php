@@ -17,7 +17,14 @@ class ReservaDAO{
         $this->SaveData();
     }
 
+    public function getLastReserva(){
+        $this->LoadData();
+        $last = array_pop($this->list);
+        return $last;
+    }
+
     public function GetAll(){
+        $this->reservasConcretadas();
         $this->loadData();
         return $this->list;
     }
@@ -83,10 +90,20 @@ class ReservaDAO{
         }
     }
 
+    private function reservasConcretadas(){
+        $this->LoadData();
+        foreach($this->list as $res){
+            if($res->getEstado() == "programada"){
+                if(date('Y-m-d') > $res->getFecha()){
+                    $res->setEstado("servicio realizado");
+                }
+            }
+        }
+        $this->SaveData();
+    }
+
     private function SaveData(){
         $arrayToEncode = array();
-        
-
         foreach($this->list as $reserva){
             $values = array();
             $values["fecha"] = $reserva->getFecha();
@@ -108,5 +125,6 @@ class ReservaDAO{
         $jsonContent = json_encode($arrayToEncode,JSON_PRETTY_PRINT);
         file_put_contents($this->filename,$jsonContent);
     }
+
 }
 ?>

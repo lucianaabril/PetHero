@@ -10,10 +10,10 @@ include("nav-bar.php");
 <body>
     <form action="<?php echo FRONT_ROOT . "File/upload" ?>" method="POST" enctype="multipart/form-data">
         <label>Foto de mascota:</label>
-        <input type="file" name="foto"></input>
+        <input type="file" name="foto" required></input>
         <br><br>
         <label>Calendario de vacunación:</label>
-        <input type="file" name="vacunacion"></input>
+        <input type="file" name="vacunacion" required></input>
         <br><br>
         <label>Video de mascota:</label>
         <input type="file" name="video"></input>

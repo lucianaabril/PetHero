@@ -21,6 +21,7 @@
       <h2>Guardianes disponibles en la fecha indicada:</h2>
       <?php
           $array = $arrayD;
+          $rango_d = implode(",", $rango);
           
           if($array){
           foreach($array as $guardian){ ?>
@@ -29,16 +30,12 @@
             echo "Nombre: ". $guardian->getNombre();?><html> <br></html> <?php
             echo "Apellido: ". $guardian->getApellido();?><html> <br></html> <?php
             echo "Telefono: ". $guardian->getTelefono();?><html> <br></html> <?php
-            $disponibilidad = $guardian->getDisponibilidad();
-            echo "Disponibilidad: "; ?> <html> <br> </html> <?php
-            foreach($disponibilidad as $key=>$value){
-              echo $key . ": " . $value; ?> <br> <?php
-            }
             echo "Tarifa: ". $guardian->getTarifa();?><html> <br></html> <?php
             echo "Preferencia: ". $guardian->getPreferencia(); 
             ?>
             <html> 
               <form action="realizarReserva" method="post">
+              <input type="hidden" name='rango_d' value="<?php echo $rango_d ?>">
               <input type='hidden' name='dni' value="<?php echo $guardian->getDni()?>">
               <button type="submit">Reservar</button>
               
@@ -53,15 +50,15 @@
             </div> 
             </html> <?php
           } 
-          ?> <html> <br>
-          
-          
-          <?php 
+          ?> <html> <br> <?php 
         } else{
           echo "no hay guardianes disponibles para la fecha solicitada"; 
         } 
-        ?> <html>
+        ?>
+        <html>
           <a  class="backMenu" href= <?php echo( FRONT_ROOT . "User/getView")?>>
             <input type="button" value="Volver al Menú" />
-        </a>
+          </a>
         </html>
+    </body>
+</html>

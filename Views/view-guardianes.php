@@ -20,11 +20,6 @@
             echo "Nombre: ". $guardian->getNombre();?><html> <br></html> <?php
             echo "Apellido: ". $guardian->getApellido();?><html> <br></html> <?php
             echo "Telefono: ". $guardian->getTelefono();?><html> <br></html> <?php
-            $disponibilidad = $guardian->getDisponibilidad();
-            echo "Disponibilidad: "; ?> <html> <br> </html> <?php
-            foreach($disponibilidad as $fecha=>$disp){
-              echo $fecha; ?> <br> <?php
-            }
             echo "Tarifa: ". $guardian->getTarifa();?><html> <br></html> <?php
             echo "Preferencia: ". $guardian->getPreferencia(); ?>
             <html> </div> </html>

@@ -15,15 +15,9 @@ use Models\Duenio as duenio;
         $petc = new petC();
         $pets = $petc->getMascotasByDuenio();
         $flag = false;
-        foreach($guardian->getDisponibilidad() as $fecha=>$disp){
+        foreach($array as $fecha=>$disp){
             ?> <br> <h3><?php echo $fecha . ": " . $disp?></h3>
             <?php
-            foreach($pets as $pet){
-                if($disp == "disponible" or $disp == $pet->getRaza()){
-                    $flag = true;
-                }
-            }
-            if($flag){
             ?>
             <form action="processReserva" method=post >
             <input type='hidden' name='dniGuardian' value="<?php echo $guardian->getDni()?>">
@@ -34,8 +28,6 @@ use Models\Duenio as duenio;
             </form>
             <?php
             }
-        }
-
         ?>
 
 <a  class="backMenu" href= <?php echo( FRONT_ROOT . "User/getView")?>>
