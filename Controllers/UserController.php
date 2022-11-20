@@ -251,7 +251,6 @@ class UserController
   public function realizarReserva($dni = '', $rango_d = '')
   {
     $reservasC = new ResC();
-    var_dump($rango_d);
     $reservasC->reservarGuardian($dni, $rango_d);
   }
 
@@ -292,22 +291,36 @@ class UserController
                 }
               }
 
-              if (!$flag) {
+              /*if (!$flag) {
                 $disponibilidad = $guardian->getDisponibilidad();
                 $i = 0;
-                while ($flag == false && $i < count($rango)) {
+                while ($flag == false && $i <= count($rango)) {
                   if (in_array($rango[$i], $disponibilidad) == false) {
                     $flag = true;
                   }
                   $i++;
+                }
+              }*/
 
-                  if (!$flag) {
-                    array_push($arrayD, $guardian);
+              if(!$flag){
+                $disponibilidad = $guardian->getDisponibilidad();
+                $i = 0;
+                foreach($rango as $r){
+                  if(array_key_exists($r, $disponibilidad)){
+                    $i++;
                   }
                 }
-
-                $flag = false;
               }
+
+              if($i == count($rango)){
+                array_push($arrayD, $guardian);
+              }
+
+              /*if (!$flag) {
+                //array_push($arrayD, $guardian);
+              }*/
+
+              $flag = false;
             }
           }
         }
@@ -408,7 +421,7 @@ class UserController
     require_once(VIEWS_PATH . "reserva.php");
   }
 
-  public function aceptarReserva($id_reserva = '')
+  /*public function aceptarReserva($id_reserva = '')
   {
     $resC = new resC();
     if ($id_reserva) {
@@ -422,10 +435,9 @@ class UserController
     if ($id_reserva) {
       $resC->rechazarReserva($id_reserva);
     }
-  }
+  }*/
 
-  public function rangeDate($inicio, $final)
-  {
+  public function rangeDate($inicio, $final){
     $ini = DateTime::createFromFormat('Y-m-d', $inicio);
     $fin = DateTime::createFromFormat('Y-m-d', $final);
     $periodo = new DatePeriod(
@@ -440,16 +452,6 @@ class UserController
     }
     $rango[] = $final;
     return $rango;
-  }
-
-  public function arrayDate($array){
-    $fechas = array();
-    $arreglo = explode(",", $array);
-    foreach($arreglo as $a){
-      $fecha = date_create($a);
-      array_push($fechas, $fecha);
-    }
-    return $fechas;
   }
 
   public function showReservas()

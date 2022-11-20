@@ -22,5 +22,41 @@
         "foto": "..\\img\\jpeg\\foto gato.jpg",
         "vacunacion": "..\\img\\jpeg\\vacunacion gato.jpg",
         "video": "..\\img\\gif\\video gato.gif"
+    },
+    {
+        "nombre": "Lola",
+        "tipo": "perro",
+        "edad": "2",
+        "raza": "Caniche",
+        "tamanio": "mediano",
+        "observaciones": "Le gusta dormir",
+        "dni_duenio": "37399895",
+        "foto": "..\\img\\jpeg\\foto.jpg",
+        "vacunacion": "..\\img\\png\\vacunacion perro.png",
+        "video": "..\\img\\\\"
+    },
+    {
+        "nombre": "Pepito",
+        "tipo": "gato",
+        "edad": "1",
+        "raza": "Naranja",
+        "tamanio": "pequenio",
+        "observaciones": "Le gusta jugar",
+        "dni_duenio": "37399895",
+        "foto": "..\\img\\jpeg\\foto gato.jpg",
+        "vacunacion": "..\\img\\jpeg\\vacunacion gato.jpg",
+        "video": "..\\img\\gif\\video gato.gif"
+    },
+    {
+        "nombre": "Yeko",
+        "tipo": "gato",
+        "edad": "2",
+        "raza": "Blanco",
+        "tamanio": "mediano",
+        "observaciones": "",
+        "dni_duenio": "37399895",
+        "foto": "..\\img\\jpeg\\foto gato.jpg",
+        "vacunacion": "..\\img\\jpeg\\vacunacion gato.jpg",
+        "video": "..\\img\\\\"
     }
 ]

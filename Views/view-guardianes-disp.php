@@ -21,8 +21,8 @@
       <h2>Guardianes disponibles en la fecha indicada:</h2>
       <?php
           $array = $arrayD;
-          $rango_d = implode(",", $rango);
-          
+          $rango_d = implode(", ", $rango);
+                    
           if($array){
           foreach($array as $guardian){ ?>
           <div class="guardian">

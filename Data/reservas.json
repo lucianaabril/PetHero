@@ -1,2 +1,32 @@
 [
+    {
+        "fecha": "2022-11-01",
+        "hora": "18:37",
+        "encuentro": "Cerrito 702",
+        "id reserva": 1,
+        "estado": "pendiente",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Jisung"
+    },
+    {
+        "fecha": "2022-11-02",
+        "hora": "18:37",
+        "encuentro": "Cerrito 702",
+        "id reserva": 1,
+        "estado": "pendiente",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Jisung"
+    },
+    {
+        "fecha": "2022-11-03",
+        "hora": "18:37",
+        "encuentro": "Cerrito 702",
+        "id reserva": 1,
+        "estado": "pendiente",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Jisung"
+    }
 ]

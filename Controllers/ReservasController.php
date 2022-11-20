@@ -18,41 +18,72 @@ class ReservasController{
     }
 
     public function Add($fecha = '', $hora = '', $encuentro = '', $dni_guardian = '', $nombre_mascota = ''){
-        $reserva = new Reserva();
-        $reserva->setFecha($fecha);
-        $reserva->setHora($hora);
-        $reserva->setEncuentro($encuentro);
-
-        $last_reserva = $this->reservaDAO->getLastReserva();
-
-        if($last_reserva){
-            //$last_id += 1;
-            //$reserva->setId_reserva($last_id);
+        
+        $last_id = $this->reservaDAO->getLastId();
+        $rango = explode(", ", $fecha);
+        if($last_id){
+            $last_id += 1;
         }
         else {
-            $reserva->setId_reserva(1);
+            $last_id = 1;
         }
 
-        $reserva->setEstado("pendiente");
-        $reserva->setDniGuardian($dni_guardian);
-        $user = new Duenio();
-        $user = $_SESSION["loggeduser"];
-        $reserva->setDniDuenio($user->getDni());
-        $reserva->setNombre_mascota($nombre_mascota);
-
-        $this->reservaDAO->Add($reserva);
-
-        $guardianDAO = new guardianDAO();
-        $guardian = $guardianDAO->getByDNI($dni_guardian);
-
-        $mascotasC = new mascotasC();
-        $pets = $mascotasC->getMascotasByDuenio();
-        foreach($pets as $pet){
-            if($pet->getNombre() == $nombre_mascota){
-                $guardian->setDisponibilidad($fecha, $pet->getRaza());
+        if(count($rango) > 1){
+            foreach($rango as $r){
+                $reserva = new Reserva();
+                $reserva->setFecha($r);
+                $reserva->setHora($hora);
+                $reserva->setEncuentro($encuentro);
+                $reserva->setEstado("pendiente");
+                $reserva->setDniGuardian($dni_guardian);
+                $user = new Duenio();
+                $user = $_SESSION["loggeduser"];
+                $reserva->setDniDuenio($user->getDni());
+                $reserva->setNombre_mascota($nombre_mascota);
+                $reserva->setId_reserva($last_id);
+        
+                $this->reservaDAO->Add($reserva);
+        
+                /*$guardianDAO = new guardianDAO();
+                $guardian = $guardianDAO->getByDNI($dni_guardian);
+        
+                $mascotasC = new mascotasC();
+                $pets = $mascotasC->getMascotasByDuenio();
+                foreach($pets as $pet){
+                    if($pet->getNombre() == $nombre_mascota){
+                        $guardian->setDisponibilidad($r, $pet->getRaza());
+                    }
+                }
+                $guardianDAO->Update($guardian);*/
             }
         }
-        $guardianDAO->Update($guardian);
+        else{
+            $reserva = new Reserva();
+            $reserva->setFecha($fecha);
+            $reserva->setHora($hora);
+            $reserva->setEncuentro($encuentro);
+            $reserva->setEstado("pendiente");
+            $reserva->setDniGuardian($dni_guardian);
+            $user = new Duenio();
+            $user = $_SESSION["loggeduser"];
+            $reserva->setDniDuenio($user->getDni());
+            $reserva->setNombre_mascota($nombre_mascota);
+            $reserva->setId_reserva($last_id);
+
+            $this->reservaDAO->Add($reserva);
+        
+            /*$guardianDAO = new guardianDAO();
+            $guardian = $guardianDAO->getByDNI($dni_guardian);
+    
+            $mascotasC = new mascotasC();
+            $pets = $mascotasC->getMascotasByDuenio();
+            foreach($pets as $pet){
+                if($pet->getNombre() == $nombre_mascota){
+                    $guardian->setDisponibilidad($fecha, $pet->getRaza());
+                }
+            }
+            $guardianDAO->Update($guardian);*/
+        }
     }
 
     function reservarGuardian($dni, $rango_d){
@@ -62,25 +93,25 @@ class ReservasController{
         $petc = new mascotasC();
         $pets = $petc->getMascotasByDuenio();
         $arrayDisp = $guardian->getDisponibilidad();
-        $array = array();
+        $arrayU = array(); //unica fecha
+        $arrayR = array(); //rango
 
-        $userC = new userC();
-        $rango = $userC->arrayDate($rango_d);
+        $rango = explode(", ", $rango_d);
     
         if(count($rango) > 1){
             $p = 0;
             $flag = false;
             while($flag == false && $p<count($pets)){ //recorre pets
-                $array = array();
+                $arrayR = array();
                 foreach($rango as $r){
-                    if($arrayDisp[$r]->getDisponibilidad() == "disponible" || $arrayDisp[$r]->getDisponibilidad() == $pets[$p]->getRaza()){
-                        $array[$r] = $arrayDisp[$r];
+                    if(($arrayDisp[$r] == "disponible") or ($arrayDisp[$r] == $pets[$p]->getRaza())){
+                        $arrayR[$r] = $arrayDisp[$r];
                     }
                     else{
                         $flag = false;
                     }
                 }
-                if(count($array) == count($rango)){
+                if(count($arrayR) == count($rango)){
                     $flag = true;
                 }
                 $p++;
@@ -90,7 +121,7 @@ class ReservasController{
             foreach($pets as $pet){
                 foreach($arrayDisp as $fecha=>$disp){ 
                     if($disp == "disponible" or $disp == $pet->getRaza()){
-                        $array[$fecha] = $disp;
+                        $arrayU[$fecha] = $disp;
                     }
                 }
             }
@@ -109,55 +140,99 @@ class ReservasController{
         return $pendientes;
     }
 
-    function programarReserva($id_res){
-        $this->reservaDAO->updateEstado($id_res, "programada");
+    function programarReserva($id_reserva){
+        $this->reservaDAO->updateEstado($id_reserva, "programada");
     }
 
-    function rechazarReserva($id_res){
-        $this->reservaDAO->updateEstado($id_res, "rechazada");
+    function rechazarReserva($id_reserva){
+        $this->reservaDAO->updateEstado($id_reserva, "rechazada");
     }
 
     function pendientes(){
         $reservas = $this->reservaDAO->getAll();
         $array = array();
+        $arrayR = array();
         $estado = "Reservas pendientes";
-        foreach($reservas as $res){
-            if($res->getEstado() == "pendiente"){
-                array_push($array, $res);
+        $user = new userC;
+        $user = $_SESSION['loggeduser'];
+
+        if($user->getType() == 'G'){
+            foreach($reservas as $r){
+                if($r->getEstado() == "pendiente"){
+                    if($r->getDniGuardian() == $user->getDni()){
+                        array_push($array, $r);
+                    }
+                }
             }
+            include_once(VIEWS_PATH . 'admin-reservas.php'); //view para guardian = aceptar/rechazar
         }
-        include_once(VIEWS_PATH . 'show-reservas.php');
+        else {
+            foreach($reservas as $r){
+                if($r->getEstado() == "pendiente"){
+                    if($r->getDniDuenio() == $user->getDni()){
+                        array_push($array, $r);
+                    }
+                }
+            }
+            include_once(VIEWS_PATH . 'show-reservas.php');
+        }
     }
   
     function programadas(){
         $reservas = $this->reservaDAO->getAll();
         $array = array();
-        $estado = "Reservas programadas";
-        foreach($reservas as $res){
-            if($res->getEstado() == "programada"){
-                array_push($array, $res);
+        $estado = "Reservas pendientes";
+        $user = new userC;
+        $user = $_SESSION['loggeduser'];
+
+        if($user->getType() == 'G'){
+            foreach($reservas as $r){
+                if($r->getEstado() == "programada"){
+                    if($r->getDniGuardian() == $user->getDni()){
+                        array_push($array, $r);
+                    }
+                }
             }
+            include_once(VIEWS_PATH . 'show-reservas.php');
         }
-        include_once(VIEWS_PATH . 'show-reservas.php');
+        else {
+            foreach($reservas as $r){
+                if($r->getEstado() == "programada"){
+                    if($r->getDniDuenio() == $user->getDni()){
+                        array_push($array, $r);
+                    }
+                }
+            }
+            include_once(VIEWS_PATH . 'pagar-reservas.php');
+        }
     }
   
     function historial(){
         $reservas = $this->reservaDAO->getAll();
         $array = array();
         $estado = "Historial de reservas";
-        foreach($reservas as $res){
-            if($res->getEstado() == "servicio realizado"){
-                array_push($array, $res);
+        $user = new userC;
+        $user = $_SESSION['loggeduser'];
+
+        if($user->getType() == 'G'){
+            foreach($reservas as $r){
+                if($r->getEstado() == "servicio realizado"){
+                    if($r->getDniGuardian() == $user->getDni()){
+                        array_push($array, $r);
+                    }
+                }
+            }
+        }
+        else {
+            foreach($reservas as $r){
+                if($r->getEstado() == "servicio realizado"){
+                    if($r->getDniDuenio() == $user->getDni()){
+                        array_push($array, $r);
+                    }
+                }
             }
         }
         include_once(VIEWS_PATH . 'show-reservas.php');
     }
-
-
-
 }
-
-
-
-
 ?>

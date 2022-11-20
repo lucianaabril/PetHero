@@ -17,10 +17,14 @@ class ReservaDAO{
         $this->SaveData();
     }
 
-    public function getLastReserva(){
+    public function getLastId(){
         $this->LoadData();
         $last = array_pop($this->list);
-        return $last;
+        if($last){
+            return $last->getId_reserva();
+        } else {
+            return null;
+        }
     }
 
     public function GetAll(){

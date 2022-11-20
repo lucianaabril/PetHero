@@ -2,7 +2,6 @@
 use Controllers\MascotasController as petC;
 include("nav-bar.php");
 $user = $_SESSION["loggeduser"];
-
 ?>
 <html>
     <head>
@@ -26,11 +25,7 @@ $user = $_SESSION["loggeduser"];
                         <?php
                     }
                 }
-            }
-            ?>
-
-        </form>
-        <br>
-        <a  class="backMenu" href= <?php echo(FRONT_ROOT . "User/getView")?>><input type="button" value="Volver al Menú"></a>
+            } ?>
+        </form> <br> <a  class="backMenu" href= <?php echo(FRONT_ROOT . "User/getView")?>><input type="button" value="Volver al Menú"></a>
     </body>
 </html>

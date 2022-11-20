@@ -17,7 +17,7 @@
                 </ul>
                 <li>Listado de reservas</li>
                 <li><a href="<?php echo FRONT_ROOT . "Reservas/pendientes" ?>">Ver reservas pendientes</a></li>
-                <li><a href="<?php echo FRONT_ROOT . "Reservas/programadas" ?>">Ver reservas programdas</a></li> 
+                <li><a href="<?php echo FRONT_ROOT . "Reservas/programadas" ?>">Ver reservas programadas</a></li> 
                 <li><a href="<?php echo FRONT_ROOT . "Reservas/historial" ?>">Ver historial de reservas</a></li> 
                 <li><a href="<?php echo FRONT_ROOT . "User/showPerfil" ?>">Ver perfil</a></li> 
                 <li><a href="<?php echo FRONT_ROOT . "User/logout" ?>">Cerrar sesión</a></li>
