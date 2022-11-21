@@ -1,6 +1,7 @@
 create database pethero;
 use pethero;
 
+
 CREATE TABLE duenios (
   dni_duenio int(11) NOT NULL,
   email varchar(45) NOT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE duenios (
   cumpleanios date DEFAULT NULL,
   primary key (dni_duenio)
 )engine=InnoDB; 
+
 
 CREATE TABLE guardianes (
   dni_guardian int(11) NOT NULL,
@@ -29,6 +31,7 @@ CREATE TABLE guardianes (
   primary key (dni_guardian)
 )engine=InnoDB;
 
+
 CREATE TABLE disponibilidades (
   dni_guardian int(11) NOT NULL,
   inicio date DEFAULT NULL,
@@ -37,6 +40,7 @@ CREATE TABLE disponibilidades (
   primary key (dni_guardian),
   constraint fk_dni_guardian FOREIGN KEY (dni_guardian) REFERENCES guardianes(dni_guardian)
 )engine=InnoDB; 
+
 
 CREATE TABLE mascotas (
   dni_duenio int(11) NOT NULL,
@@ -52,6 +56,7 @@ CREATE TABLE mascotas (
   primary key(nombre,dni_duenio),
   constraint fk_dni_duenio FOREIGN KEY (dni_duenio) REFERENCES duenios(dni_duenio)
 )engine=InnoDB;
+
 
 CREATE TABLE reservas (
   dni_duenio int(11) NOT NULL,
