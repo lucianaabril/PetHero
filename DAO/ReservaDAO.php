@@ -2,6 +2,7 @@
 namespace DAO;
 use Models\Pago as Pago;
 use Models\Reserva as Reserva;
+use DAO\GuardianDAO as guardianDAO;
 
 class ReservaDAO{
     private $list = array();
@@ -31,6 +32,17 @@ class ReservaDAO{
         $this->reservasConcretadas();
         $this->loadData();
         return $this->list;
+    }
+
+    public function getById($id){
+        $this->LoadData();
+        $reservas = array();
+        foreach($this->list as $r){
+            if($r->getId_reserva() == $id){
+                array_push($reservas, $r);
+            }
+        }
+        return $reservas;
     }
 
     public function updateEstado($id, $estado){
@@ -94,9 +106,9 @@ class ReservaDAO{
         }
     }
 
-    private function reservasConcretadas(){
-        $this->LoadData();
-        foreach($this->list as $res){
+    private function reservasConcretadas(){ 
+        $this->LoadData();                   
+        foreach($this->list as $res){                    
             if($res->getEstado() == "programada"){
                 if(date('Y-m-d') > $res->getFecha()){
                     $res->setEstado("servicio realizado");
@@ -104,6 +116,8 @@ class ReservaDAO{
             }
         }
         $this->SaveData();
+        $guardianDAO = new guardianDAO();
+        $guardianDAO->reservasConcretadas();
     }
 
     private function SaveData(){

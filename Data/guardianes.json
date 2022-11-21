@@ -32,13 +32,6 @@
         "dni": "44692743",
         "cumpleanios": "2003-03-13",
         "disponibilidad": {
-            "2022-11-01": "disponible",
-            "2022-11-02": "disponible",
-            "2022-11-03": "disponible",
-            "2022-11-04": "disponible",
-            "2022-11-05": "disponible",
-            "2022-11-06": "disponible",
-            "2022-11-07": "disponible",
             "2022-12-08": "disponible",
             "2022-12-09": "disponible",
             "2022-12-10": "disponible",
@@ -66,13 +59,7 @@
         "direccion": "Edison 399",
         "dni": "37388450",
         "cumpleanios": "1993-04-12",
-        "disponibilidad": {
-            "2022-11-01": "disponible",
-            "2022-11-02": "disponible",
-            "2022-11-03": "disponible",
-            "2022-11-04": "disponible",
-            "2022-11-05": "disponible"
-        },
+        "disponibilidad": [],
         "tarifa": "100",
         "preferencia": "mediano",
         "email": "maria@gmail.com",

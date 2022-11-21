@@ -46,6 +46,10 @@
             $this->disponibilidad[$fecha] = $disp;
         }
 
+        public function newDisponibilidad($disp){
+            $this->disponibilidad = $disp;
+        }
+
         public function getTarifa(){return $this->tarifa;}
 
         public function setTarifa($tarifa){$this->tarifa = $tarifa;}

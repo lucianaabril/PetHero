@@ -264,7 +264,10 @@ class UserController
     if ($inicio == '' && $fin == '') {                          
       echo "Debe ingresar una fecha o un rango de fechas";
     }
-    else {
+    elseif($inicio < date('Y-m-d')) {
+      echo "La(s) fecha(s) ingresadas son inválidas, ingreselas nuevamente";
+    }
+    else{
       $petController = new MascotasController();
       $user = new Duenio();
       $user = $_SESSION["loggeduser"];
@@ -291,17 +294,6 @@ class UserController
                 }
               }
 
-              /*if (!$flag) {
-                $disponibilidad = $guardian->getDisponibilidad();
-                $i = 0;
-                while ($flag == false && $i <= count($rango)) {
-                  if (in_array($rango[$i], $disponibilidad) == false) {
-                    $flag = true;
-                  }
-                  $i++;
-                }
-              }*/
-
               if(!$flag){
                 $disponibilidad = $guardian->getDisponibilidad();
                 $i = 0;
@@ -315,10 +307,6 @@ class UserController
               if($i == count($rango)){
                 array_push($arrayD, $guardian);
               }
-
-              /*if (!$flag) {
-                //array_push($arrayD, $guardian);
-              }*/
 
               $flag = false;
             }
@@ -420,22 +408,6 @@ class UserController
   {
     require_once(VIEWS_PATH . "reserva.php");
   }
-
-  /*public function aceptarReserva($id_reserva = '')
-  {
-    $resC = new resC();
-    if ($id_reserva) {
-      $resC->programarReserva($id_reserva);
-    }
-  }
-
-  public function rechazarReserva($id_reserva = '')
-  {
-    $resC = new resC();
-    if ($id_reserva) {
-      $resC->rechazarReserva($id_reserva);
-    }
-  }*/
 
   public function rangeDate($inicio, $final){
     $ini = DateTime::createFromFormat('Y-m-d', $inicio);

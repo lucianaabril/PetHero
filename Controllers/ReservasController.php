@@ -7,6 +7,7 @@ use Models\Pago as Pago;
 use DAO\GuardianDAO as guardianDAO;
 use Models\Guardian as Guardian;
 use Controllers\MascotasController as mascotasC;
+use DAO\MascotaDAO as mascotasDAO;
 use Controllers\UserController as userC;
 
 class ReservasController{
@@ -71,18 +72,6 @@ class ReservasController{
             $reserva->setId_reserva($last_id);
 
             $this->reservaDAO->Add($reserva);
-        
-            /*$guardianDAO = new guardianDAO();
-            $guardian = $guardianDAO->getByDNI($dni_guardian);
-    
-            $mascotasC = new mascotasC();
-            $pets = $mascotasC->getMascotasByDuenio();
-            foreach($pets as $pet){
-                if($pet->getNombre() == $nombre_mascota){
-                    $guardian->setDisponibilidad($fecha, $pet->getRaza());
-                }
-            }
-            $guardianDAO->Update($guardian);*/
         }
     }
 
@@ -142,6 +131,30 @@ class ReservasController{
 
     function programarReserva($id_reserva){
         $this->reservaDAO->updateEstado($id_reserva, "programada");
+
+        $reservas = $this->reservaDAO->getById($id_reserva);
+
+        $dni_guardian = $reservas[0]->getDniGuardian();
+        $dni_duenio = $reservas[0]->getDniDuenio();
+        $nombre_mascota = $reservas[0]->getNombre_mascota();
+
+        $mascotasDAO = new mascotasDAO();
+        $mascotas = $mascotasDAO->getByDniDuenio($dni_duenio);
+        foreach($mascotas as $m){
+            if($m->getNombre() == $nombre_mascota){
+                $raza = $m->getRaza();
+            }
+        }
+
+        $guardianDAO = new guardianDAO();
+        $guardian = $guardianDAO->getByDni($dni_guardian);
+        $disp = $guardian->getDisponibilidad();
+        foreach($reservas as $r){
+            $disp[$r->getFecha()] = $raza;
+        }
+        $guardian->newDisponibilidad($disp);
+        $guardianDAO = new guardianDAO();
+        $guardianDAO->Update($guardian);
     }
 
     function rechazarReserva($id_reserva){
@@ -151,7 +164,6 @@ class ReservasController{
     function pendientes(){
         $reservas = $this->reservaDAO->getAll();
         $array = array();
-        $arrayR = array();
         $estado = "Reservas pendientes";
         $user = new userC;
         $user = $_SESSION['loggeduser'];
@@ -160,7 +172,12 @@ class ReservasController{
             foreach($reservas as $r){
                 if($r->getEstado() == "pendiente"){
                     if($r->getDniGuardian() == $user->getDni()){
-                        array_push($array, $r);
+                        $aux = array();
+                        if(array_key_exists($r->getId_reserva(), $array)){
+                            $aux = $array[$r->getId_reserva()];
+                        }
+                        array_push($aux, $r);
+                        $array[$r->getId_reserva()] = $aux;
                     }
                 }
             }

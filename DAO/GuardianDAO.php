@@ -21,6 +21,7 @@
 
       public function GetAll()
       {
+        $this->reservasConcretadas();
         $this->loadData();
         return $this->list;
       }
@@ -118,6 +119,21 @@
       }
       $this->list = $newList;
       $this->SaveData();
+    }
+
+    public function reservasConcretadas(){
+      $this->LoadData();
+      foreach($this->list as $g){
+        $disp = $g->getDisponibilidad();
+        $newDisp = array();
+        foreach($disp as $fecha=>$d){
+          if(date('Y-m-d') < $fecha){
+            $newDisp[$fecha] = $d;
+          }
+        }
+        $g->newDisponibilidad($newDisp);
+        $this->Update($g);
+      }
     }
   }
 ?>
