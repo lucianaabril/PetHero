@@ -67,6 +67,7 @@ class UserController
       if ($preferencia != '') {
         $guardian->setPreferencia($preferencia);
       }
+
       $this->guardianDAO->Update($guardian);
       require_once(VIEWS_PATH . 'guardian-page.php');
     } else {
@@ -181,6 +182,8 @@ class UserController
         $guardian->setDisponibilidad(null, null, 'disponible');
         $guardian->setTarifa(null);
         $guardian->setPreferencia(null);
+        $guardian->setCBU(null);
+        $guardian->setAlias(null);
 
         $this->guardianDAO->Add($guardian);
 
@@ -308,6 +311,7 @@ class UserController
                 array_push($arrayD, $guardian);
               }
 
+              $i = 0;
               $flag = false;
             }
           }
@@ -395,6 +399,19 @@ class UserController
     $disp = $disponibilidad;
     $pref = $preferencia;
     $date = $fecha;
+
+    $petc = new MascotasController();
+    $pets = $petc->getMascotasByDuenio();
+    $cont = 0;
+    $arrayPos = array();
+    foreach($pets as $pet){
+      if($pref == $pet->getTamanio()){
+          if($disp == "disponible" or $disp == $pet->getRaza()){
+              array_push($arrayPos,$cont);
+          }
+      }
+      $cont++;
+    }
     include_once(VIEWS_PATH . "add-reserva.php");
   }
 
@@ -441,9 +458,25 @@ class UserController
     include_once(VIEWS_PATH . 'show-reservas-d.php');
   }
 
-  public function pagar($id_reserva = '')
-  {
-    $id = $id_reserva;
-    include_once(VIEWS_PATH . ''); //preguntar método de pago
+  public function changeDatos($cbu = '', $alias = ''){
+    if (isset($_SESSION['email'])) {
+      $guardian = new Guardian();
+      $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
+
+      if ($cbu != '') {
+        $guardian->setCBU($cbu);
+      }
+
+      if ($alias != '') {
+        $guardian->setAlias($alias);
+      }
+      $this->guardianDAO->Update($guardian);
+
+      require_once(VIEWS_PATH . 'guardian-page.php');
+    } else {
+      require_once(VIEWS_PATH . 'login.php');
+    }
   }
+
+
 }

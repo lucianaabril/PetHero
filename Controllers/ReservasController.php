@@ -9,6 +9,8 @@ use Models\Guardian as Guardian;
 use Controllers\MascotasController as mascotasC;
 use DAO\MascotaDAO as mascotasDAO;
 use Controllers\UserController as userC;
+use Models\Cupon as cupon;
+use Controllers\FileController as fileC;
 
 class ReservasController{
     public $reservaDAO;
@@ -43,10 +45,12 @@ class ReservasController{
                 $reserva->setNombre_mascota($nombre_mascota);
                 $reserva->setId_reserva($last_id);
         
-                $this->reservaDAO->Add($reserva);
-        
-                /*$guardianDAO = new guardianDAO();
+                $guardianDAO = new guardianDAO();
                 $guardian = $guardianDAO->getByDNI($dni_guardian);
+
+                $pago = new Pago();
+                $pago->setMonto($guardian->getTarifa());
+                $reserva->setPago($pago);
         
                 $mascotasC = new mascotasC();
                 $pets = $mascotasC->getMascotasByDuenio();
@@ -55,7 +59,8 @@ class ReservasController{
                         $guardian->setDisponibilidad($r, $pet->getRaza());
                     }
                 }
-                $guardianDAO->Update($guardian);*/
+                $guardianDAO->Update($guardian);
+                $this->reservaDAO->Add($reserva);
             }
         }
         else{
@@ -70,6 +75,12 @@ class ReservasController{
             $reserva->setDniDuenio($user->getDni());
             $reserva->setNombre_mascota($nombre_mascota);
             $reserva->setId_reserva($last_id);
+
+            $guardianDAO = new guardianDAO();
+            $guardian = $guardianDAO->getByDNI($dni_guardian);
+            $pago = new Pago();
+            $pago->setMonto($guardian->getTarifa());
+            $reserva->setPago($pago);
 
             $this->reservaDAO->Add($reserva);
         }
@@ -130,13 +141,12 @@ class ReservasController{
     }
 
     function programarReserva($id_reserva){
-        $this->reservaDAO->updateEstado($id_reserva, "programada");
 
         $reservas = $this->reservaDAO->getById($id_reserva);
-
         $dni_guardian = $reservas[0]->getDniGuardian();
         $dni_duenio = $reservas[0]->getDniDuenio();
         $nombre_mascota = $reservas[0]->getNombre_mascota();
+        $fecha = $reservas[0]->getFecha();
 
         $mascotasDAO = new mascotasDAO();
         $mascotas = $mascotasDAO->getByDniDuenio($dni_duenio);
@@ -149,12 +159,20 @@ class ReservasController{
         $guardianDAO = new guardianDAO();
         $guardian = $guardianDAO->getByDni($dni_guardian);
         $disp = $guardian->getDisponibilidad();
-        foreach($reservas as $r){
-            $disp[$r->getFecha()] = $raza;
+
+        if($disp[$fecha] == 'disponible' || $disp[$fecha] == $raza){
+            foreach($reservas as $r){
+                $disp[$r->getFecha()] = $raza;
+            }
+            $guardian->newDisponibilidad($disp);
+            $guardianDAO = new guardianDAO();
+            $guardianDAO->Update($guardian);
+    
+            $this->reservaDAO->updateEstado($id_reserva, "programada");
+        } 
+        else{
+            echo "Esta fecha se encuentra programada para otro tipo de raza.";
         }
-        $guardian->newDisponibilidad($disp);
-        $guardianDAO = new guardianDAO();
-        $guardianDAO->Update($guardian);
     }
 
     function rechazarReserva($id_reserva){
@@ -216,7 +234,14 @@ class ReservasController{
             foreach($reservas as $r){
                 if($r->getEstado() == "programada"){
                     if($r->getDniDuenio() == $user->getDni()){
-                        array_push($array, $r);
+                        $aux = array();
+                        if($array){
+                            if(array_key_exists($r->getId_reserva(), $array)){
+                                $aux = $array[$r->getId_reserva()];
+                            }
+                        }
+                        array_push($aux, $r);
+                        $array[$r->getId_reserva()] = $aux;
                     }
                 }
             }
@@ -251,5 +276,57 @@ class ReservasController{
         }
         include_once(VIEWS_PATH . 'show-reservas.php');
     }
+
+    public function pagar($id_reserva = '', $dni_guardian = '')
+    {
+      $id = $id_reserva;
+      $dni = $dni_guardian;
+      include_once(VIEWS_PATH . 'metodo-pago.php'); 
+    }
+
+    public function metodoPago($id_reserva = '', $metodo_pago = '', $dni_guardian = ''){
+        $id = $id_reserva;
+        $monto_total = 0;
+        $reservas = $this->reservaDAO->getById($id_reserva);
+        foreach($reservas as $r){
+            $monto_total += $r->pago->getMonto();
+        }
+
+        if($metodo_pago == "tarjeta"){
+            include_once(VIEWS_PATH . 'tarjeta.php');
+        } else
+        {
+            $guardianDAO = new guardianDAO();
+            $guardian = $guardianDAO->getByDNI($dni_guardian);
+            include_once(VIEWS_PATH . 'mercado-pago.php');
+        }
+    }
+
+    public function tarjeta($tipo_tarjeta = '', $numero_tarjeta = '', $seguridad = '', $vencimiento = '', $id_reserva = '', $monto_total = ''){
+        $reservas = $this->reservaDAO->getById($id_reserva);
+        foreach($reservas as $r){
+            $r->pago->setFecha(date('Y-m-d'));
+            $r->pago->setForma_pago("tarjeta");
+            $this->reservaDAO->Update($id_reserva, $r->getFecha(), $r);
+        }
+        $cupon = new cupon();
+        $cupon->setFecha(date('Y-m-d'));
+        $cupon->setMonto($monto_total);
+        $detalles = "Tipo de tarjeta: " . $tipo_tarjeta . "<br>" . "Numero de tarjeta: " . $numero_tarjeta . "<br>" . "Código de seguridad: " . $seguridad . "<br>" . "Vencimiento de la tarjeta: " . $vencimiento;
+        $cupon->setDetalles($detalles);
+
+        include_once(VIEWS_PATH . 'cupon.php');
+    }
+
+    public function uploadComprobante($comprobante){
+        $controller = new fileC();
+        $c = $controller->upload();
+        
+    }
+
+
+
+
+
 }
 ?>

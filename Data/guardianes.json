@@ -22,7 +22,9 @@
         "preferencia": "mediano",
         "email": "sofi@gmail.com",
         "password": "2828",
-        "type": "G"
+        "type": "G",
+        "alias": null,
+        "cbu": null
     },
     {
         "nombre": "Luciana",
@@ -34,9 +36,9 @@
         "disponibilidad": {
             "2022-12-08": "disponible",
             "2022-12-09": "disponible",
-            "2022-12-10": "disponible",
-            "2022-12-11": "disponible",
-            "2022-12-12": "disponible",
+            "2022-12-10": "Naranja",
+            "2022-12-11": "Naranja",
+            "2022-12-12": "Naranja",
             "2022-12-13": "disponible",
             "2022-12-14": "disponible",
             "2022-12-15": "disponible",
@@ -50,20 +52,8 @@
         "preferencia": "grande",
         "email": "lu@gmail.com",
         "password": "1313",
-        "type": "G"
-    },
-    {
-        "nombre": "Maria",
-        "apellido": "Juarez",
-        "telefono": "2231111111",
-        "direccion": "Edison 399",
-        "dni": "37388450",
-        "cumpleanios": "1993-04-12",
-        "disponibilidad": [],
-        "tarifa": "100",
-        "preferencia": "mediano",
-        "email": "maria@gmail.com",
-        "password": "111",
-        "type": "G"
+        "type": "G",
+        "alias": "plato.azul.rojo",
+        "cbu": "1234567891011121314151"
     }
 ]

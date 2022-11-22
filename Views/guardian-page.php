@@ -13,7 +13,7 @@
                 <ul>
                     <li><a href="<?php echo FRONT_ROOT . "User/showGuardianDataView" ?>">Modificar tarifa y preferencias</a></li>
                     <li><a href="<?php echo FRONT_ROOT . "User/showDisponibilidadView" ?>">Modificar disponibilidad</a></li>                        
-                    <!--<li><a href="<?php echo FRONT_ROOT . "User/showUserDataView" ?>">Datos Personales</a></li>-->
+                    <a href="<?php echo FRONT_ROOT . "User/showUserDataView" ?>">Datos Personales</a>
                 </ul>
                 <li>Listado de reservas</li>
                 <li><a href="<?php echo FRONT_ROOT . "Reservas/pendientes" ?>">Ver reservas pendientes</a></li>

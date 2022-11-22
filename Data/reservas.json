@@ -1,62 +1,47 @@
 [
     {
-        "fecha": "2022-11-01",
-        "hora": "01:50",
-        "encuentro": "Cerrito 702",
-        "id reserva": 1,
-        "estado": "servicio realizado",
-        "dni guardian": "44692743",
-        "dni duenio": "44510229",
-        "nombre mascota": "Jisung"
-    },
-    {
-        "fecha": "2022-11-02",
-        "hora": "01:50",
-        "encuentro": "Cerrito 702",
-        "id reserva": 1,
-        "estado": "servicio realizado",
-        "dni guardian": "44692743",
-        "dni duenio": "44510229",
-        "nombre mascota": "Jisung"
-    },
-    {
-        "fecha": "2022-11-03",
-        "hora": "01:50",
-        "encuentro": "Cerrito 702",
-        "id reserva": 1,
-        "estado": "servicio realizado",
-        "dni guardian": "44692743",
-        "dni duenio": "44510229",
-        "nombre mascota": "Jisung"
-    },
-    {
-        "fecha": "2022-11-04",
-        "hora": "01:50",
-        "encuentro": "Cerrito 702",
-        "id reserva": 1,
-        "estado": "servicio realizado",
-        "dni guardian": "44692743",
-        "dni duenio": "44510229",
-        "nombre mascota": "Jisung"
-    },
-    {
-        "fecha": "2022-11-05",
-        "hora": "01:50",
-        "encuentro": "Cerrito 702",
-        "id reserva": 1,
-        "estado": "servicio realizado",
-        "dni guardian": "44692743",
-        "dni duenio": "44510229",
-        "nombre mascota": "Jisung"
-    },
-    {
         "fecha": "2022-12-10",
-        "hora": "05:50",
-        "encuentro": "Irala 2121",
-        "id reserva": 2,
+        "hora": "01:30",
+        "encuentro": "Cerrito 702",
+        "id reserva": 1,
         "estado": "programada",
         "dni guardian": "44692743",
         "dni duenio": "44510229",
-        "nombre mascota": "Jisung"
+        "nombre mascota": "Jisung",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "100"
+        }
+    },
+    {
+        "fecha": "2022-12-11",
+        "hora": "01:30",
+        "encuentro": "Cerrito 702",
+        "id reserva": 1,
+        "estado": "programada",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Jisung",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "100"
+        }
+    },
+    {
+        "fecha": "2022-12-12",
+        "hora": "01:30",
+        "encuentro": "Cerrito 702",
+        "id reserva": 1,
+        "estado": "programada",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Jisung",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "100"
+        }
     }
 ]

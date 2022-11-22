@@ -39,12 +39,18 @@ use Controllers\UserController as UController;
                     echo "Fecha de nacimiento: " . $guardian->getCumpleanios(); ?> <html> <br>
 
             </html> <?php
+                    echo "CBU: " . $guardian->getCBU(); ?> <html> <br>
+
+            </html> <?php
+                    echo "Alias: " . $guardian->getAlias(); ?> <html> <br>
+
+            </html> <?php
                     $disp = $guardian->getDisponibilidad();
-                    echo "Disponibilidad: "; 
+                    echo "Disponibilidad: "; ?> <br> <?php
                     foreach($guardian->getDisponibilidad() as $fecha=>$disp){
                         echo $fecha . ": " . $disp; ?> <br> <?php
                     }
-                    ?> <html> <br>
+                    ?> <html>
 
             </html> <?php
                     echo "Tarifa: $" . $guardian->getTarifa(); ?> <html> <br>

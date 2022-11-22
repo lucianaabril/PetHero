@@ -93,12 +93,11 @@ class ReservaDAO{
                 $reserva->setDniGuardian($item["dni guardian"]);
                 $reserva->setDniDuenio($item["dni duenio"]);
                 $reserva->setNombre_mascota($item["nombre mascota"]);
-                /*$pago = new Pago();
+                $pago = new Pago();
                 $pago->setFecha($item["pago"]["fecha"]);
                 $pago->setForma_pago($item["pago"]["forma de pago"]);
                 $pago->setMonto($item["pago"]["monto"]);
                 $reserva->setPago($pago);
-                */
 
                 array_push($this->list,$reserva);
 
@@ -132,17 +131,27 @@ class ReservaDAO{
             $values["dni guardian"] = $reserva->getDniGuardian();
             $values["dni duenio"] = $reserva->getDniDuenio();
             $values["nombre mascota"] = $reserva->getNombre_mascota();
-            /*$pago = new Pago();
+            $pago = new Pago();
             $pago = $reserva->getPago();
             $values["pago"]["fecha"] = $pago->getFecha();
             $values["pago"]["forma de pago"] = $pago->getForma_pago();
             $values["pago"]["monto"] = $pago->getMonto();
-            */
+            
             array_push($arrayToEncode,$values);
         }
         $jsonContent = json_encode($arrayToEncode,JSON_PRETTY_PRINT);
         file_put_contents($this->filename,$jsonContent);
     }
 
+    public function Update($id_reserva, $fecha, $reserva){
+        $this->LoadData();
+        foreach($this->list as $r){
+            if($id_reserva == $r->getId_reserva()){
+                if($fecha == $r->getFecha()){
+                    $r = $reserva;
+                }
+            }
+        }
+    }
 }
 ?>

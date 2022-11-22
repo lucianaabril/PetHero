@@ -75,6 +75,8 @@
             $guardian->setPassword($item["password"]);
             $guardian->setPreferencia($item["preferencia"]);
             $guardian->setType($item["type"]);
+            $guardian->setAlias($item["alias"]);
+            $guardian->setCBU($item["cbu"]);
             
             array_push($this->list, $guardian);
           }
@@ -98,6 +100,8 @@
             $valuesArray["email"] = $guardian->getEmail();
             $valuesArray["password"] = $guardian->getPassword();
             $valuesArray["type"] = $guardian->getType();
+            $valuesArray["alias"] = $guardian->getAlias();
+            $valuesArray["cbu"] = $guardian->getCBU();
 
             array_push($arrayToEncode, $valuesArray);
         }

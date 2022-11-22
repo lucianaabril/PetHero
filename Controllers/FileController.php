@@ -19,7 +19,6 @@
     public function getMaxSize(){return $this->maxSize;}
 
     public function upload(){
-        $MascotaDAO = new MascotaDAO();
         $parameters = $_FILES;
         $locations = array();
 
@@ -52,11 +51,18 @@
             $fileLocation = "..\\" . $fileLocation;
             array_push($locations, $fileLocation);
         }
+        return $locations;
+        //$this->setFileToMascota($locations);
+    }
 
+    public function setFileToMascota($locations){
+        $MascotaDAO = new MascotaDAO();
         $last = $MascotaDAO->last();
         $last->setFoto($locations[0]);
         $last->setVacunacion($locations[1]);
         $last->setVideo($locations[2]);
         $MascotaDAO->Add($last);
     }
+
+
 }

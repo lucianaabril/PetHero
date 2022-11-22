@@ -12,10 +12,20 @@
         private $disponibilidad;
         private $tarifa;
         private $preferencia;
+        private $cbu;
+        private $alias;
     
         public function __construct(){
             $this->disponibilidad = array();
         }
+
+        public function getCBU(){return $this->cbu;}
+
+        public function setCBU($cbu){$this->cbu = $cbu;}
+
+        public function getAlias(){return $this->alias;}
+
+        public function setAlias($alias){$this->alias = $alias;}
 
         public function getNombre(){return $this->nombre;}
 
