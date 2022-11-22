@@ -216,7 +216,7 @@ class ReservasController{
     function programadas(){
         $reservas = $this->reservaDAO->getAll();
         $array = array();
-        $estado = "Reservas pendientes";
+        $estado = "Reservas programadas";
         $user = new userC;
         $user = $_SESSION['loggeduser'];
 
@@ -231,17 +231,30 @@ class ReservasController{
             include_once(VIEWS_PATH . 'show-reservas.php');
         }
         else {
+            $arrayP = array();
             foreach($reservas as $r){
                 if($r->getEstado() == "programada"){
                     if($r->getDniDuenio() == $user->getDni()){
+
                         $aux = array();
-                        if($array){
-                            if(array_key_exists($r->getId_reserva(), $array)){
-                                $aux = $array[$r->getId_reserva()];
+                        if($r->pago->getFecha()){
+                            if($arrayP){
+                                if(array_key_exists($r->getId_reserva(), $arrayP)){
+                                    $aux = $arrayP[$r->getId_reserva()];
+                                }
                             }
+                            array_push($aux, $r);
+                            $arrayP[$r->getId_reserva()] = $aux;
                         }
-                        array_push($aux, $r);
-                        $array[$r->getId_reserva()] = $aux;
+                        else{
+                            if($array){
+                                if(array_key_exists($r->getId_reserva(), $array)){
+                                    $aux = $array[$r->getId_reserva()];
+                                }
+                            }
+                            array_push($aux, $r);
+                            $array[$r->getId_reserva()] = $aux;
+                        }
                     }
                 }
             }
@@ -321,7 +334,6 @@ class ReservasController{
     public function uploadComprobante($comprobante){
         $controller = new fileC();
         $c = $controller->upload();
-        
     }
 
 

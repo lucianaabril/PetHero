@@ -145,13 +145,17 @@ class ReservaDAO{
 
     public function Update($id_reserva, $fecha, $reserva){
         $this->LoadData();
+        $newList = array();
         foreach($this->list as $r){
             if($id_reserva == $r->getId_reserva()){
                 if($fecha == $r->getFecha()){
                     $r = $reserva;
                 }
             }
+            array_push($newList, $r);
         }
+        $this->list = $newList;
+        $this->SaveData();
     }
 }
 ?>

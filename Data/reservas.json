@@ -9,8 +9,8 @@
         "dni duenio": "44510229",
         "nombre mascota": "Jisung",
         "pago": {
-            "fecha": null,
-            "forma de pago": null,
+            "fecha": "2022-11-22",
+            "forma de pago": "tarjeta",
             "monto": "100"
         }
     },
@@ -24,8 +24,8 @@
         "dni duenio": "44510229",
         "nombre mascota": "Jisung",
         "pago": {
-            "fecha": null,
-            "forma de pago": null,
+            "fecha": "2022-11-22",
+            "forma de pago": "tarjeta",
             "monto": "100"
         }
     },
@@ -39,9 +39,54 @@
         "dni duenio": "44510229",
         "nombre mascota": "Jisung",
         "pago": {
+            "fecha": "2022-11-22",
+            "forma de pago": "tarjeta",
+            "monto": "100"
+        }
+    },
+    {
+        "fecha": "2023-03-01",
+        "hora": "14:01",
+        "encuentro": "Irala 2121",
+        "id reserva": 2,
+        "estado": "programada",
+        "dni guardian": "44510229",
+        "dni duenio": "44510229",
+        "nombre mascota": "Yeko",
+        "pago": {
             "fecha": null,
             "forma de pago": null,
-            "monto": "100"
+            "monto": "1000"
+        }
+    },
+    {
+        "fecha": "2023-03-02",
+        "hora": "14:01",
+        "encuentro": "Irala 2121",
+        "id reserva": 2,
+        "estado": "programada",
+        "dni guardian": "44510229",
+        "dni duenio": "44510229",
+        "nombre mascota": "Yeko",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "1000"
+        }
+    },
+    {
+        "fecha": "2023-03-03",
+        "hora": "14:01",
+        "encuentro": "Irala 2121",
+        "id reserva": 2,
+        "estado": "programada",
+        "dni guardian": "44510229",
+        "dni duenio": "44510229",
+        "nombre mascota": "Yeko",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "1000"
         }
     }
 ]

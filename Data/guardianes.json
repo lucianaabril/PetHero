@@ -7,9 +7,9 @@
         "dni": "44510229",
         "cumpleanios": "2003-01-28",
         "disponibilidad": {
-            "2023-03-01": "disponible",
-            "2023-03-02": "disponible",
-            "2023-03-03": "disponible",
+            "2023-03-01": "Caniche",
+            "2023-03-02": "Caniche",
+            "2023-03-03": "Caniche",
             "2023-03-04": "disponible",
             "2023-03-05": "disponible",
             "2023-03-06": "disponible",
@@ -19,7 +19,7 @@
             "2023-03-10": "disponible"
         },
         "tarifa": "1000",
-        "preferencia": "mediano",
+        "preferencia": "grande",
         "email": "sofi@gmail.com",
         "password": "2828",
         "type": "G",
