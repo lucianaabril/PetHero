@@ -2,13 +2,14 @@
     namespace DataBase;
     use Models\Guardian as Guardian;
     use DataBase\Connection as Connection;
+    use FFI\Exception as Exception;
 
     class GuardianDAO{
         private $connection;
         private $tableName = "guardianes";
 
         function Add(Guardian $guardian){
-            $query = "INSERT INTO " . $tableName . " (dni_guardian, email, password, type, nombre, apellido, telefono, direccion, cumpleanios, tarifa, preferencia) VALUES (:dni,:email,:password,:type,:nombre,:apellido,:telefono,:direccion,:cumpleanios,:tarifa,:preferencia);";
+            $query = "INSERT INTO " . $this->tableName . " (dni_guardian, email, password, type, nombre, apellido, telefono, direccion, cumpleanios, tarifa, preferencia) VALUES (:dni,:email,:password,:type,:nombre,:apellido,:telefono,:direccion,:cumpleanios,:tarifa,:preferencia);";
             try{
                 $parametros["nombre"] = $guardian->getNombre();
                 $parametros["apellido"] = $guardian->getApellido();
@@ -37,7 +38,7 @@
                 $this->connection = Connection::GetInstance();
                 $resultado = $this->connection->Execute($query);
                 foreach($resultado as $g){ //g es una fila
-                    $nuevoGuardian = nuevoGuardian($g);
+                    $nuevoGuardian = $this->nuevoGuardian($g);
                     array_push($guardianes, $nuevoGuardian);
                 } 
                 return $guardianes;
@@ -73,7 +74,7 @@
 
                 if($resultado){ //matriz resultado
                     $parametros = $resultado[0]; //único registro en arreglo
-                    $guardian = nuevoGuardian($parametros);
+                    $guardian = $this->nuevoGuardian($parametros);
                 }
                 return $guardian;
             }
@@ -92,7 +93,7 @@
 
                 if($resultado){
                     $parametros = $resultado[0];
-                    $guardian = nuevoGuardian($parametros);
+                    $guardian = $this->nuevoGuardian($parametros);
                 }
                 return $guardian;
             }

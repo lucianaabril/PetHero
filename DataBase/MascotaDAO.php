@@ -2,6 +2,7 @@
     namespace DataBase;
     use Models\Mascota as Mascota;
     use DataBase\Connection as Connection;
+    use FFI\Exception as Exception;
 
 
     class MascotaDAO{
@@ -11,16 +12,16 @@
         function Add(Mascota $mascota){
             try{
                 $query = "INSERT INTO " . $this->tableName . " (dni_duenio, nombre, tipo, edad, raza, tamanio, observaciones, foto, vacunacion, video) VALUES (:dni_duenio,:nombre,:tipo,:edad,:raza,:tamanio,:observaciones,:foto,:vacunacion,:video);";
-                $parametros["nombre"] = $masota->getNombre();
-                $parametros["tipo"] = $masota->getTipo();
-                $parametros["edad"] = $masota->getEdad();
-                $parametros["raza"] = $masota->getRaza();
-                $parametros["tamanio"] = $masota->getTamanio();
-                $parametros["observaciones"] = $masota->getObservaciones();
-                $parametros["dni_duenio"] = $masota->getDni_duenio();
-                $parametros["foto"] = $masota->getFoto();
-                $parametros["vacunacion"] = $masota->getVacunacion();
-                $parametros["video"] = $masota->getVideo();
+                $parametros["nombre"] = $mascota->getNombre();
+                $parametros["tipo"] = $mascota->getTipo();
+                $parametros["edad"] = $mascota->getEdad();
+                $parametros["raza"] = $mascota->getRaza();
+                $parametros["tamanio"] = $mascota->getTamanio();
+                $parametros["observaciones"] = $mascota->getObservaciones();
+                $parametros["dni_duenio"] = $mascota->getDni_duenio();
+                $parametros["foto"] = $mascota->getFoto();
+                $parametros["vacunacion"] = $mascota->getVacunacion();
+                $parametros["video"] = $mascota->getVideo();
                 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parametros);
@@ -72,7 +73,7 @@
 
                 if($resultado){
                     $parametros = $resultado[0];
-                    $mascota = nuevaMascota($parametros);
+                    $mascota = $this->nuevaMascota($parametros);
                 }
                 return $mascota;
             }

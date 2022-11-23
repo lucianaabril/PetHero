@@ -2,6 +2,7 @@
 namespace DataBase;
 use Models\Duenio as Duenio;
 use DataBase\Connection as Connection;
+use FFI\Exception as Exception;
 
     class DuenioDAO{
         private $connection;
@@ -34,7 +35,7 @@ use DataBase\Connection as Connection;
                 $this->connection = Connection::GetInstance();
                 $lista = $this->connection->Execute($query);
                 foreach($lista as $d){ //d es un array
-                    $nuevoDuenio = nuevoDuenio($d);
+                    $nuevoDuenio = $this->nuevoDuenio($d);
                     array_push($duenios, $nuevoDuenio);}
                 return $duenios;
             }
