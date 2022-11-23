@@ -82,13 +82,32 @@
             }
         }
 
-        /*function last(){
-
+        function last(){
+            try{
+                $resultado = $this->GetAll();
+                $last = null;
+                $last = array_pop($resultado);
+                return $last;
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
         }
 
         function update(Mascota $mascota){
+            try{
+                $query = "DELETE FROM " . $this->tableName . " WHERE (dni_duenio = :dni_duenio) AND (nombre = :nombre);";
+                $parametros["dni_duenio"] = $mascota->getDni_duenio();
+                $parametros["nombre"] = $mascota->getNombre();
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query, $parametros);
 
-        }*/
+                $this->Add($mascota);
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
 
     }
 

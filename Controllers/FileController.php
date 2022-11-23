@@ -61,7 +61,7 @@
         $last->setFoto($locations[0]);
         $last->setVacunacion($locations[1]);
         $last->setVideo($locations[2]);
-        $MascotaDAO->Add($last);
+        $MascotaDAO->update($last);
     }
 
 

@@ -11,7 +11,7 @@
 
         function Add(Reserva $reserva){
             try{
-                $query = "INSERT INTO " . $this->tableName . " (dni_duenio, dni_guardian, nombre_mascota, id_reserva, fecha, hora, encuentro, estado) VALUES (:dni_duenio, :dni_guardian, :nombre_mascota, :id_reserva, :fecha, :hora, :encuentro, :estado)";
+                $query = "INSERT INTO " . $this->tableName . " (dni_duenio, dni_guardian, nombre_mascota, id_reserva, fecha, hora, encuentro, estado) VALUES (:dni_duenio, :dni_guardian, :nombre_mascota, :id_reserva, :fecha, :hora, :encuentro, :estado);";
                 $parametros["dni_duenio"] = $reserva->getDniDuenio();
                 $parametros["dni_guardian"] = $reserva->getDniGuardian();
                 $parametros["nombre_mascota"] = $reserva->getNombre_mascota();
@@ -133,14 +133,24 @@
         }
 
         private function Update(){
-            try{
+        }
 
-                
+        function getLastId(){
+            try{
+                $resultado = $this->GetAll();
+                $last = array_pop($resultado);
+                if($last){
+                    return $last->getId_reserva();
+                }
+                else{
+                    return null;
+                }
             }
             catch(Exception $ex){
                 throw $ex;
             }
         }
+
     }
 
 
