@@ -68,18 +68,17 @@ CREATE TABLE reservas (
   hora time DEFAULT NULL,
   encuentro varchar(50) DEFAULT NULL,
   estado varchar(20) DEFAULT NULL,
-  id_pago int(10),
   primary key (id_reserva),
   constraint fk_dni_d FOREIGN KEY (dni_duenio) REFERENCES duenios(dni_duenio),
   constraint fk_dni_g FOREIGN KEY (dni_guardian) REFERENCES guardianes(dni_guardian),
   constraint fk_nombre_mascota FOREIGN KEY (nombre_mascota) REFERENCES mascotas(nombre),
-  constraint fk_id_pago FOREIGN KEY (id_pago) REFERENCES pago(id_pago);
 )engine=InnoDB;
 
 CREATE TABLE pago (
-  id_pago int(10) NOT NULL,
+  id_reserva int(10) NOT NULL,
   forma_pago varchar(45),
   fecha date DEFAULT NULL, 
   monto float DEFAULT NULL,
-  primary key (id_pago);
-)
+  primary key (id_reserva);
+  constraint fk_id_reserva FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva),
+)engine=InnoDB;

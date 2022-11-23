@@ -69,7 +69,7 @@
                 $query = "SELECT * FROM " . $this->tableName . " WHERE (email = :email);";
                 $parametro["email"] = $email;
                 $this->connection = Connection::GetInstance();
-                $resultado = $this->connection->Execute($query);
+                $resultado = $this->connection->Execute($query,$parametro);
                 $guardian = null;
 
                 if($resultado){ //matriz resultado
@@ -88,7 +88,7 @@
                 $query = "SELECT * FROM " . $this->tableName . " WHERE (dni_guardian = :dni);";
                 $parametro["dni"] = $dni;
                 $this->connection = Connection::GetInstance();
-                $resultado = $this->connection->Execute($query);
+                $resultado = $this->connection->Execute($query,$parametro);
                 $guardian = null;
 
                 if($resultado){
@@ -102,20 +102,55 @@
             }
         }
 
-        /*function Update(Guardian $guardian){
+        function Update(Guardian $guardian){
             try{
+                $query = "DELETE * FROM " . $this->tableName . " WHERE (dni = :dni);";
+                $parametro["dni"] = $guardian->getDni();
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query,$parametro);
 
-
+                $this->Add($guardian);
             }
-            catch(Exception $guardian){
-
+            catch(Exception $ex){
+                throw $ex;
             }
         }
 
         function reservasConcretadas(){
+            try{
+                $guardianes = $this->GetAll();
+                foreach($guardianes as $g){
+                    $disp = $g->getDisponibilidad();
+                    $newDisp = array();
+                    foreach($disp as $fecha=>$d){
+                        if(date('Y-m-d') < $fecha){
+                            $newDisp[$fecha] = $d;
+                        }
+                    }
+                    $g->newDisponibilidad($newDisp);
+                    $this->Update($g);
+                }
+                /*
+                    $this->LoadData();
+                    foreach($this->list as $g){
+                        $disp = $g->getDisponibilidad();
+                        $newDisp = array();
+                        ($disp as $fecha=>$d){
+                            if(date('Y-m-d') < $fecha){
+                                $newDisp[$fecha] = $d;
+                            }
+                        }
+                        $g->newDisponibilidad($newDisp);
+                        $this->Update($g);
+                    }
+                */
 
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
         }
-        */
+
     }
 
 
