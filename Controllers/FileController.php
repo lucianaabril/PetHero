@@ -1,6 +1,6 @@
 <?php
     namespace Controllers;
-    use DAO\MascotaDAO as MascotaDAO;
+    use DataBase\MascotaDAO as MascotaDAO;
 
     class FileController{
     private $uploadFilePath;

@@ -1,7 +1,7 @@
 <?php
 namespace DataBase;
 use PDO as PDO;
-use DB\QueryType as QueryType;
+use DataBase\QueryType as QueryType;
 
 class Connection{
     private $pdo = null;
@@ -24,51 +24,38 @@ class Connection{
 
     public function Execute($query, $parameters = array(), $queryType = QueryType::Query)
     {
-        
-            $this->Prepare($query);
-
-            $this->BindParameters($parameters, $queryType);
-
-            $this->pdoStatement->execute();
-
-            return $this->pdoStatement->fetchAll();
-        
-        
+        $this->Prepare($query);
+        $this->BindParameters($parameters, $queryType);
+        $this->pdoStatement->execute();
+        return $this->pdoStatement->fetchAll();
     }
 
     public function ExecuteNonQuery($query, $parameters = array(), $queryType = QueryType::Query)
     {
-        
-            $this->Prepare($query);
-
-            $this->BindParameters($parameters, $queryType);
-
-            $this->pdoStatement->execute();
-
-            return $this->pdoStatement->rowCount();
-       
+        $this->Prepare($query);
+        $this->BindParameters($parameters, $queryType);
+        $this->pdoStatement->execute();
+        return $this->pdoStatement->rowCount();
     }
 
     private function Prepare($query)
     {
-       
-            $this->pdoStatement = $this->pdo->prepare($query);
-        
+        $this->pdoStatement = $this->pdo->prepare($query);
     }
 
     private function BindParameters($parameters = array(), $queryType = QueryType::Query)
     {
         $i = 0;
-        foreach ($parameters as $parameterName => $value) {
+        foreach ($parameters as $parameterName=>$value) {
             $i++;
-
-            if ($queryType == QueryType::Query)
+            if ($queryType == QueryType::Query){
                 $this->pdoStatement->bindParam(":" . $parameterName, $parameters[$parameterName]);
-            else
+            }
+            else {
                 $this->pdoStatement->bindParam($i, $parameters[$parameterName]);
+            }
         }
     }
-
 }
 
 ?>

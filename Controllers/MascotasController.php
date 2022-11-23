@@ -2,7 +2,7 @@
 namespace Controllers;
 
 use Models\Mascota as Mascota;
-use DAO\MascotaDAO as mascotaDAO;
+use DataBase\MascotaDAO as mascotaDAO;
 use Models\Duenio as Duenio;
 use Controllers\FileController as Controller;
 

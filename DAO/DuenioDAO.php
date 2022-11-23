@@ -16,7 +16,7 @@
         $this->LoadData();
         array_push($this->list, $duenio);
         $this->SaveData();
-    }
+      }
 
       public function GetAll()
       {

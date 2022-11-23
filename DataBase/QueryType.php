@@ -1,5 +1,5 @@
 <?php
-    namespace DB;
+    namespace DataBase;
     
     abstract class QueryType{
         const Query = 0;
