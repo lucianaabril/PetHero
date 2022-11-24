@@ -2,8 +2,8 @@
 
 namespace Controllers;
 use Models\Guardian as Guardian;
-use DAO\GuardianDAO as GuardianDAO;
-use DAO\DuenioDAO as DuenioDAO;
+use DataBase\GuardianDAO as GuardianDAO;
+use DataBase\DuenioDAO as DuenioDAO;
 use Models\Duenio as Duenio;
 use Controllers\MascotasController as MascotasController;
 use Controllers\ReservasController as ResC;
@@ -11,8 +11,8 @@ use DateTime as DateTime;
 use DatePeriod as DatePeriod;
 use DateInterval as DateInterval;
 use FFI\Exception as Exception;
-use DAO\CuponDAO as cuponDAO;
-use DAO\ReservaDAO as reservaDAO;
+use DataBase\CuponDAO as cuponDAO;
+use DataBase\ReservaDAO as reservaDAO;
 
 
 class UserController
@@ -33,22 +33,27 @@ class UserController
 
   public function changeDisponibilidad($inicio = '', $fin = '')
   {
-    if (isset($_SESSION['email'])) {
-      $guardian = new Guardian();
-      $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
-
-      if ($inicio != '' && $fin != '') {
-        $rango = $this->rangeDate($inicio, $fin);
-        foreach ($rango as $fecha) {
-          $guardian->setDisponibilidad($fecha, "disponible");
+    try{
+      if (isset($_SESSION['email'])) {
+        $guardian = new Guardian();
+        $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
+  
+        if ($inicio != '' && $fin != '') {
+          $rango = $this->rangeDate($inicio, $fin);
+          foreach ($rango as $fecha) {
+            $guardian->setDisponibilidad($fecha, "disponible");
+          }
+          $this->guardianDAO->Update($guardian);
+          require_once(VIEWS_PATH . 'guardian-page.php');
+        } else {
+          echo "Debe ingresar un rango de fechas";
         }
-        $this->guardianDAO->Update($guardian);
-        require_once(VIEWS_PATH . 'guardian-page.php');
       } else {
-        echo "Debe ingresar un rango de fechas";
+        require_once(VIEWS_PATH . 'login.php');
       }
-    } else {
-      require_once(VIEWS_PATH . 'login.php');
+    }
+    catch(Exception $ex){
+      throw $ex;
     }
   }
 
@@ -59,22 +64,27 @@ class UserController
 
   public function changeGuardianData($tarifa = '', $preferencia = '')
   {
-    if (isset($_SESSION['email'])) {
-      $guardian = new Guardian();
-      $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
-
-      if ($tarifa != '') {
-        $guardian->setTarifa($tarifa);
+    try{
+      if (isset($_SESSION['email'])) {
+        $guardian = new Guardian();
+        $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
+  
+        if ($tarifa != '') {
+          $guardian->setTarifa($tarifa);
+        }
+  
+        if ($preferencia != '') {
+          $guardian->setPreferencia($preferencia);
+        }
+  
+        $this->guardianDAO->Update($guardian);
+        require_once(VIEWS_PATH . 'guardian-page.php');
+      } else {
+        require_once(VIEWS_PATH . 'login.php');
       }
-
-      if ($preferencia != '') {
-        $guardian->setPreferencia($preferencia);
-      }
-
-      $this->guardianDAO->Update($guardian);
-      require_once(VIEWS_PATH . 'guardian-page.php');
-    } else {
-      require_once(VIEWS_PATH . 'login.php');
+    }
+    catch(Exception $ex){
+      throw $ex;
     }
   }
 
@@ -181,31 +191,31 @@ class UserController
 
   public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '', $preferencia = '')
   {
-    if ($this->validar($email, $password, $type, $nombre, $apellido, $dni, $telefono, $direccion, $cumpleanios, $disponibilidad, $tarifa, $preferencia)) {
+    try{
+      if ($this->validar($email, $password, $type, $nombre, $apellido, $dni, $telefono, $direccion, $cumpleanios, $disponibilidad, $tarifa, $preferencia)) {
 
-      if ($_POST['type'] == 'G') {
-        $guardian = new Guardian();
-        $guardian->setEmail($email);
-        $guardian->setPassword($password);
-        $guardian->setType($type);
-
-        $guardian->setNombre($nombre);
-        $guardian->setApellido($apellido);
-        $guardian->setDni($dni);
-        $guardian->setTelefono($telefono);
-        $guardian->setDireccion($direccion);
-        $guardian->setCumpleanios($cumpleanios);
-        $guardian->setDisponibilidad(null, null, 'disponible');
-        $guardian->setTarifa(null);
-        $guardian->setPreferencia(null);
-        $guardian->setCBU(null);
-        $guardian->setAlias(null);
-
-        $this->guardianDAO->Add($guardian);
-
-        require_once(VIEWS_PATH . 'login.php');
-      } elseif ($_POST['type'] == 'D') {
-        try {
+        if ($_POST['type'] == 'G') {
+          $guardian = new Guardian();
+          $guardian->setEmail($email);
+          $guardian->setPassword($password);
+          $guardian->setType($type);
+  
+          $guardian->setNombre($nombre);
+          $guardian->setApellido($apellido);
+          $guardian->setDni($dni);
+          $guardian->setTelefono($telefono);
+          $guardian->setDireccion($direccion);
+          $guardian->setCumpleanios($cumpleanios);
+          $guardian->setDisponibilidad(null, null, 'disponible');
+          $guardian->setTarifa(null);
+          $guardian->setPreferencia(null);
+          $guardian->setCBU(null);
+          $guardian->setAlias(null);
+  
+          $this->guardianDAO->Add($guardian);
+  
+          require_once(VIEWS_PATH . 'login.php');
+        } elseif ($_POST['type'] == 'D'){
           $duenio = new Duenio();
           $duenio->setEmail($email);
           $duenio->setPassword($password);
@@ -221,12 +231,12 @@ class UserController
   
           require_once(VIEWS_PATH . 'login.php');
         }
-        catch(Exception $ex){
-          throw $ex;
-        }
+      } else {
+        $this->ShowSignupView();
       }
-    } else {
-      $this->ShowSignupView();
+    }
+    catch(Exception $ex){
+      throw $ex;
     }
   }
 
@@ -237,34 +247,39 @@ class UserController
 
   public function viewGuardianesAsDuenio()
   {
-    $petController = new MascotasController();
-    $user = new Duenio();
-    $user = $_SESSION["loggeduser"];
-    $pets = $petController->getMascotasByDuenio($user->getDni());
-    $guardianDAO = new GuardianDAO();
-    $guardianes = $guardianDAO->GetAll();
-    $array = array();
-    $flag = false;
-
-    foreach ($pets as $pet) {
-      foreach ($guardianes as $guardian) {
-        if ($pet->getTamanio() == $guardian->getPreferencia()) {
-          if ($array) {
-            foreach ($array as $g) {
-              if ($g->getDni() == $guardian->getDni()) {
-                $flag = true;
+    try{
+      $petController = new MascotasController();
+      $user = new Duenio();
+      $user = $_SESSION["loggeduser"];
+      $pets = $petController->getMascotasByDuenio($user->getDni());
+      $guardianDAO = new GuardianDAO();
+      $guardianes = $guardianDAO->GetAll();
+      $array = array();
+      $flag = false;
+  
+      foreach ($pets as $pet) {
+        foreach ($guardianes as $guardian) {
+          if ($pet->getTamanio() == $guardian->getPreferencia()) {
+            if ($array) {
+              foreach ($array as $g) {
+                if ($g->getDni() == $guardian->getDni()) {
+                  $flag = true;
+                }
               }
-            }
-            if (!$flag) {
+              if (!$flag) {
+                array_push($array, $guardian);
+              }
+            } else {
               array_push($array, $guardian);
             }
-          } else {
-            array_push($array, $guardian);
           }
         }
       }
+      return $array;
     }
-    return $array;
+    catch(Exception $ex){
+      throw $ex;
+    }
   }
 
   public function showGuardianesDispView()
@@ -286,10 +301,12 @@ class UserController
   public function filtrarFecha($inicio = '', $fin = '')
   { 
     if ($inicio == '' && $fin == '') {                          
-      echo "Debe ingresar una fecha o un rango de fechas";
+      $ex = new Exception("Debe ingresar fechas para continuar. ");
+      throw $ex;
     }
     elseif($inicio < date('Y-m-d')) {
-      echo "La(s) fecha(s) ingresadas son inválidas, ingreselas nuevamente";
+      $ex = new Exception("La(s) fecha(s) ingresadas son inválidas, ingreselas nuevamente. ");
+      throw $ex;
     }
     else{
       $petController = new MascotasController();
@@ -462,53 +479,68 @@ class UserController
 
   public function showReservas()
   {
-    $user = $_SESSION['loggeduser'];
-    $dni = $user->getDni();
-    $controller = new ResC();
-    $reservas = $controller->reservaDAO->GetAll();
-    $array = array();
-    foreach ($reservas as $res) {
-      if ($dni == $res->getDniDuenio()) {
-        array_push($array, $res);
+    try{
+      $user = $_SESSION['loggeduser'];
+      $dni = $user->getDni();
+      $controller = new ResC();
+      $reservas = $controller->reservaDAO->GetAll();
+      $array = array();
+      foreach ($reservas as $res) {
+        if ($dni == $res->getDniDuenio()) {
+          array_push($array, $res);
+        }
       }
+      include_once(VIEWS_PATH . 'show-reservas-d.php');
     }
-    include_once(VIEWS_PATH . 'show-reservas-d.php');
+    catch(Exception $ex){
+      throw $ex;
+    }
   }
 
   public function changeDatos($cbu = '', $alias = ''){
-    if (isset($_SESSION['email'])) {
-      $guardian = new Guardian();
-      $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
-
-      if ($cbu != '') {
-        $guardian->setCBU($cbu);
+    try{
+      if (isset($_SESSION['email'])) {
+        $guardian = new Guardian();
+        $guardian = $this->guardianDAO->getByEmail($_SESSION['email']);
+  
+        if ($cbu != '') {
+          $guardian->setCBU($cbu);
+        }
+  
+        if ($alias != '') {
+          $guardian->setAlias($alias);
+        }
+        $this->guardianDAO->Update($guardian);
+  
+        require_once(VIEWS_PATH . 'guardian-page.php');
+      } else {
+        require_once(VIEWS_PATH . 'login.php');
       }
-
-      if ($alias != '') {
-        $guardian->setAlias($alias);
-      }
-      $this->guardianDAO->Update($guardian);
-
-      require_once(VIEWS_PATH . 'guardian-page.php');
-    } else {
-      require_once(VIEWS_PATH . 'login.php');
+    }
+    catch(Exception $ex){
+      throw $ex;
     }
   }
 
   public function cuponesView(){
-    $user = $_SESSION['loggeduser'];
-    $cuponDAO = new cuponDAO();
-    $cupones = $cuponDAO->GetAll();
-    $array = array();
-
-    $reservaDAO = new reservaDAO();
-    foreach($cupones as $c){
-      $reserva = $reservaDAO->getById($c->getId_reserva());
-      if($reserva[0]->getDniDuenio() == $user->getDni()){
-        array_push($array, $c);
+    try{
+      $user = $_SESSION['loggeduser'];
+      $cuponDAO = new cuponDAO();
+      $cupones = $cuponDAO->GetAll();
+      $array = array();
+  
+      $reservaDAO = new reservaDAO();
+      foreach($cupones as $c){
+        $reserva = $reservaDAO->getById($c->getId_reserva());
+        if($reserva[0]->getDniDuenio() == $user->getDni()){
+          array_push($array, $c);
+        }
       }
+      include_once(VIEWS_PATH . 'cupones.php');
     }
-    include_once(VIEWS_PATH . 'cupones.php');
+    catch(Exception $ex){
+      throw $ex;
+    }
   }
 
 

@@ -68,9 +68,7 @@ class CuponDAO{
         catch(Exception $ex){
             throw $ex;
         }
-    }
-
-    
+    }    
 }
 
 ?>

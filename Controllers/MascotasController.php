@@ -2,9 +2,10 @@
 namespace Controllers;
 
 use Models\Mascota as Mascota;
-use DAO\MascotaDAO as mascotaDAO;
+use DataBase\MascotaDAO as mascotaDAO;
 use Models\Duenio as Duenio;
 use Controllers\FileController as Controller;
+use Exception;
 
 class MascotasController{
     private $mascotaDAO;
@@ -14,27 +15,37 @@ class MascotasController{
     }
 
     public function Add($nombre = '', $tipo = '', $edad = '', $raza = '', $tamanio = '', $observaciones = ''){
-        $pet = new Mascota();
-        $pet->setNombre($nombre);
-        $pet->setTipo($tipo);
-        $pet->setEdad($edad);
-        $pet->setRaza($raza);
-        $pet->setTamanio($tamanio);
-        $pet->setObservaciones($observaciones);
-        $user = new Duenio();
-        $user = $_SESSION["loggeduser"];
-        $pet->setDni_duenio($user->getDni());
-
-        $this->mascotaDAO->Add($pet);
-        require_once(VIEWS_PATH . 'add-mascota-files.php');
+        try{
+            $pet = new Mascota();
+            $pet->setNombre($nombre);
+            $pet->setTipo($tipo);
+            $pet->setEdad($edad);
+            $pet->setRaza($raza);
+            $pet->setTamanio($tamanio);
+            $pet->setObservaciones($observaciones);
+            $user = new Duenio();
+            $user = $_SESSION["loggeduser"];
+            $pet->setDni_duenio($user->getDni());
+    
+            $this->mascotaDAO->Add($pet);
+            require_once(VIEWS_PATH . 'add-mascota-files.php');
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
     }
 
     public function getMascotasByDuenio(){
-        $array = array();
-        $user = new Duenio();
-        $user = $_SESSION["loggeduser"];
-        $array = $this->mascotaDAO->getByDniDuenio($user->getDni());
-        return $array;
+        try{
+            $array = array();
+            $user = new Duenio();
+            $user = $_SESSION["loggeduser"];
+            $array = $this->mascotaDAO->getByDniDuenio($user->getDni());
+            return $array;
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
     }
 
     public function viewAddMascota(){

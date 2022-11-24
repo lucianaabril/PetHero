@@ -70,12 +70,13 @@
                 $this->connection = Connection::GetInstance();
                 $resultado = $this->connection->Execute($query,$parametro);
                 $mascota = null;
+                $mascotas = array();
 
-                if($resultado){
-                    $parametros = $resultado[0];
-                    $mascota = $this->nuevaMascota($parametros);
+                foreach($resultado as $m){
+                    $mascota = $this->nuevaMascota($m);
+                    array_push($mascotas, $mascota);
                 }
-                return $mascota;
+                return $mascotas;
             }
             catch(Exception $ex){
                 throw $ex;

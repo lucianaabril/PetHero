@@ -11,13 +11,17 @@
         }
 
         public function Add($monto = '', $fecha = '', $detalles = ''){
-            $cupon = new Cupon();
-            $cupon->setMonto($monto);
-            $cupon->setFecha($fecha);
-            $cupon->setDetalles($detalles);
-    
-            $this->cuponDAO->Add($cupon);
-            //require_once(VIEWS_PATH . '');
+            try{
+                $cupon = new Cupon();
+                $cupon->setMonto($monto);
+                $cupon->setFecha($fecha);
+                $cupon->setDetalles($detalles);
+        
+                $this->cuponDAO->Add($cupon);
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
         }        
     }
 
