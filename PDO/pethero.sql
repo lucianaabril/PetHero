@@ -81,3 +81,12 @@ CREATE TABLE pago (
   primary key (id_reserva);
   constraint fk_id_reserva FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva),
 )engine=InnoDB;
+
+CREATE TABLE cupones (
+id_reserva int(10) NOT NULL,
+fecha date DEFAULT NULL,
+detalles varchar(70),
+monto float(6),
+primary key(id_reserva),
+constraint fk_idreserva foreign key (id_reserva) references reservas(id_reserva)
+)engine=InnoDB;

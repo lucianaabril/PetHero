@@ -1,47 +1,122 @@
 [
     {
-        "fecha": "2023-03-01",
-        "hora": "06:15",
-        "encuentro": "Irala 2121",
-        "id reserva": 2,
+        "fecha": "2022-12-12",
+        "hora": "09:46",
+        "encuentro": "Irala 4690",
+        "id reserva": 1,
         "estado": "programada",
-        "dni guardian": "44510229",
+        "dni guardian": "44692743",
         "dni duenio": "44510229",
         "nombre mascota": "Yeko",
         "pago": {
             "fecha": "2022-11-24",
             "forma de pago": "tarjeta",
-            "monto": "1000"
+            "monto": "100"
         }
     },
     {
-        "fecha": "2023-03-02",
-        "hora": "06:15",
-        "encuentro": "Irala 2121",
-        "id reserva": 2,
+        "fecha": "2022-12-13",
+        "hora": "09:46",
+        "encuentro": "Irala 4690",
+        "id reserva": 1,
         "estado": "programada",
-        "dni guardian": "44510229",
+        "dni guardian": "44692743",
         "dni duenio": "44510229",
         "nombre mascota": "Yeko",
         "pago": {
             "fecha": "2022-11-24",
             "forma de pago": "tarjeta",
-            "monto": "1000"
+            "monto": "100"
         }
     },
     {
-        "fecha": "2023-03-03",
-        "hora": "06:15",
-        "encuentro": "Irala 2121",
-        "id reserva": 2,
+        "fecha": "2022-12-14",
+        "hora": "09:46",
+        "encuentro": "Irala 4690",
+        "id reserva": 1,
         "estado": "programada",
-        "dni guardian": "44510229",
+        "dni guardian": "44692743",
         "dni duenio": "44510229",
         "nombre mascota": "Yeko",
         "pago": {
             "fecha": "2022-11-24",
             "forma de pago": "tarjeta",
-            "monto": "1000"
+            "monto": "100"
+        }
+    },
+    {
+        "fecha": "2022-12-15",
+        "hora": "09:46",
+        "encuentro": "Irala 4690",
+        "id reserva": 1,
+        "estado": "programada",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Yeko",
+        "pago": {
+            "fecha": "2022-11-24",
+            "forma de pago": "tarjeta",
+            "monto": "100"
+        }
+    },
+    {
+        "fecha": "2022-12-12",
+        "hora": "",
+        "encuentro": "",
+        "id reserva": 2,
+        "estado": "pendiente",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Yeko",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "100"
+        }
+    },
+    {
+        "fecha": "2022-12-13",
+        "hora": "",
+        "encuentro": "",
+        "id reserva": 2,
+        "estado": "pendiente",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Yeko",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "100"
+        }
+    },
+    {
+        "fecha": "2022-12-14",
+        "hora": "",
+        "encuentro": "",
+        "id reserva": 2,
+        "estado": "pendiente",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Yeko",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "100"
+        }
+    },
+    {
+        "fecha": "2022-12-15",
+        "hora": "",
+        "encuentro": "",
+        "id reserva": 2,
+        "estado": "pendiente",
+        "dni guardian": "44692743",
+        "dni duenio": "44510229",
+        "nombre mascota": "Yeko",
+        "pago": {
+            "fecha": null,
+            "forma de pago": null,
+            "monto": "100"
         }
     }
 ]

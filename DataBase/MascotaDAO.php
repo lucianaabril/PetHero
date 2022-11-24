@@ -68,7 +68,7 @@
                 $query = "SELECT * FROM " . $this->tableName . " WHERE (dni_duenio = :dni_duenio);";
                 $parametro["dni_duenio"] = $dni_duenio;
                 $this->connection = Connection::GetInstance();
-                $resultado = $this->connection->Execute($query);
+                $resultado = $this->connection->Execute($query,$parametro);
                 $mascota = null;
 
                 if($resultado){
