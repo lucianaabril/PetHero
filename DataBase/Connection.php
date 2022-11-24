@@ -2,6 +2,7 @@
 namespace DataBase;
 use PDO as PDO;
 use DataBase\QueryType as QueryType;
+use Exception;
 
 class Connection{
     private $pdo = null;
@@ -10,51 +11,86 @@ class Connection{
 
     function __construct()
     {
-        $this->pdo = new PDO("mysql:host=" . DB_HOST . "; dbname=" . DB_NAME, DB_USER, DB_PASS);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try{
+            $this->pdo = new PDO("mysql:host=" . DB_HOST . "; dbname=" . DB_NAME, DB_USER, DB_PASS);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+        
     }
 
     public static function GetInstance()
     {
-        if (self::$instance == null) {
-            self::$instance = new Connection();
+        try{
+            if (self::$instance == null) {
+                self::$instance = new Connection();
+            }
+            return self::$instance;
         }
-        return self::$instance;
+        catch(Exception $ex){
+            throw $ex;
+        }
     }
 
     public function Execute($query, $parameters = array(), $queryType = QueryType::Query)
     {
-        $this->Prepare($query);
-        $this->BindParameters($parameters, $queryType);
-        $this->pdoStatement->execute();
-        return $this->pdoStatement->fetchAll();
+        try{
+            $this->Prepare($query);
+            $this->BindParameters($parameters, $queryType);
+            $this->pdoStatement->execute();
+            return $this->pdoStatement->fetchAll();
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+        
     }
 
     public function ExecuteNonQuery($query, $parameters = array(), $queryType = QueryType::Query)
     {
-        $this->Prepare($query);
-        $this->BindParameters($parameters, $queryType);
-        $this->pdoStatement->execute();
-        return $this->pdoStatement->rowCount();
+        try{
+            $this->Prepare($query);
+            $this->BindParameters($parameters, $queryType);
+            $this->pdoStatement->execute();
+            return $this->pdoStatement->rowCount();
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+        
     }
 
     private function Prepare($query)
     {
-        $this->pdoStatement = $this->pdo->prepare($query);
+        try{
+            $this->pdoStatement = $this->pdo->prepare($query);
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+        
     }
 
     private function BindParameters($parameters = array(), $queryType = QueryType::Query)
     {
-        $i = 0;
-        foreach ($parameters as $parameterName=>$value) {
-            $i++;
-            if ($queryType == QueryType::Query){
-                $this->pdoStatement->bindParam(":" . $parameterName, $parameters[$parameterName]);
-            }
-            else {
-                $this->pdoStatement->bindParam($i, $parameters[$parameterName]);
-            }
+        try{
+            $i = 0;
+            foreach ($parameters as $parameterName=>$value) {
+                $i++;
+                if ($queryType == QueryType::Query){
+                    $this->pdoStatement->bindParam(":" . $parameterName, $parameters[$parameterName]);
+                }
+                else {
+                    $this->pdoStatement->bindParam($i, $parameters[$parameterName]);
+                }
         }
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+        
     }
 }
 

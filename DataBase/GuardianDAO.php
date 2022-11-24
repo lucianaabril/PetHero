@@ -10,15 +10,14 @@
         private $tableDisp = "disponibilidades";
 
         function Add(Guardian $guardian){
-            $query = "INSERT INTO " . $this->tableName . " (dni_guardian, email, password, type, nombre, apellido, telefono, direccion, cumpleanios, tarifa, preferencia) VALUES (:dni,:email,:password,:type,:nombre,:apellido,:telefono,:direccion,:cumpleanios,:tarifa,:preferencia);";
             try{
+                $query = "INSERT INTO " . $this->tableName . " (dni_guardian, email, password, type, nombre, apellido, telefono, direccion, cumpleanios, tarifa, preferencia) VALUES (:dni,:email,:password,:type,:nombre,:apellido,:telefono,:direccion,:cumpleanios,:tarifa,:preferencia);";
                 $parametros["nombre"] = $guardian->getNombre();
                 $parametros["apellido"] = $guardian->getApellido();
                 $parametros["dni"] = $guardian->getDni();
                 $parametros["telefono"] = $guardian->getTelefono();
                 $parametros["direccion"] = $guardian->getDireccion();
                 $parametros["cumpleanios"] = $guardian->getCumpleanios();
-                $parametros["disponibilidad"] = $guardian->getDisponibilidad();
                 $parametros["tarifa"] = $guardian->getTarifa();
                 $parametros["preferencia"] = $guardian->getPreferencia();
                 $parametros["cbu"] = $guardian->getCBU();
@@ -26,6 +25,15 @@
 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parametros);
+
+                foreach($guardian->getDisponibilidad() as $fecha=>$disp)
+                $query_disp = "INSERT INTO " . $this->tableDisp . " (dni_guardian,fecha,disponibilidad) VALUES (:dni_guardian,:fecha,:disponibilidad);";
+                $parametros_pago["dni_guardian"] = $guardian->getDni();
+                $parametros_pago["fecha"] = $fecha;
+                $parametros_pago["disponibilidad"] = $disp;
+
+                $this->connection->ExecuteNonQuery($query_pago, $parametros_pago);
+
             }
             catch(Exception $ex){
                 throw $ex;
@@ -131,6 +139,7 @@
                 throw $ex;
             }
         }
+
 
     }
 

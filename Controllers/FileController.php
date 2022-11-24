@@ -1,6 +1,6 @@
 <?php
     namespace Controllers;
-    use DAO\MascotaDAO as MascotaDAO;
+    use DataBase\MascotaDAO as MascotaDAO;
 
     class FileController{
     private $uploadFilePath;
@@ -56,7 +56,7 @@
         $last->setFoto($locations[0]);
         $last->setVacunacion($locations[1]);
         $last->setVideo($locations[2]);
-        $MascotaDAO->Add($last);
+        $MascotaDAO->update($last);
     }
 
     /*public function setFileToMascota($locations){

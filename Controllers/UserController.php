@@ -2,8 +2,8 @@
 
 namespace Controllers;
 use Models\Guardian as Guardian;
-use DAO\GuardianDAO as GuardianDAO;
-use DAO\DuenioDAO as DuenioDAO;
+use DataBase\GuardianDAO as GuardianDAO;
+use DataBase\DuenioDAO as DuenioDAO;
 use Models\Duenio as Duenio;
 use Controllers\MascotasController as MascotasController;
 use Controllers\ReservasController as ResC;
