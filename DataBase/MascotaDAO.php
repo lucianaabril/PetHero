@@ -74,8 +74,13 @@
 
                 foreach($resultado as $m){
                     $mascota = $this->nuevaMascota($m);
-                    array_push($mascotas, $mascota);
+                    array_push($mascotas,$mascota);
                 }
+
+                /*if($resultado){
+                    $parametros = $resultado[0];
+                    $mascota = $this->nuevaMascota($parametros);
+                }*/
                 return $mascotas;
             }
             catch(Exception $ex){

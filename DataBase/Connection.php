@@ -3,6 +3,7 @@ namespace DataBase;
 use PDO as PDO;
 use DataBase\QueryType as QueryType;
 use FFI\Exception as Exception;
+use Exception;
 
 class Connection{
     private $pdo = null;
@@ -22,10 +23,15 @@ class Connection{
 
     public static function GetInstance()
     {
-        if (self::$instance == null) {
-            self::$instance = new Connection();
+        try{
+            if (self::$instance == null) {
+                self::$instance = new Connection();
+            }
+            return self::$instance;
         }
-        return self::$instance;
+        catch(Exception $ex){
+            throw $ex;
+        }
     }
 
     public function Execute($query, $parameters = array(), $queryType = QueryType::Query)
@@ -62,16 +68,22 @@ class Connection{
 
     private function BindParameters($parameters = array(), $queryType = QueryType::Query)
     {
-        $i = 0;
-        foreach ($parameters as $parameterName=>$value) {
-            $i++;
-            if ($queryType == QueryType::Query){
-                $this->pdoStatement->bindParam(":" . $parameterName, $parameters[$parameterName]);
-            }
-            else {
-                $this->pdoStatement->bindParam($i, $parameters[$parameterName]);
-            }
+        try{
+            $i = 0;
+            foreach ($parameters as $parameterName=>$value) {
+                $i++;
+                if ($queryType == QueryType::Query){
+                    $this->pdoStatement->bindParam(":" . $parameterName, $parameters[$parameterName]);
+                }
+                else {
+                    $this->pdoStatement->bindParam($i, $parameters[$parameterName]);
+                }
         }
+        }
+        catch(Exception $ex){
+            throw $ex;
+        }
+        
     }
 }
 

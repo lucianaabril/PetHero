@@ -53,7 +53,7 @@ CREATE TABLE mascotas (
   foto varchar(50) DEFAULT NULL,
   vacunacion varchar(50) DEFAULT NULL,
   video varchar(50) DEFAULT NULL,
-  primary key(nombre,dni_duenio),
+  primary key(nombre),
   constraint fk_dni_duenio FOREIGN KEY (dni_duenio) REFERENCES duenios(dni_duenio)
 )engine=InnoDB;
 

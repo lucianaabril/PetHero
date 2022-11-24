@@ -52,10 +52,10 @@
             
             if($pago){
                 $pagoNuevo = new Pago();
-                $pagoNuevo->setForma_pago($pago["forma_pago"]);
-                $pagoNuevo->setFecha($pago["fecha"]);
-                $pagoNuevo->setMonto($pago["monto"]);
-                $reserva->pago = $pagoNuevo;
+                $pagoNuevo->setForma_pago($pago->getForma_pago());
+                $pagoNuevo->setFecha($pago->getFecha());
+                $pagoNuevo->setMonto($pago->getMonto());
+                $reserva->setPago($pagoNuevo);
             }
             return $reserva;
         }
@@ -85,11 +85,24 @@
                 $this->connection = Connection::GetInstance();
                 $resultado = null;
                 $resultado = $this->connection->Execute($query, $parametro);
-                return $resultado;
+                $pago = null;
+
+                if($resultado){
+                    $pago = $this->nuevoPago($resultado);
+                }
+                return $pago;
             }
             catch(Exception $ex){
                 throw $ex;
             }
+        }
+
+        function nuevoPago($parametros){
+            $pagoNuevo = new Pago();
+            $pagoNuevo->setForma_pago($parametros["forma_pago"]);
+            $pagoNuevo->setFecha($parametros["fecha"]);
+            $pagoNuevo->setMonto($parametros["monto"]);
+            return $pagoNuevo;
         }
 
         function getById($id){
@@ -98,13 +111,16 @@
                 $parametro["id_reserva"] = $id;
                 $this->connection = Connection::GetInstance();
                 $resultado = $this->connection->Execute($query, $parametro);
-                $reserva = null;
+                $reservas = array();
 
                 if($resultado){
-                    $parametros = $resultado[0]; 
-                    $pago = $this->getPago($parametros["id_reserva"]);
-                    $reserva = $this->nuevaReserva($parametros, $pago);
+                    foreach($resultado as $r){
+                        $pago = $this->getPago($parametro["id_reserva"]);
+                        $reserva = $this->nuevaReserva($r,$pago);
+                        array_push($reservas,$reserva);
+                    }
                 }
+
                 return $reserva;
             }
             catch(Exception $ex){
@@ -142,8 +158,12 @@
                     $this->connection = Connection::GetInstance();
                     $resultado = $this->connection->Execute($query, $parametro);
                 }
-                foreach($resultado as $r){
-                    array_push($reservas,$r);
+                if($resultado){
+                    foreach($resultado as $r){
+                        $pago = $this->getPago($parametro["id_reserva"]);
+                        $reserva = $this->nuevaReserva($r,$pago);
+                        array_push($reservas,$reserva);
+                    }
                 }
                 return $reservas;
             }
