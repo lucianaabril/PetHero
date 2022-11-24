@@ -2,8 +2,8 @@
 
 namespace Controllers;
 use Models\Guardian as Guardian;
-use DataBase\GuardianDAO as GuardianDAO;
-use DataBase\DuenioDAO as DuenioDAO;
+use DAO\GuardianDAO as GuardianDAO;
+use DAO\DuenioDAO as DuenioDAO;
 use Models\Duenio as Duenio;
 use Controllers\MascotasController as MascotasController;
 use Controllers\ReservasController as ResC;
@@ -11,6 +11,8 @@ use DateTime as DateTime;
 use DatePeriod as DatePeriod;
 use DateInterval as DateInterval;
 use FFI\Exception as Exception;
+use DAO\CuponDAO as cuponDAO;
+use DAO\ReservaDAO as reservaDAO;
 
 
 class UserController
@@ -438,11 +440,7 @@ class UserController
   {
     $controller = new ResC();
     $controller->Add($fecha, $hora, $encuentro, $dni_guardian, $nombre_mascota);
-  }
-
-  public function showViewPendientes()
-  {
-    require_once(VIEWS_PATH . "reserva.php");
+    require_once(VIEWS_PATH . 'duenio-page.php');
   }
 
   public function rangeDate($inicio, $final){
@@ -495,6 +493,22 @@ class UserController
     } else {
       require_once(VIEWS_PATH . 'login.php');
     }
+  }
+
+  public function cuponesView(){
+    $user = $_SESSION['loggeduser'];
+    $cuponDAO = new cuponDAO();
+    $cupones = $cuponDAO->GetAll();
+    $array = array();
+
+    $reservaDAO = new reservaDAO();
+    foreach($cupones as $c){
+      $reserva = $reservaDAO->getById($c->getId_reserva());
+      if($reserva[0]->getDniDuenio() == $user->getDni()){
+        array_push($array, $c);
+      }
+    }
+    include_once(VIEWS_PATH . 'cupones.php');
   }
 
 

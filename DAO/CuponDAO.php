@@ -33,6 +33,7 @@
                 $valuesArray["monto"] = $cupon->getMonto();
                 $valuesArray["fecha"] = $cupon->getFecha();
                 $valuesArray["detalles"] = $cupon->getDetalles();
+                $valuesArray["id_reserva"] = $cupon->getId_reserva();
 
                 array_push($arrayToEncode, $valuesArray);
             }
@@ -54,6 +55,7 @@
                     $cupon->setMonto($item["monto"]);
                     $cupon->setFecha($item["fecha"]);
                     $cupon->setDetalles($item["detalles"]);
+                    $cupon->setId_reserva($item["id_reserva"]);
 
                     array_push($this->list, $cupon);
                 }

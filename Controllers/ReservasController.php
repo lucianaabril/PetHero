@@ -4,12 +4,13 @@ use DAO\ReservaDAO as reservaDAO;
 use Models\Reserva as Reserva;
 use Models\Duenio as Duenio;
 use Models\Pago as Pago;
-use DataBase\GuardianDAO as guardianDAO;
+use DAO\GuardianDAO as guardianDAO;
 use Models\Guardian as Guardian;
 use Controllers\MascotasController as mascotasC;
-use DataBase\MascotaDAO as mascotasDAO;
+use DAO\MascotaDAO as mascotasDAO;
 use Controllers\UserController as userC;
-use Models\Cupon as cupon;
+use Models\Cupon as Cupon;
+use DAO\CuponDAO as cuponDAO;
 use Controllers\FileController as fileC;
 
 class ReservasController{
@@ -169,6 +170,7 @@ class ReservasController{
             $guardianDAO->Update($guardian);
     
             $this->reservaDAO->updateEstado($id_reserva, "programada");
+            include_once(VIEWS_PATH . 'guardian-page.php');
         } 
         else{
             echo "Esta fecha se encuentra programada para otro tipo de raza.";
@@ -322,13 +324,17 @@ class ReservasController{
             $r->pago->setForma_pago("tarjeta");
             $this->reservaDAO->Update($id_reserva, $r->getFecha(), $r);
         }
-        $cupon = new cupon();
+
+        $cuponDAO = new cuponDAO();
+        $cupon = new Cupon();
         $cupon->setFecha(date('Y-m-d'));
         $cupon->setMonto($monto_total);
         $detalles = "Tipo de tarjeta: " . $tipo_tarjeta . "<br>" . "Numero de tarjeta: " . $numero_tarjeta . "<br>" . "Código de seguridad: " . $seguridad . "<br>" . "Vencimiento de la tarjeta: " . $vencimiento;
         $cupon->setDetalles($detalles);
+        $cupon->setId_reserva($id_reserva);
+        $cuponDAO->Add($cupon);
 
-        include_once(VIEWS_PATH . 'cupon.php');
+        include_once(VIEWS_PATH . 'duenio-page.php');
     }
 
     public function uploadComprobante($comprobante){
