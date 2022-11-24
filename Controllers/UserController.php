@@ -10,6 +10,8 @@ use Controllers\ReservasController as ResC;
 use DateTime as DateTime;
 use DatePeriod as DatePeriod;
 use DateInterval as DateInterval;
+use FFI\Exception as Exception;
+
 
 class UserController
 {
@@ -93,31 +95,45 @@ class UserController
   {
     if ($email == "" or $password == "") {
       require_once(VIEWS_PATH . "login.php");
-    } else {
-      $duenio = new Duenio();
-      $duenio = $this->duenioDAO->getByEmail($email);
-      $guardian = new Guardian();
-      $guardian = $this->guardianDAO->getByEmail($email);
-      if ($guardian != null) {
-        if ($guardian->getPassword() == $password) {
-          $_SESSION['loggeduser'] = $guardian;
-          $_SESSION['email'] = $guardian->getEmail();
-          $_SESSION['type'] = $guardian->getType();
-          $this->showView($_SESSION['type']);
-        } else {
-          require_once(VIEWS_PATH . 'login.php');
-        }
-      } else {
-        if ($duenio != null) {
-          if ($duenio->getPassword() == $password) {
-            $_SESSION['loggeduser'] = $duenio;
-            $_SESSION['email'] = $duenio->getEmail();
-            $_SESSION['type'] = $duenio->getType();
+    }
+    else
+    {
+      try
+      {
+        $duenio = new Duenio();
+        $duenio = $this->duenioDAO->getByEmail($email);
+        $guardian = new Guardian();
+        $guardian = $this->guardianDAO->getByEmail($email);
+        if ($guardian != null) {
+          if ($guardian->getPassword() == $password) {
+            $_SESSION['loggeduser'] = $guardian;
+            $_SESSION['email'] = $guardian->getEmail();
+            $_SESSION['type'] = $guardian->getType();
             $this->showView($_SESSION['type']);
-          } else {
+          }
+          else
+          {
             require_once(VIEWS_PATH . 'login.php');
           }
         }
+        else
+        {
+          if ($duenio != null) {
+            if ($duenio->getPassword() == $password) {
+              $_SESSION['loggeduser'] = $duenio;
+              $_SESSION['email'] = $duenio->getEmail();
+              $_SESSION['type'] = $duenio->getType();
+              $this->showView($_SESSION['type']);
+            }
+            else
+            {
+              require_once(VIEWS_PATH . 'login.php');
+            }
+          }
+        }
+      }
+      catch(Exception $ex){
+        throw $ex;
       }
     }
   }
@@ -163,7 +179,6 @@ class UserController
 
   public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '', $preferencia = '')
   {
-
     if ($this->validar($email, $password, $type, $nombre, $apellido, $dni, $telefono, $direccion, $cumpleanios, $disponibilidad, $tarifa, $preferencia)) {
 
       if ($_POST['type'] == 'G') {
@@ -188,20 +203,25 @@ class UserController
 
         require_once(VIEWS_PATH . 'login.php');
       } elseif ($_POST['type'] == 'D') {
-        $duenio = new Duenio();
-        $duenio->setEmail($email);
-        $duenio->setPassword($password);
-        $duenio->setType($type);
-        $duenio->setNombre($nombre);
-        $duenio->setApellido($apellido);
-        $duenio->setDni($dni);
-        $duenio->setTelefono($telefono);
-        $duenio->setDireccion($direccion);
-        $duenio->setCumpleanios($cumpleanios);
-
-        $this->duenioDAO->Add($duenio);
-
-        require_once(VIEWS_PATH . 'login.php');
+        try {
+          $duenio = new Duenio();
+          $duenio->setEmail($email);
+          $duenio->setPassword($password);
+          $duenio->setType($type);
+          $duenio->setNombre($nombre);
+          $duenio->setApellido($apellido);
+          $duenio->setDni($dni);
+          $duenio->setTelefono($telefono);
+          $duenio->setDireccion($direccion);
+          $duenio->setCumpleanios($cumpleanios);
+  
+          $this->duenioDAO->Add($duenio);
+  
+          require_once(VIEWS_PATH . 'login.php');
+        }
+        catch(Exception $ex){
+          throw $ex;
+        }
       }
     } else {
       $this->ShowSignupView();

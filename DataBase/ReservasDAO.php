@@ -1,6 +1,7 @@
 <?php
     namespace DataBase;
     use Models\Reserva as Reserva;
+    use Models\Pago as Pago;
     use DataBase\Connection as Connection;
     use FFI\Exception as Exception;
     use DataBase\GuardianDAO as GuardianDAO;
@@ -8,6 +9,7 @@
     class ReservaDAO{
         private $tableName = "reservas";
         private $connection;
+        private $tablePago = "pago";
 
         function Add(Reserva $reserva){
             try{
@@ -24,13 +26,20 @@
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parametros);
 
+                $query_pago = "INSERT INTO " . $this->tablePagos . " (id_reserva, forma_pago, fecha, monto) VALUES (:id_reserva, :forma_pago, :fecha, :monto);";
+                $parametros_pago["id_reserva"] = $reserva->getId_reserva();
+                $parametros_pago["forma_pago"] = $reserva->pago->getForma_pago();
+                $parametros_pago["fecha"] = $reserva->pago->getFecha();
+                $parametros_pago["monto"] = $reserva->pago->getMonto();
+
+                $this->connection->ExecuteNonQuery($query_pago, $parametros_pago);
             }
             catch(Exception $ex){
                 throw $ex;
             }
         }
 
-        function nuevaReserva($parametros){
+        function nuevaReserva($parametros, $pago){
             $reserva = new Reserva();
             $reserva->setDniDuenio($parametros["dni_duenio"]);
             $reserva->setDniGuardian($parametros["dni_guardian"]);
@@ -40,6 +49,14 @@
             $reserva->setHora($parametros["hora"]);
             $reserva->setEncuentro($parametros["encuentro"]);
             $reserva->setEstado($parametros["estado"]);
+            
+            if($pago){
+                $pagoNuevo = new Pago();
+                $pagoNuevo->setForma_pago($pago["forma_pago"]);
+                $pagoNuevo->setFecha($pago["fecha"]);
+                $pagoNuevo->setMonto($pago["monto"]);
+                $reserva->pago = $pagoNuevo;
+            }
             return $reserva;
         }
 
@@ -49,10 +66,26 @@
                 $query = "SELECT * FROM " . $this->tableName;
                 $this->connection = Connection::GetInstance();
                 $lista = $this->connection->Execute($query);
-                foreach($lista as $r){ //d es un array
-                    $nuevaReserva = $this->nuevaReserva($r);
-                    array_push($reservas, $nuevaReserva);}
+                foreach($lista as $r){ 
+                    $pago = $this->getPago($r["id_reserva"]); //si no tiene pago viene en null
+                    $nuevaReserva = $this->nuevaReserva($r, $pago);
+                    array_push($reservas, $nuevaReserva);
+                }
                 return $reservas;
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
+
+        function getPago($id_reserva){
+            try{
+                $query = "SELECT * FROM" . $this->tablePago . " WHERE id_reserva = :id_reserva;";
+                $parametro["id_reserva"] = $id_reserva;
+                $this->connection = Connection::GetInstance();
+                $resultado = null;
+                $resultado = $this->connection->Execute($query, $parametro);
+                return $resultado;
             }
             catch(Exception $ex){
                 throw $ex;
@@ -68,8 +101,9 @@
                 $reserva = null;
 
                 if($resultado){
-                    $parametros = $resultado[0]; //matriz de una sola fila 
-                    $reserva = $this->nuevaReserva($parametros);
+                    $parametros = $resultado[0]; 
+                    $pago = $this->getPago($parametros["id_reserva"]);
+                    $reserva = $this->nuevaReserva($parametros, $pago);
                 }
                 return $reserva;
             }
