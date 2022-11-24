@@ -20,7 +20,6 @@ $reservas = $resC->reservasPendientes($user->getDni());
             echo "Encuentro: " . $res->getEncuentro(); ?> <br> <?php
             echo "Nombre de la mascota: " . $res->getNombre_mascota(); ?> <br> <?php
             echo "Estado: " . $res->getEstado(); ?>
-
             <form action="aceptarReserva">
             <input type="hidden" name="id_reserva" value="<?php echo $res->getId_reserva()?>">
             <button type="submit">Aceptar</button>
@@ -32,5 +31,6 @@ $reservas = $resC->reservasPendientes($user->getDni());
             </form><?php
         }
         ?>
+        <a  class="backMenu" href= <?php echo(FRONT_ROOT . "User/getView")?>><input type="button" value="Volver al Menú" />
     </body>
 </html>

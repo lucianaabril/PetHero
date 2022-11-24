@@ -38,7 +38,6 @@
               <input type="hidden" name='rango_d' value="<?php echo $rango_d ?>">
               <input type='hidden' name='dni' value="<?php echo $guardian->getDni()?>">
               <button type="submit">Reservar</button>
-              
               </form>
               
               <!--<script>

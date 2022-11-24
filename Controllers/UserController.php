@@ -2,14 +2,18 @@
 
 namespace Controllers;
 use Models\Guardian as Guardian;
-use DataBase\GuardianDAO as GuardianDAO;
-use DataBase\DuenioDAO as DuenioDAO;
+use DAO\GuardianDAO as GuardianDAO;
+use DAO\DuenioDAO as DuenioDAO;
 use Models\Duenio as Duenio;
 use Controllers\MascotasController as MascotasController;
 use Controllers\ReservasController as ResC;
 use DateTime as DateTime;
 use DatePeriod as DatePeriod;
 use DateInterval as DateInterval;
+use FFI\Exception as Exception;
+use DAO\CuponDAO as cuponDAO;
+use DAO\ReservaDAO as reservaDAO;
+
 
 class UserController
 {
@@ -93,31 +97,45 @@ class UserController
   {
     if ($email == "" or $password == "") {
       require_once(VIEWS_PATH . "login.php");
-    } else {
-      $duenio = new Duenio();
-      $duenio = $this->duenioDAO->getByEmail($email);
-      $guardian = new Guardian();
-      $guardian = $this->guardianDAO->getByEmail($email);
-      if ($guardian != null) {
-        if ($guardian->getPassword() == $password) {
-          $_SESSION['loggeduser'] = $guardian;
-          $_SESSION['email'] = $guardian->getEmail();
-          $_SESSION['type'] = $guardian->getType();
-          $this->showView($_SESSION['type']);
-        } else {
-          require_once(VIEWS_PATH . 'login.php');
-        }
-      } else {
-        if ($duenio != null) {
-          if ($duenio->getPassword() == $password) {
-            $_SESSION['loggeduser'] = $duenio;
-            $_SESSION['email'] = $duenio->getEmail();
-            $_SESSION['type'] = $duenio->getType();
+    }
+    else
+    {
+      try
+      {
+        $duenio = new Duenio();
+        $duenio = $this->duenioDAO->getByEmail($email);
+        $guardian = new Guardian();
+        $guardian = $this->guardianDAO->getByEmail($email);
+        if ($guardian != null) {
+          if ($guardian->getPassword() == $password) {
+            $_SESSION['loggeduser'] = $guardian;
+            $_SESSION['email'] = $guardian->getEmail();
+            $_SESSION['type'] = $guardian->getType();
             $this->showView($_SESSION['type']);
-          } else {
+          }
+          else
+          {
             require_once(VIEWS_PATH . 'login.php');
           }
         }
+        else
+        {
+          if ($duenio != null) {
+            if ($duenio->getPassword() == $password) {
+              $_SESSION['loggeduser'] = $duenio;
+              $_SESSION['email'] = $duenio->getEmail();
+              $_SESSION['type'] = $duenio->getType();
+              $this->showView($_SESSION['type']);
+            }
+            else
+            {
+              require_once(VIEWS_PATH . 'login.php');
+            }
+          }
+        }
+      }
+      catch(Exception $ex){
+        throw $ex;
       }
     }
   }
@@ -163,7 +181,6 @@ class UserController
 
   public function Add($email = '', $password = '', $type = '', $nombre = '', $apellido = '', $dni = '', $telefono = '', $direccion = '', $cumpleanios = '', $disponibilidad = '', $tarifa = '', $preferencia = '')
   {
-
     if ($this->validar($email, $password, $type, $nombre, $apellido, $dni, $telefono, $direccion, $cumpleanios, $disponibilidad, $tarifa, $preferencia)) {
 
       if ($_POST['type'] == 'G') {
@@ -188,20 +205,25 @@ class UserController
 
         require_once(VIEWS_PATH . 'login.php');
       } elseif ($_POST['type'] == 'D') {
-        $duenio = new Duenio();
-        $duenio->setEmail($email);
-        $duenio->setPassword($password);
-        $duenio->setType($type);
-        $duenio->setNombre($nombre);
-        $duenio->setApellido($apellido);
-        $duenio->setDni($dni);
-        $duenio->setTelefono($telefono);
-        $duenio->setDireccion($direccion);
-        $duenio->setCumpleanios($cumpleanios);
-
-        $this->duenioDAO->Add($duenio);
-
-        require_once(VIEWS_PATH . 'login.php');
+        try {
+          $duenio = new Duenio();
+          $duenio->setEmail($email);
+          $duenio->setPassword($password);
+          $duenio->setType($type);
+          $duenio->setNombre($nombre);
+          $duenio->setApellido($apellido);
+          $duenio->setDni($dni);
+          $duenio->setTelefono($telefono);
+          $duenio->setDireccion($direccion);
+          $duenio->setCumpleanios($cumpleanios);
+  
+          $this->duenioDAO->Add($duenio);
+  
+          require_once(VIEWS_PATH . 'login.php');
+        }
+        catch(Exception $ex){
+          throw $ex;
+        }
       }
     } else {
       $this->ShowSignupView();
@@ -418,11 +440,7 @@ class UserController
   {
     $controller = new ResC();
     $controller->Add($fecha, $hora, $encuentro, $dni_guardian, $nombre_mascota);
-  }
-
-  public function showViewPendientes()
-  {
-    require_once(VIEWS_PATH . "reserva.php");
+    require_once(VIEWS_PATH . 'duenio-page.php');
   }
 
   public function rangeDate($inicio, $final){
@@ -475,6 +493,22 @@ class UserController
     } else {
       require_once(VIEWS_PATH . 'login.php');
     }
+  }
+
+  public function cuponesView(){
+    $user = $_SESSION['loggeduser'];
+    $cuponDAO = new cuponDAO();
+    $cupones = $cuponDAO->GetAll();
+    $array = array();
+
+    $reservaDAO = new reservaDAO();
+    foreach($cupones as $c){
+      $reserva = $reservaDAO->getById($c->getId_reserva());
+      if($reserva[0]->getDniDuenio() == $user->getDni()){
+        array_push($array, $c);
+      }
+    }
+    include_once(VIEWS_PATH . 'cupones.php');
   }
 
 

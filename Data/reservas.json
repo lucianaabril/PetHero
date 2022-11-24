@@ -1,52 +1,7 @@
 [
     {
-        "fecha": "2022-12-10",
-        "hora": "01:30",
-        "encuentro": "Cerrito 702",
-        "id reserva": 1,
-        "estado": "programada",
-        "dni guardian": "44692743",
-        "dni duenio": "44510229",
-        "nombre mascota": "Jisung",
-        "pago": {
-            "fecha": "2022-11-22",
-            "forma de pago": "tarjeta",
-            "monto": "100"
-        }
-    },
-    {
-        "fecha": "2022-12-11",
-        "hora": "01:30",
-        "encuentro": "Cerrito 702",
-        "id reserva": 1,
-        "estado": "programada",
-        "dni guardian": "44692743",
-        "dni duenio": "44510229",
-        "nombre mascota": "Jisung",
-        "pago": {
-            "fecha": "2022-11-22",
-            "forma de pago": "tarjeta",
-            "monto": "100"
-        }
-    },
-    {
-        "fecha": "2022-12-12",
-        "hora": "01:30",
-        "encuentro": "Cerrito 702",
-        "id reserva": 1,
-        "estado": "programada",
-        "dni guardian": "44692743",
-        "dni duenio": "44510229",
-        "nombre mascota": "Jisung",
-        "pago": {
-            "fecha": "2022-11-22",
-            "forma de pago": "tarjeta",
-            "monto": "100"
-        }
-    },
-    {
         "fecha": "2023-03-01",
-        "hora": "14:01",
+        "hora": "06:15",
         "encuentro": "Irala 2121",
         "id reserva": 2,
         "estado": "programada",
@@ -54,14 +9,14 @@
         "dni duenio": "44510229",
         "nombre mascota": "Yeko",
         "pago": {
-            "fecha": null,
-            "forma de pago": null,
+            "fecha": "2022-11-24",
+            "forma de pago": "tarjeta",
             "monto": "1000"
         }
     },
     {
         "fecha": "2023-03-02",
-        "hora": "14:01",
+        "hora": "06:15",
         "encuentro": "Irala 2121",
         "id reserva": 2,
         "estado": "programada",
@@ -69,14 +24,14 @@
         "dni duenio": "44510229",
         "nombre mascota": "Yeko",
         "pago": {
-            "fecha": null,
-            "forma de pago": null,
+            "fecha": "2022-11-24",
+            "forma de pago": "tarjeta",
             "monto": "1000"
         }
     },
     {
         "fecha": "2023-03-03",
-        "hora": "14:01",
+        "hora": "06:15",
         "encuentro": "Irala 2121",
         "id reserva": 2,
         "estado": "programada",
@@ -84,8 +39,8 @@
         "dni duenio": "44510229",
         "nombre mascota": "Yeko",
         "pago": {
-            "fecha": null,
-            "forma de pago": null,
+            "fecha": "2022-11-24",
+            "forma de pago": "tarjeta",
             "monto": "1000"
         }
     }

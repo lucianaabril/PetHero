@@ -1,5 +1,6 @@
 <?php
     include("nav-bar.php");
+    use FFI\Exception as Exception;
 ?>
 <html>
     <head>
@@ -7,8 +8,9 @@
         <link href="stylesheet" alt=''>
     </head>
     <body>
-        <h2>LOGIN:</h2>
-        <form action="<?php echo FRONT_ROOT . "User/login"?>" method=POST>
+        <h2>LOGIN:</h2> <?php
+        try{ ?>
+            <form action="<?php echo FRONT_ROOT . "User/login"?>" method=POST>
             <div>
                 <label for="">Email:</label>
                 <input type="text" name="email" placeholder="Ingrese su email">
@@ -22,6 +24,10 @@
             </div>
             <br>
             <button type="submit">Enviar</button>
-        </form>
+        </form> <?php
+        }
+        catch(Exception $ex){
+            echo $ex->getMessage();
+        } ?>
     </body>
 </html>

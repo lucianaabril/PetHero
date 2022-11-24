@@ -5,6 +5,7 @@
         private $monto;
         private $fecha;
         private $detalles;
+        private $id_reserva;
 
         public function __construct(){}
 
@@ -19,5 +20,9 @@
         public function getDetalles(){return $this->detalles;}
 
         public function setDetalles($detalles){$this->detalles = $detalles;}
+
+        public function getId_reserva(){return $this->id_reserva;}
+
+        public function setId_reserva($id_reserva){$this->id_reserva = $id_reserva;}
     }
 ?>
