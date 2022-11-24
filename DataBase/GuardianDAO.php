@@ -7,6 +7,7 @@
     class GuardianDAO{
         private $connection;
         private $tableName = "guardianes";
+        private $tableDisp = "disponibilidades";
 
         function Add(Guardian $guardian){
             $query = "INSERT INTO " . $this->tableName . " (dni_guardian, email, password, type, nombre, apellido, telefono, direccion, cumpleanios, tarifa, preferencia) VALUES (:dni,:email,:password,:type,:nombre,:apellido,:telefono,:direccion,:cumpleanios,:tarifa,:preferencia);";
@@ -120,31 +121,11 @@
             try{
                 $guardianes = $this->GetAll();
                 foreach($guardianes as $g){
-                    $disp = $g->getDisponibilidad();
-                    $newDisp = array();
-                    foreach($disp as $fecha=>$d){
-                        if(date('Y-m-d') < $fecha){
-                            $newDisp[$fecha] = $d;
-                        }
-                    }
-                    $g->newDisponibilidad($newDisp);
-                    $this->Update($g);
+                    $query = "DELETE * FROM " .$this->tableDisp. " WHERE dni_guardian = :dni_guardian AND fecha < CURRENT_DATE();";
+                    $parametro["dni_guardian"] = $g->getDni();
+                    $this->connection = Connection::GetInstance();
+                    $this->connection->ExecuteNonQuery($query,$parametro);
                 }
-                /*
-                    $this->LoadData();
-                    foreach($this->list as $g){
-                        $disp = $g->getDisponibilidad();
-                        $newDisp = array();
-                        ($disp as $fecha=>$d){
-                            if(date('Y-m-d') < $fecha){
-                                $newDisp[$fecha] = $d;
-                            }
-                        }
-                        $g->newDisponibilidad($newDisp);
-                        $this->Update($g);
-                    }
-                */
-
             }
             catch(Exception $ex){
                 throw $ex;

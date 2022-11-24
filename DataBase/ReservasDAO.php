@@ -8,6 +8,7 @@
     class ReservaDAO{
         private $tableName = "reservas";
         private $connection;
+        private $tablePago = "pago";
 
         function Add(Reserva $reserva){
             try{
@@ -132,9 +133,6 @@
             }
         }
 
-        private function Update(){
-        }
-
         function getLastId(){
             try{
                 $resultado = $this->GetAll();
@@ -145,6 +143,22 @@
                 else{
                     return null;
                 }
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
+
+        function Update($id_reserva, $fecha, $reserva){
+            try{
+                $query = "INSERT INTO " .$this->tablePago . "(id_reserva,fecha,forma_pago,monto) VALUES (:id_reserva,:fecha,:forma_pago,:monto);";
+                $parametros["id_reserva"] = $id_reserva;
+                $parametros["fecha"] = $fecha;
+                $pago = $reserva->getPago();
+                $parametros["forma_pago"] = $pago->getForma_pago();
+                $parametros["monto"] = $pago->getMonto();
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query, $parametros);
             }
             catch(Exception $ex){
                 throw $ex;
