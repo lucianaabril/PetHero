@@ -3,9 +3,9 @@
 
     $reservas = $array;
     $titulo = $estado;
-
-    ?> <html> <h2> <?php echo $titulo ?> </h2> <br> </html> <?php
+    
     if($reservas){
+        ?> <html> <h2> <?php echo $titulo ?> </h2> <br> </html> <?php
         foreach($reservas as $res){
             echo "ID Reserva: " . $res->getId_reserva(); ?> <br> <?php
             echo "Fecha: " . $res->getFecha(); ?> <br> <?php

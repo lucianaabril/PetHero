@@ -3,7 +3,6 @@ namespace DataBase;
 use PDO as PDO;
 use DataBase\QueryType as QueryType;
 use FFI\Exception as Exception;
-use Exception;
 
 class Connection{
     private $pdo = null;

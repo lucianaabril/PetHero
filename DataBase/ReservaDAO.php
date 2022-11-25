@@ -26,8 +26,11 @@
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parametros);
 
-                $query_pago = "INSERT INTO " . $this->tablePagos . " (id_reserva, forma_pago, fecha, monto) VALUES (:id_reserva, :forma_pago, :fecha, :monto);";
-                $parametros_pago["id_reserva"] = $reserva->getId_reserva();
+                $query2 = "SELECT MAX(n_reserva) FROM " . $this->tableName;
+                $n_reserva = $this->connection->Execute($query2);
+
+                $query_pago = "INSERT INTO " . $this->tablePago . " (n_reserva, forma_pago, fecha, monto) VALUES (:n_reserva, :forma_pago, :fecha, :monto);";
+                $parametros_pago["n_reserva"] = $n_reserva;
                 $parametros_pago["forma_pago"] = $reserva->pago->getForma_pago();
                 $parametros_pago["fecha"] = $reserva->pago->getFecha();
                 $parametros_pago["monto"] = $reserva->pago->getMonto();
@@ -67,7 +70,7 @@
                 $this->connection = Connection::GetInstance();
                 $lista = $this->connection->Execute($query);
                 foreach($lista as $r){ 
-                    $pago = $this->getPago($r["id_reserva"]); //si no tiene pago viene en null
+                    $pago = $this->getPago($r["n_reserva"]); //si no tiene pago viene en null
                     $nuevaReserva = $this->nuevaReserva($r, $pago);
                     array_push($reservas, $nuevaReserva);
                 }
@@ -78,10 +81,10 @@
             }
         }
 
-        function getPago($id_reserva){
+        function getPago($n_reserva){
             try{
-                $query = "SELECT * FROM" . $this->tablePago . " WHERE id_reserva = :id_reserva;";
-                $parametro["id_reserva"] = $id_reserva;
+                $query = "SELECT * FROM " . $this->tablePago . " WHERE n_reserva = :n_reserva;";
+                $parametro["n_reserva"] = $n_reserva;
                 $this->connection = Connection::GetInstance();
                 $resultado = null;
                 $resultado = $this->connection->Execute($query, $parametro);
@@ -99,9 +102,11 @@
 
         function nuevoPago($parametros){
             $pagoNuevo = new Pago();
-            $pagoNuevo->setForma_pago($parametros["forma_pago"]);
-            $pagoNuevo->setFecha($parametros["fecha"]);
-            $pagoNuevo->setMonto($parametros["monto"]);
+            if($parametros){
+                $pagoNuevo->setForma_pago($parametros["forma_pago"]);
+                $pagoNuevo->setFecha($parametros["fecha"]);
+                $pagoNuevo->setMonto($parametros["monto"]);
+            }
             return $pagoNuevo;
         }
 
@@ -115,13 +120,13 @@
 
                 if($resultado){
                     foreach($resultado as $r){
-                        $pago = $this->getPago($parametro["id_reserva"]);
+                        $pago = $this->getPago($r["n_reserva"]);
                         $reserva = $this->nuevaReserva($r,$pago);
                         array_push($reservas,$reserva);
                     }
                 }
 
-                return $reserva;
+                return $reservas;
             }
             catch(Exception $ex){
                 throw $ex;
@@ -204,7 +209,7 @@
 
         function Update($id_reserva, $fecha, $reserva){
             try{
-                $query = "INSERT INTO " .$this->tablePago . "(id_reserva,fecha,forma_pago,monto) VALUES (:id_reserva,:fecha,:forma_pago,:monto);";
+                $query = "INSERT INTO " . $this->tablePago . "(id_reserva,fecha,forma_pago,monto) VALUES (:id_reserva,:fecha,:forma_pago,:monto);";
                 $parametros["id_reserva"] = $id_reserva;
                 $parametros["fecha"] = $fecha;
                 $pago = $reserva->getPago();

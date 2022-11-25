@@ -14,7 +14,6 @@ use FFI\Exception as Exception;
 use DataBase\CuponDAO as cuponDAO;
 use DataBase\ReservaDAO as reservaDAO;
 
-
 class UserController
 {
   private $guardianDAO;

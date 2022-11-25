@@ -52,6 +52,8 @@ class ReservasController{
 
                     $pago = new Pago();
                     $pago->setMonto($guardian->getTarifa());
+                    $pago->setFecha(null);
+                    $pago->setForma_pago(null);
                     $reserva->setPago($pago);
             
                     $mascotasC = new mascotasC();
@@ -81,7 +83,7 @@ class ReservasController{
                 $guardianDAO = new guardianDAO();
                 $guardian = $guardianDAO->getByDNI($dni_guardian);
                 $pago = new Pago();
-                $pago->setMonto($guardian->getTarifa());
+                //$pago->setMonto($guardian->getTarifa());
                 $reserva->setPago($pago);
 
                 $this->reservaDAO->Add($reserva);

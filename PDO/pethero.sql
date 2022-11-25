@@ -12,8 +12,7 @@ CREATE TABLE duenios (
   direccion varchar(45) DEFAULT NULL,
   cumpleanios date DEFAULT NULL,
   primary key (dni_duenio)
-)engine=InnoDB; 
-
+)engine=InnoDB;
 
 CREATE TABLE guardianes (
   dni_guardian int(11) NOT NULL,
@@ -32,14 +31,12 @@ CREATE TABLE guardianes (
   primary key (dni_guardian)
 )engine=InnoDB;
 
-
 CREATE TABLE disponibilidades (
   dni_guardian int(11) NOT NULL,
   fecha date DEFAULT NULL,
   disponibilidad varchar(45) DEFAULT NULL,
-  constraint fk_dni_guardian FOREIGN KEY (dni_guardian) REFERENCES guardianes(dni_guardian)
-)engine=InnoDB; 
-
+  constraint fk_dni_guardian FOREIGN KEY (dni_guardian) REFERENCES guardianes(dni_guardian) ON UPDATE CASCADE
+)engine=InnoDB;
 
 CREATE TABLE mascotas (
   dni_duenio int(11) NOT NULL,
@@ -56,8 +53,8 @@ CREATE TABLE mascotas (
   constraint fk_dni_duenio FOREIGN KEY (dni_duenio) REFERENCES duenios(dni_duenio)
 )engine=InnoDB;
 
-
 CREATE TABLE reservas (
+n_reserva int auto_increment,
   dni_duenio int(11) NOT NULL,
   dni_guardian int(11) NOT NULL,
   nombre_mascota varchar(45) NOT NULL,
@@ -66,26 +63,27 @@ CREATE TABLE reservas (
   hora time DEFAULT NULL,
   encuentro varchar(50) DEFAULT NULL,
   estado varchar(20) DEFAULT NULL,
-  primary key (id_reserva),
+  primary key (n_reserva),
   constraint fk_dni_d FOREIGN KEY (dni_duenio) REFERENCES duenios(dni_duenio),
-  constraint fk_dni_g FOREIGN KEY (dni_guardian) REFERENCES guardianes(dni_guardian),
-  constraint fk_nombre_mascota FOREIGN KEY (nombre_mascota) REFERENCES mascotas(nombre),
+  constraint fk_dni_g FOREIGN KEY (dni_guardian) REFERENCES guardianes(dni_guardian) ON UPDATE CASCADE,
+  constraint fk_nombre_mascota FOREIGN KEY (nombre_mascota) REFERENCES mascotas(nombre)
 )engine=InnoDB;
 
 CREATE TABLE pago (
-  id_reserva int(10) NOT NULL,
+  n_reserva int(10) NOT NULL,
   forma_pago varchar(45),
   fecha date DEFAULT NULL, 
   monto float DEFAULT NULL,
-  primary key (id_reserva);
-  constraint fk_id_reserva FOREIGN KEY (id_reserva) REFERENCES reservas(id_reserva),
+  primary key (n_reserva),
+  constraint fk_id_reserva FOREIGN KEY (n_reserva) REFERENCES reservas(n_reserva)
 )engine=InnoDB;
 
 CREATE TABLE cupones (
-id_reserva int(10) NOT NULL,
+n_reserva int(10) NOT NULL,
 fecha date DEFAULT NULL,
 detalles varchar(70),
 monto float(6),
-primary key(id_reserva),
-constraint fk_idreserva foreign key (id_reserva) references reservas(id_reserva)
+primary key(n_reserva),
+constraint fk_idreserva foreign key (n_reserva) references reservas(n_reserva)
 )engine=InnoDB;
+

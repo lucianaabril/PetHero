@@ -1,26 +1,2 @@
 [
-    {
-        "nombre": "Yeko",
-        "tipo": "perro",
-        "edad": "2",
-        "raza": "Caniche",
-        "tamanio": "mediano",
-        "observaciones": "",
-        "dni_duenio": "44510229",
-        "foto": "..\\img\\jpeg\\foto.jpg",
-        "vacunacion": "..\\img\\png\\vacunacion perro.png",
-        "video": "..\\img\\\\"
-    },
-    {
-        "nombre": "Pelusa",
-        "tipo": "gato",
-        "edad": "4",
-        "raza": "Blanco",
-        "tamanio": "pequenio",
-        "observaciones": "Le gusta dormir",
-        "dni_duenio": "44510229",
-        "foto": "..\\img\\jpeg\\foto gato.jpg",
-        "vacunacion": "..\\img\\jpeg\\vacunacion gato.jpg",
-        "video": "..\\img\\gif\\video gato.gif"
-    }
 ]

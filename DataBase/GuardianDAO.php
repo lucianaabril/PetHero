@@ -11,10 +11,13 @@
 
         function Add(Guardian $guardian){
             try{
-                $query = "INSERT INTO " . $this->tableName . " (dni_guardian, email, password, type, nombre, apellido, telefono, direccion, cumpleanios, tarifa, preferencia) VALUES (:dni,:email,:password,:type,:nombre,:apellido,:telefono,:direccion,:cumpleanios,:tarifa,:preferencia);";
+                $query = "INSERT INTO " . $this->tableName . " (dni_guardian, email, password, type, nombre, apellido, telefono, direccion, cumpleanios, tarifa, preferencia, cbu, alias) VALUES (:dni,:email,:password,:type,:nombre,:apellido,:telefono,:direccion,:cumpleanios,:tarifa,:preferencia,:cbu,:alias);";
+                $parametros["dni"] = $guardian->getDni();
+                $parametros["email"] = $guardian->getEmail();
+                $parametros["password"] = $guardian->getPassword();
+                $parametros["type"] = $guardian->getType();
                 $parametros["nombre"] = $guardian->getNombre();
                 $parametros["apellido"] = $guardian->getApellido();
-                $parametros["dni"] = $guardian->getDni();
                 $parametros["telefono"] = $guardian->getTelefono();
                 $parametros["direccion"] = $guardian->getDireccion();
                 $parametros["cumpleanios"] = $guardian->getCumpleanios();
@@ -80,16 +83,19 @@
 
         function nuevoGuardian($parametros, $disponibilidad){
             $guardian = new Guardian();
+            $guardian->setDni($parametros["dni_guardian"]);
+            $guardian->setEmail($parametros["email"]);
+            $guardian->setPassword($parametros["password"]);
+            $guardian->setType($parametros["type"]);
             $guardian->setNombre($parametros["nombre"]);
-            $guardian->setNombre($parametros["apellido"]);
-            $guardian->setNombre($parametros["dni"]);
-            $guardian->setNombre($parametros["telefono"]);
-            $guardian->setNombre($parametros["direccion"]);
-            $guardian->setNombre($parametros["cumpleanios"]);
-            $guardian->setNombre($parametros["tarifa"]);
-            $guardian->setNombre($parametros["preferencia"]);
-            $guardian->setNombre($parametros["cbu"]);
-            $guardian->setNombre($parametros["alias"]);
+            $guardian->setApellido($parametros["apellido"]);
+            $guardian->setTelefono($parametros["telefono"]);
+            $guardian->setDireccion($parametros["direccion"]);
+            $guardian->setCumpleanios($parametros["cumpleanios"]);
+            $guardian->setTarifa($parametros["tarifa"]);
+            $guardian->setPreferencia($parametros["preferencia"]);
+            $guardian->setCBU($parametros["cbu"]);
+            $guardian->setAlias($parametros["alias"]);
 
             if($disponibilidad){
                 $guardian->newDisponibilidad($disponibilidad); //new setea el arreglo entero
@@ -139,15 +145,29 @@
 
         function Update(Guardian $guardian){
             try{
-                $query_disp = "DELETE * FROM " . $this->tableDisp . " WHERE (dni_guardian = :dni_guardian);";
+                $query = "UPDATE " . $this->tableName . " SET email=:email,password=:password,nombre=:nombre,apellido=:apellido,telefono=:telefono,direccion=:direccion,cumpleanios=:cumpleanios,tarifa=:tarifa,preferencia=:preferencia,cbu=:cbu,alias=:alias WHERE (dni_guardian = :dni_guardian);";
+                $parametro["email"] = $guardian->getEmail();
+                $parametro["password"] = $guardian->getPassword();
+                $parametro["nombre"] = $guardian->getNombre();
+                $parametro["apellido"] = $guardian->getApellido();
+                $parametro["telefono"] = $guardian->getTelefono();
+                $parametro["direccion"] = $guardian->getDireccion();
+                $parametro["cumpleanios"] = $guardian->getCumpleanios();
+                $parametro["tarifa"] = $guardian->getTarifa();
+                $parametro["preferencia"] = $guardian->getPreferencia();
+                $parametro["cbu"] = $guardian->getCBU();
+                $parametro["alias"] = $guardian->getAlias();
                 $parametro["dni_guardian"] = $guardian->getDni();
                 $this->connection = Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query_disp,$parametro);
-
-                $query = "DELETE * FROM " . $this->tableName . " WHERE (dni = :dni);";
                 $this->connection->ExecuteNonQuery($query,$parametro);
 
-                $this->Add($guardian);
+                foreach($guardian->getDisponibilidad() as $fecha=>$disp){
+                    $query_disp = "INSERT INTO " . $this->tableDisp . " (dni_guardian,fecha,disponibilidad) VALUES (:dni_guardian,:fecha,:disponibilidad);";
+                    $parametros_disp["dni_guardian"] = $guardian->getDni();
+                    $parametros_disp["fecha"] = $fecha;
+                    $parametros_disp["disponibilidad"] = $disp;
+                    $this->connection->ExecuteNonQuery($query_disp, $parametros_disp);
+                }
             }
             catch(Exception $ex){
                 throw $ex;
@@ -158,7 +178,7 @@
             try{
                 $guardianes = $this->GetAll();
                 foreach($guardianes as $g){
-                    $query = "DELETE * FROM " .$this->tableDisp. " WHERE dni_guardian = :dni_guardian AND fecha < CURRENT_DATE();";
+                    $query = "DELETE FROM " .$this->tableDisp. " WHERE dni_guardian = :dni_guardian AND fecha < CURRENT_DATE();";
                     $parametro["dni_guardian"] = $g->getDni();
                     $this->connection = Connection::GetInstance();
                     $this->connection->ExecuteNonQuery($query,$parametro);
