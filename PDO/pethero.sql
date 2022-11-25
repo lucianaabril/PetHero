@@ -75,7 +75,7 @@ CREATE TABLE pago (
   fecha date DEFAULT NULL, 
   monto float DEFAULT NULL,
   primary key (n_reserva),
-  constraint fk_id_reserva FOREIGN KEY (n_reserva) REFERENCES reservas(n_reserva)
+  constraint fk_id_reserva FOREIGN KEY (n_reserva) REFERENCES reservas(n_reserva) ON UPDATE CASCADE
 )engine=InnoDB;
 
 CREATE TABLE cupones (
@@ -84,6 +84,6 @@ fecha date DEFAULT NULL,
 detalles varchar(70),
 monto float(6),
 primary key(n_reserva),
-constraint fk_idreserva foreign key (n_reserva) references reservas(n_reserva)
+constraint fk_idreserva foreign key (n_reserva) ON UPDATE CASCADE 
 )engine=InnoDB;
 

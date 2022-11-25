@@ -83,7 +83,7 @@ class ReservasController{
                 $guardianDAO = new guardianDAO();
                 $guardian = $guardianDAO->getByDNI($dni_guardian);
                 $pago = new Pago();
-                //$pago->setMonto($guardian->getTarifa());
+                $pago->setMonto($guardian->getTarifa());
                 $reserva->setPago($pago);
 
                 $this->reservaDAO->Add($reserva);
