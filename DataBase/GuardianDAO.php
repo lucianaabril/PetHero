@@ -26,14 +26,13 @@
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parametros);
 
-                foreach($guardian->getDisponibilidad() as $fecha=>$disp)
-                $query_disp = "INSERT INTO " . $this->tableDisp . " (dni_guardian,fecha,disponibilidad) VALUES (:dni_guardian,:fecha,:disponibilidad);";
-                $parametros_pago["dni_guardian"] = $guardian->getDni();
-                $parametros_pago["fecha"] = $fecha;
-                $parametros_pago["disponibilidad"] = $disp;
-
-                $this->connection->ExecuteNonQuery($query_pago, $parametros_pago);
-
+                foreach($guardian->getDisponibilidad() as $fecha=>$disp){
+                    $query_disp = "INSERT INTO " . $this->tableDisp . " (dni_guardian,fecha,disponibilidad) VALUES (:dni_guardian,:fecha,:disponibilidad);";
+                    $parametros_disp["dni_guardian"] = $guardian->getDni();
+                    $parametros_disp["fecha"] = $fecha;
+                    $parametros_disp["disponibilidad"] = $disp;
+                    $this->connection->ExecuteNonQuery($query_disp, $parametros_disp);
+                }
             }
             catch(Exception $ex){
                 throw $ex;
@@ -47,7 +46,8 @@
                 $this->connection = Connection::GetInstance();
                 $resultado = $this->connection->Execute($query);
                 foreach($resultado as $g){ //g es una fila
-                    $nuevoGuardian = $this->nuevoGuardian($g);
+                    $disp = $this->getDisponibilidad($g["dni_guardian"]);
+                    $nuevoGuardian = $this->nuevoGuardian($g, $disp);
                     array_push($guardianes, $nuevoGuardian);
                 } 
                 return $guardianes;
@@ -57,7 +57,28 @@
             }
         }
 
-        function nuevoGuardian($parametros){
+        function getDisponibilidad($dni_guardian){
+            try{
+                $query = "SELECT * FROM " . $this->tableDisp . " WHERE dni_guardian = :dni_guardian;";
+                $parametro["dni_guardian"] = $dni_guardian;
+                $this->connection = Connection::GetInstance();
+                $resultado = null;
+                $resultado = $this->connection->Execute($query, $parametro);
+                $disp = null;
+
+                if($resultado){
+                    foreach($resultado as $r){
+                        $disp[$r["fecha"]] = $r["disponibilidad"];
+                    }
+                }
+                return $disp;
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
+
+        function nuevoGuardian($parametros, $disponibilidad){
             $guardian = new Guardian();
             $guardian->setNombre($parametros["nombre"]);
             $guardian->setNombre($parametros["apellido"]);
@@ -65,11 +86,14 @@
             $guardian->setNombre($parametros["telefono"]);
             $guardian->setNombre($parametros["direccion"]);
             $guardian->setNombre($parametros["cumpleanios"]);
-            $guardian->setNombre($parametros["disponibilidad"]);
             $guardian->setNombre($parametros["tarifa"]);
             $guardian->setNombre($parametros["preferencia"]);
             $guardian->setNombre($parametros["cbu"]);
             $guardian->setNombre($parametros["alias"]);
+
+            if($disponibilidad){
+                $guardian->newDisponibilidad($disponibilidad); //new setea el arreglo entero
+            }                                                  //set agrega una fecha nueva al arreglo existente
             return $guardian;
         }
 
@@ -83,7 +107,8 @@
 
                 if($resultado){ //matriz resultado
                     $parametros = $resultado[0]; //único registro en arreglo
-                    $guardian = $this->nuevoGuardian($parametros);
+                    $disp = $this->getDisponibilidad($parametros["dni_guardian"]);
+                    $guardian = $this->nuevoGuardian($parametros, $disp);
                 }
                 return $guardian;
             }
@@ -102,7 +127,8 @@
 
                 if($resultado){
                     $parametros = $resultado[0];
-                    $guardian = $this->nuevoGuardian($parametros);
+                    $disp = $this->getDisponibilidad($parametros["dni_guardian"]); //¿
+                    $guardian = $this->nuevoGuardian($parametros, $disp);
                 }
                 return $guardian;
             }
@@ -113,9 +139,12 @@
 
         function Update(Guardian $guardian){
             try{
-                $query = "DELETE * FROM " . $this->tableName . " WHERE (dni = :dni);";
-                $parametro["dni"] = $guardian->getDni();
+                $query_disp = "DELETE * FROM " . $this->tableDisp . " WHERE (dni_guardian = :dni_guardian);";
+                $parametro["dni_guardian"] = $guardian->getDni();
                 $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query_disp,$parametro);
+
+                $query = "DELETE * FROM " . $this->tableName . " WHERE (dni = :dni);";
                 $this->connection->ExecuteNonQuery($query,$parametro);
 
                 $this->Add($guardian);

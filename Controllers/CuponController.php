@@ -1,7 +1,8 @@
 <?php
     namespace Controllers;
     use Models\Cupon as Cupon;
-    use DAO\CuponDAO as cuponDAO;
+    use DataBase\CuponDAO as cuponDAO; 
+    use Exception as Exception;
 
     class CuponController{
         private $cuponDAO;

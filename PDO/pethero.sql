@@ -37,7 +37,6 @@ CREATE TABLE disponibilidades (
   dni_guardian int(11) NOT NULL,
   fecha date DEFAULT NULL,
   disponibilidad varchar(45) DEFAULT NULL,
-  primary key (dni_guardian),
   constraint fk_dni_guardian FOREIGN KEY (dni_guardian) REFERENCES guardianes(dni_guardian)
 )engine=InnoDB; 
 
